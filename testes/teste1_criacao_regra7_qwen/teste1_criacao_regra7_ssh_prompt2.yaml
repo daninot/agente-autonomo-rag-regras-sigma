@@ -1,0 +1,23 @@
+title: Suspicious SSH Tunneling Activity
+id: 56789abc-efgh-1234-5678-abcdef012345
+status: test
+description: Detects suspicious activity related to the installation and use of a tunnel for remote access via SSH.
+references:
+    - https://github.com/mdecrevoisier/EVTX-to-MITRE-Attack/tree/master/TA0008-Lateral%20Movement/T1053.005
+author: mdecrevoisier
+date: 2022-10-25
+tags:
+    - attack.lateral-movement
+    - attack.t1053.005
+logsource:
+    product: windows
+    service: schtasks.exe
+detection:
+    selection:
+        EventID: 4
+        process: sshd
+        payload|startswith: 'Server listening on '
+    condition: selection
+falsepositives:
+    - Legitimate administrator activity
+level: medium

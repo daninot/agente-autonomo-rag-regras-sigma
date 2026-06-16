@@ -1,0 +1,24 @@
+title: Detecting Malware Execution with Specific Hash
+id: 1d727dfdeab136e659b8a530eb7c8ebc
+status: test
+description: Detects the execution of a specific hash in processes and directories associated with malware.
+references:
+    - https://github.com/redcanaryco/atomic-red-team/blob/980f3f83fd81f37c1ca9c02dccfd1c3d9f9d0841/atomics/T1016/T1016.md#atomic-test-9---dns-server-discovery-using-nslookup
+    - https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/7fcdce70-5205-44d6-9c3a-260e616a2f04
+author: frack113
+date: 2022-08-20
+modified: 2023-09-18
+tags:
+    - attack.discovery
+    - attack.t1482
+logsource:
+    product: windows
+    category: process_creation, directory_access
+detection:
+    selection:
+        Image|contains: ':\ProgramData\malware1d727dfdeab136e659b8a530eb7c8ebc'
+    condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*
+falsepositives:
+    - Commonly used by administrators for troubleshooting
+level: low
+

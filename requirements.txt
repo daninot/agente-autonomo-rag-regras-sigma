@@ -1,0 +1,10 @@
+langchain
+langchain-google-genai 	#porque vou usar o gemini
+langchain-community==0.3.x
+langgraph
+chromadb
+pysigma         #a biblioteca oficial do sigma cli
+pyyaml
+python-dotenv
+duckduckgo-search
+ddgs

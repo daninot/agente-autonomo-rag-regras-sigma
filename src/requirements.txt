@@ -1,0 +1,21 @@
+# Agente Sigma - TCC Daniela Araldi
+# Instalar com: pip install -r requirements.txt --break-system-packages
+
+# LangChain
+langchain-community
+langchain-huggingface
+langchain-chroma
+langchain-ollama
+langgraph
+
+# Embeddings e Re-ranking
+sentence-transformers
+
+# Sigma
+pysigma
+
+# Utilitários
+requests
+pyyaml
+beautifulsoup4
+ddgs
