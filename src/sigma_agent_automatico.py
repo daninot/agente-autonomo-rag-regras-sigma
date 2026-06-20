@@ -40,9 +40,9 @@ ARQUIVO_SPEC_SIGMA = os.path.join(
     os.path.dirname(os.path.abspath(__file__)), "..", "data", "sigma_spec.md"
 )
 # pasta onde os pareceres do juiz são salvos (um .parecer.txt por regra gerada)
-PASTA_PARECERES = os.path.join(
-    os.path.dirname(os.path.abspath(__file__)), "..", "pareceres"
-)
+#PASTA_PARECERES = os.path.join(
+#    os.path.dirname(os.path.abspath(__file__)), "..", "pareceres"
+#)
 
 # >>>>>>>> máquina de estados <<<<<<<<<<
 # nó 1 = classificador determinístico de entrada (Entendimento)
@@ -971,105 +971,314 @@ def roteador_de_validacao(state: GraphState) -> str:
 # ==========================================
 # EXECUÇÃO DO AGENTE
 # ==========================================
-if __name__ == '__main__':
-    print("\nBem vindo ao Agente_Sigma!\nCarregando modelos...\n")
-    agente_sigma = criar_agente()       #chama a função e guarda o resultado
-    
-    while True:     #loop externo p permitir múltiplas execuções sem precisar rodar o programa de novo
-    
-        print("Type your prompt and end it with word 'end' in the last line. Type 'q' alone to quit.\n")    
-        linhas = []
-        while True:
-            linha = input()
-            if linha.strip().upper() == "END":
-                break
-            if linha.strip().lower() == "q":
-                print("Encerrando o agente.\n")
-                exit() 
-            linhas.append(linha)
-        
-        entrada_terminal = "\n".join(linhas)
-        if not entrada_terminal.strip():
-            continue  #se o usuário só apertar enter, volta pro início do loop sem rodar o agente
+# =============================================================================
+# EXECUÇÃO EM LOTE (BATCH) — geração automática das regras para o TCC
+# -----------------------------------------------------------------------------
+# Percorre a pasta test_cases. Cada subpasta é UM cenário e segue o padrão:
+#       <numero> <nome_original_da_regra>/
+#           ├── <regra_original>.yml        (referência / padrão-ouro)
+#           ├── prompt1.txt                 (prompt genérico)
+#           └── prompt2.txt                 (prompt detalhado)
+#
+# Para cada cenário, roda o agente com cada prompt encontrado e salva:
+#   - a regra gerada      -> <cenario>/<nome_original>_prompt1.yml  (e _prompt2)
+#   - o parecer do juiz   -> <cenario>/<nome_original>_prompt1.parecer.txt
+# E ao final escreve um CSV com os metadados na raiz de test_cases.
+#
+# Não há mais leitura interativa do terminal.
+# =============================================================================
+import csv
+import time
+import traceback
 
-        estado_inicial = {
-            "input_usuario": entrada_terminal,
-            "tipo_input": "",
-            "termo_busca": "",
-            "url_fornecida": "",
-            "texto_para_rag": "",
-            "contexto_pobre": False,
-            "contexto_rag": "",
-            "contexto_api": "",
-            "regra_gerada": "",
-            "erro_validacao": "",
-            "tentativas": 0,
-            "parecer_juiz": "",
-        }
-        
-        resultado_final = agente_sigma.invoke(estado_inicial)       #.invoke() liga a máquina de estados e faz tudo acontecer
-    
-        if resultado_final["erro_validacao"] == "APROVADO":
-            print("\n\tDeu certo.\n")
+# >>>>> AJUSTE AQUI o caminho da pasta raiz com os cenários <<<<<
+PASTA_TEST_CASES = "/home/daniela/Documents/TCC/tcc_sigma_agent/data_final/test_cases/test_cases_5"
+
+# Quais prompts rodar em cada cenário. O script só roda os que existirem na pasta.
+PROMPTS_ALVO = ["prompt1", "prompt2", "prompt3"]
+
+# Nomes de arquivo que são a REFERÊNCIA (padrão-ouro), nunca tratados como prompt.
+# Qualquer .yml/.yaml dentro da pasta é considerado a regra original.
+EXTENSOES_REGRA = (".yml", ".yaml")
+
+
+def _achar_regra_original(pasta_cenario):
+    """Retorna o caminho do .yml de referência (o primeiro encontrado)."""
+    for nome in sorted(os.listdir(pasta_cenario)):
+        # ignora as regras que o próprio agente já tenha gerado em execuções anteriores
+        if any(p in nome for p in PROMPTS_ALVO):
+            continue
+        if nome.lower().endswith(EXTENSOES_REGRA):
+            return os.path.join(pasta_cenario, nome)
+    return None
+
+
+def _nome_base_referencia(caminho_regra_original, fallback):
+    """Nome-base usado para nomear as saídas, derivado da regra original."""
+    if caminho_regra_original:
+        return os.path.splitext(os.path.basename(caminho_regra_original))[0]
+    return fallback
+
+
+def _ler_prompt(pasta_cenario, nome_prompt):
+    """Lê promptN.txt da pasta do cenário. Retorna o texto ou None se não existir."""
+    caminho = os.path.join(pasta_cenario, nome_prompt + ".txt")
+    if os.path.isfile(caminho):
+        with open(caminho, "r", encoding="utf-8") as f:
+            return f.read()
+    return None
+
+
+# Dimensões avaliadas pelo juiz semântico (Nó 6). A ordem importa porque é
+# usada também para montar as colunas do CSV (juiz_<dim>) de forma estável.
+DIMENSOES_JUIZ = [
+    "logsource",
+    "modifiers",
+    "condition",
+    "structure",
+    "semantic_alignment",
+    "invented_filters",
+]
+
+
+def _resumir_parecer_juiz(parecer_texto):
+    """
+    Lê o parecer (string JSON) do juiz semântico e devolve uma tupla:
+        (veredito, resumo_falhas, status_por_dimensao)
+    - veredito: "APPROVED" | "APPROVED_WITH_WARNINGS" | "REJECTED" | "" (vazio se
+      não conseguiu ler o JSON)
+    - resumo_falhas: string compacta listando as dimensões com FAIL/WARN e suas
+      justificativas, no formato:
+         "logsource[FAIL]: motivo... | modifiers[WARN]: motivo..."
+      Vazia se nada falhou ou se o parecer não pôde ser parseado.
+    - status_por_dimensao: dict {nome_dim: "PASS"|"WARN"|"FAIL"|""} com TODAS as
+      6 dimensões pré-preenchidas (mesmo as ausentes do JSON ficam ""), para
+      que o CSV tenha colunas consistentes em todas as linhas.
+    Tolerante a parecer ausente/mal-formado: nunca lança exceção.
+    """
+    status_por_dimensao = {dim: "" for dim in DIMENSOES_JUIZ}
+
+    if not parecer_texto or not parecer_texto.strip():
+        return "", "", status_por_dimensao
+    try:
+        parecer_dict = json.loads(parecer_texto)
+    except (json.JSONDecodeError, TypeError):
+        # parecer veio em texto cru (JSON mal-formado pela LLM)
+        return "", f"parecer_nao_parseavel: {parecer_texto[:200]}", status_por_dimensao
+
+    veredito = parecer_dict.get("veredito", "") or ""
+    dimensoes = parecer_dict.get("dimensoes", {}) or {}
+
+    falhas = []
+    for nome, info in dimensoes.items():
+        if not isinstance(info, dict):
+            continue
+        status = (info.get("status") or "").upper()
+        # preenche a tabela de status SE for uma dimensão conhecida
+        if nome in status_por_dimensao and status in ("PASS", "WARN", "FAIL"):
+            status_por_dimensao[nome] = status
+        # coleta as falhas/avisos para o resumo textual
+        if status in ("FAIL", "WARN"):
+            justificativa = (info.get("justificativa") or "").strip()
+            if len(justificativa) > 180:
+                justificativa = justificativa[:177] + "..."
+            falhas.append(f"{nome}[{status}]: {justificativa}")
+
+    return veredito, " | ".join(falhas), status_por_dimensao
+
+
+def _montar_motivo_reprovacao(erro_final, veredito_juiz, falhas_juiz):
+    """
+    Constrói o texto da coluna 'motivo_reprovacao' combinando o erro sintático
+    do Nó 5 com o veredito + dimensões falhas do Nó 6.
+    Devolve string vazia se não houve nenhum motivo registrado.
+    """
+    partes = []
+    # Nó 5 — erro sintático/estrutural
+    if erro_final and erro_final != "APROVADO":
+        partes.append(f"[no_5_validador] {erro_final}")
+    # Nó 6 — juiz semântico
+    if veredito_juiz and veredito_juiz != "APPROVED":
+        if falhas_juiz:
+            partes.append(f"[no_6_juiz/{veredito_juiz}] {falhas_juiz}")
         else:
-            print("\n\tA execução falhou.\n")
-        #print(resultado_final["regra_gerada"])
+            partes.append(f"[no_6_juiz/{veredito_juiz}]")
+    return " || ".join(partes)
 
-        # ==========================================
-        # SALVANDO A REGRA EM ARQUIVO
-        # ==========================================
-        regra = resultado_final["regra_gerada"]
-        if regra:
-            #extrai o title via regex p usar como nome do arquivo:
-            match = re.search(r'^title:\s*(.+)$', regra, re.MULTILINE)
 
-            if match:
-                #limpa o título p ser um nome de arquivo válido e remove aspas se tiver:
-                title = match.group(1).strip().strip('"\'')
-                #substitui caracteres inválidos por underline:
-                base = re.sub(r'[^a-zA-Z0-9_-]', '_', title).strip('_') 
-                
-                if not base:        
-                    filename = "regra_sem_nome.yml"
+def _estado_inicial(texto_prompt):
+    return {
+        "input_usuario": texto_prompt,
+        "tipo_input": "",
+        "termo_busca": "",
+        "url_fornecida": "",
+        "texto_para_rag": "",
+        "contexto_pobre": False,
+        "contexto_rag": "",
+        "contexto_api": "",
+        "regra_gerada": "",
+        "erro_validacao": "",
+        "tentativas": 0,
+        "parecer_juiz": "",
+    }
+
+
+if __name__ == '__main__':
+    print("\n=== Agente_Sigma — modo BATCH (geração para o TCC) ===")
+    print("Carregando modelos...\n")
+    agente_sigma = criar_agente()
+
+    if not os.path.isdir(PASTA_TEST_CASES):
+        print(f"ERRO: pasta de cenários não encontrada:\n  {PASTA_TEST_CASES}")
+        exit(1)
+
+    # lista as subpastas (cada uma é um cenário), em ordem
+    cenarios = sorted(
+        d for d in os.listdir(PASTA_TEST_CASES)
+        if os.path.isdir(os.path.join(PASTA_TEST_CASES, d))
+    )
+    print(f"Encontrados {len(cenarios)} cenários em test_cases.\n")
+
+    linhas_csv = []   # acumula os metadados de cada (cenário, prompt)
+
+    for idx, nome_cenario in enumerate(cenarios, start=1):
+        pasta_cenario = os.path.join(PASTA_TEST_CASES, nome_cenario)
+        regra_original = _achar_regra_original(pasta_cenario)
+        nome_base = _nome_base_referencia(regra_original, nome_cenario)
+
+        # cenario_id estável = nome da subpasta (numero + nome original)
+        cenario_id = nome_cenario
+
+        print("=" * 70)
+        print(f"[{idx}/{len(cenarios)}] Cenário: {cenario_id}")
+        print(f"  Regra de referência: {os.path.basename(regra_original) if regra_original else '(não encontrada)'}")
+
+        for nome_prompt in PROMPTS_ALVO:
+            texto_prompt = _ler_prompt(pasta_cenario, nome_prompt)
+            if texto_prompt is None:
+                continue  # esse prompt não existe neste cenário; pula
+
+            print(f"\n  -> Rodando {nome_prompt}...")
+            t0 = time.time()
+            status = "ERRO_EXECUCAO"
+            tentativas = 0
+            usou_web_search = False
+            tipo_input = ""
+            contexto_pobre = False
+            erro_final = ""
+            regra = ""
+            parecer = ""
+
+            try:
+                resultado = agente_sigma.invoke(_estado_inicial(texto_prompt))
+
+                erro_final = resultado.get("erro_validacao", "")
+                tentativas = resultado.get("tentativas", 0)
+                tipo_input = resultado.get("tipo_input", "")
+                contexto_pobre = resultado.get("contexto_pobre", False)
+                usou_web_search = bool(resultado.get("contexto_api", "").strip())
+                regra = resultado.get("regra_gerada", "") or ""
+                parecer = resultado.get("parecer_juiz", "") or ""
+
+                if erro_final == "APROVADO":
+                    status = "APROVADO"
                 else:
-                    filename = base + ".yml"
-            else:
-                filename = "regra_sigma_gerada.yml"     #fallback
+                    status = "REPROVADO"   # gerou mas não passou na validação
+            except Exception as e:
+                status = "ERRO_EXECUCAO"
+                erro_final = f"{type(e).__name__}: {e}"
+                print(f"     !!! Exceção: {erro_final}")
+                traceback.print_exc()
 
-            pasta_destino = os.path.join(BASE_DIR, "..", "data", "regras_geradas")
-            os.makedirs(pasta_destino, exist_ok=True)
+            tempo_total = round(time.time() - t0, 2)
 
-            caminho_arquivo = os.path.join(pasta_destino, filename)
-            
-            #contador para adicionar no nome do arquivo caso rode mais de uma vez para a mesma regra:
-            cont = 1    
-            while os.path.exists(caminho_arquivo):
-                nome_base = filename.replace(".yml", "")
-                caminho_arquivo = os.path.join(pasta_destino, f"{nome_base}_{cont}.yml")
-                cont += 1
-            
-            #salva o arquivo em modo escrita (write):
-            with open(caminho_arquivo, "w", encoding="utf-8") as file:
-                file.write(regra)
-            
-            print(f"\n\tRegra salva em: {caminho_arquivo}\n")
-            
-            # ==========================================
-            # SALVANDO O PARECER DO JUIZ (NÓ 6)
-            # ==========================================
-            parecer = resultado_final.get("parecer_juiz", "")
-            if parecer:
-                os.makedirs(PASTA_PARECERES, exist_ok=True)
-                # mesmo nome-base da regra, com extensão .parecer.txt
-                nome_base = os.path.basename(caminho_arquivo).replace(".yml", "")
-                caminho_parecer = os.path.join(
-                    PASTA_PARECERES, f"{nome_base}.parecer.txt"
-                )
-                with open(caminho_parecer, "w", encoding="utf-8") as f:
+            # ---- salva a regra gerada na própria pasta do cenário ----
+            caminho_regra_saida = ""
+            if regra.strip():
+                nome_saida = f"{nome_base}_{nome_prompt}.yml"
+                caminho_regra_saida = os.path.join(pasta_cenario, nome_saida)
+                with open(caminho_regra_saida, "w", encoding="utf-8") as f:
+                    f.write(regra)
+                print(f"     regra salva: {nome_saida}")
+
+            # ---- salva o parecer do juiz na própria pasta do cenário ----
+            caminho_parecer_saida = ""
+            if parecer.strip():
+                nome_parecer = f"{nome_base}_{nome_prompt}.parecer.txt"
+                caminho_parecer_saida = os.path.join(pasta_cenario, nome_parecer)
+                with open(caminho_parecer_saida, "w", encoding="utf-8") as f:
                     f.write("=" * 70 + "\n")
                     f.write("PARECER DO JUIZ SEMÂNTICO (Nó 6)\n")
                     f.write(f"Modelo: {MODELO_JUIZ} (temperatura: {TEMP_JUIZ})\n")
-                    f.write(f"Regra avaliada: {os.path.basename(caminho_arquivo)}\n")
+                    f.write(f"Cenário: {cenario_id}\n")
+                    f.write(f"Prompt: {nome_prompt}\n")
                     f.write("=" * 70 + "\n\n")
                     f.write(parecer)
-                print(f"\tParecer salvo em: {caminho_parecer}\n")           
+                print(f"     parecer salvo: {nome_parecer}")
+
+            # ---- extrai veredito + falhas + status por dimensão (Nó 6) ----
+            veredito_juiz, falhas_juiz, status_dim = _resumir_parecer_juiz(parecer)
+
+            # ---- monta o motivo da reprovação (só preenche se REPROVADO/ERRO) ----
+            if status == "APROVADO":
+                motivo_reprovacao = ""
+            elif status == "ERRO_EXECUCAO":
+                # exceção fora do fluxo normal: usa o traceback que já está em erro_final
+                motivo_reprovacao = f"[excecao] {erro_final}"
+            else:  # REPROVADO
+                motivo_reprovacao = _montar_motivo_reprovacao(
+                    erro_final, veredito_juiz, falhas_juiz
+                )
+
+            # ---- acumula metadados ----
+            linha = {
+                "cenario_id": cenario_id,
+                "prompt_usado": nome_prompt,
+                "status": status,
+                "tentativas": tentativas,
+                "tempo_total_s": tempo_total,
+                "usou_web_search": usou_web_search,
+                "tipo_input": tipo_input,
+                "contexto_pobre": contexto_pobre,
+                "erro_validacao_final": erro_final,
+                "veredito_juiz": veredito_juiz,
+                "motivo_reprovacao": motivo_reprovacao,
+                "regra_referencia": os.path.basename(regra_original) if regra_original else "",
+                "arquivo_regra_gerada": os.path.basename(caminho_regra_saida) if caminho_regra_saida else "",
+                "arquivo_parecer": os.path.basename(caminho_parecer_saida) if caminho_parecer_saida else "",
+            }
+            # 6 colunas, uma por dimensão avaliada pelo juiz (PASS/WARN/FAIL/"")
+            for dim in DIMENSOES_JUIZ:
+                linha[f"juiz_{dim}"] = status_dim.get(dim, "")
+            linhas_csv.append(linha)
+
+            print(f"     status={status} | tentativas={tentativas} | tempo={tempo_total}s")
+
+    # ---- grava o CSV de metadados na raiz de test_cases ----
+    caminho_csv = os.path.join(PASTA_TEST_CASES, "metadados_geracao.csv")
+    campos = [
+        "cenario_id", "prompt_usado", "status", "tentativas", "tempo_total_s",
+        "usou_web_search", "tipo_input", "contexto_pobre",
+        "erro_validacao_final", "veredito_juiz",
+    ]
+    # 6 colunas com o status PASS/WARN/FAIL/"" de cada dimensão do juiz
+    campos += [f"juiz_{dim}" for dim in DIMENSOES_JUIZ]
+    campos += [
+        "motivo_reprovacao",
+        "regra_referencia",
+        "arquivo_regra_gerada", "arquivo_parecer",
+    ]
+    with open(caminho_csv, "w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=campos)
+        writer.writeheader()
+        writer.writerows(linhas_csv)
+
+    # ---- resumo final no terminal ----
+    total = len(linhas_csv)
+    aprovados = sum(1 for r in linhas_csv if r["status"] == "APROVADO")
+    print("\n" + "=" * 70)
+    print("FIM DA EXECUÇÃO EM LOTE")
+    print(f"  Regras geradas (linhas no CSV): {total}")
+    print(f"  Aprovadas na validação: {aprovados}/{total}")
+    print(f"  Metadados salvos em: {caminho_csv}")
+    print("=" * 70 + "\n")

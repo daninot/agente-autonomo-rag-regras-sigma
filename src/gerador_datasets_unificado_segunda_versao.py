@@ -12,7 +12,7 @@ TRAIN_DIR       = "/home/daniela/Documents/TCC/tcc_sigma_agent/data/rag_knowledg
 TEST_DIR        = "/home/daniela/Documents/TCC/tcc_sigma_agent/data/test_cases/"
 EXTRA_TEST_DIR  = "/home/daniela/Documents/TCC/tcc_sigma_agent/data/extra_test_cases/"
 
-TRAIN_PERCENTAGE  = 0.75
+TRAIN_PERCENTAGE  = 0.80
 NEW_TEST_COUNT    = 0
 EXTRA_TEST_COUNT  = 10
 
@@ -132,9 +132,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 1 — Varrer o repositório Sigma
     # ----------------------------------------------------------
-    print("=" * 60)
+    print("=" * 80)
     print("PASSO 1: Lendo o repositório Sigma...")
-    print("=" * 60)
+    print("=" * 80)
 
     all_valid_rules = []
     for root, dirs, files in os.walk(SIGMA_REPO_DIR):
@@ -155,9 +155,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 2 — Normalizar nomes dos arquivos em test_cases
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print("PASSO 2: Normalizando nomes dos arquivos em test_cases...")
-    print("=" * 60)
+    print("=" * 80)
 
     if not os.path.exists(TEST_DIR):
         os.makedirs(TEST_DIR, exist_ok=True)
@@ -199,9 +199,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 3 — Mapear test_cases → caminhos originais
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print("PASSO 3: Mapeando test_cases → repositório...")
-    print("=" * 60)
+    print("=" * 80)
 
     nomes_em_test = set(f for f in os.listdir(TEST_DIR) if f.endswith('.yml'))
 
@@ -219,9 +219,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 4 — Construir pool disponível e agrupar por categoria
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print("PASSO 4: Construindo pool disponível...")
-    print("=" * 60)
+    print("=" * 80)
 
     available_pool = [r for r in all_valid_rules if r not in test_original_paths]
     total_disponivel = len(available_pool)
@@ -238,9 +238,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 5 — Adicionar regra(s) nova(s) ao test_cases (round-robin)
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print(f"PASSO 5: Adicionando {NEW_TEST_COUNT} nova(s) regra(s) ao test_cases...")
-    print("=" * 60)
+    print("=" * 80)
 
     novas_para_teste = selecionar_round_robin(regras_por_categoria, NEW_TEST_COUNT)
 
@@ -262,9 +262,9 @@ def main():
     #           Round-robin com 10 regras e dezenas de categorias
     #           garante 10 categorias DIFERENTES no resultado.
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print(f"PASSO 6: Selecionando {EXTRA_TEST_COUNT} regras para extra_test_cases (round-robin)...")
-    print("=" * 60)
+    print("=" * 80)
 
     extra_set = selecionar_round_robin(regras_por_categoria, EXTRA_TEST_COUNT)
     print(f" -> {len(extra_set)} regras extras selecionadas.")
@@ -272,9 +272,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 7 — Selecionar 75% do pool para rag_knowledge (round-robin)
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print(f"PASSO 7: Selecionando {int(TRAIN_PERCENTAGE*100)}% do pool para rag_knowledge...")
-    print("=" * 60)
+    print("=" * 80)
 
     target_train = int(total_disponivel * TRAIN_PERCENTAGE)
     print(f" -> Meta: {target_train} regras ({int(TRAIN_PERCENTAGE*100)}% de {total_disponivel})")
@@ -288,9 +288,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 8 — Gravar arquivos em disco
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print("PASSO 8: Gravando arquivos em disco...")
-    print("=" * 60)
+    print("=" * 80)
 
     if os.path.exists(TRAIN_DIR):
         shutil.rmtree(TRAIN_DIR)
@@ -308,9 +308,9 @@ def main():
     # ----------------------------------------------------------
     # PASSO 9 — Relatório de distribuição (AUDITORIA)
     # ----------------------------------------------------------
-    print("\n" + "=" * 60)
+    print("\n" + "=" * 80)
     print("PASSO 9: Relatório de distribuição (auditoria de viés)")
-    print("=" * 60)
+    print("=" * 80)
 
     # Distribuição do repositório inteiro (referência)
     relatorio_distribuicao("REPOSITÓRIO COMPLETO", all_valid_rules, top_n=10)
