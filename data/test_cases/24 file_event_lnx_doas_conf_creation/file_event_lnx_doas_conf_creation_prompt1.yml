@@ -1,0 +1,30 @@
+title: System Information Discovery - Linux
+id: 0e03ad86-7698-4e51-a73a-5fe3985ddc65
+status: test
+description: Detects System Information Discovery commands
+references:
+  - https://www.makeuseof.com/how-to-install-and-use-doas/
+author: David Delony
+date: 2021-11-13
+modified: 2023-03-06
+tags:
+  - attack.discovery
+  - attack.t1082
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_img:
+    Image|endswith:
+      - doas
+      - linux
+      - endpoint
+  selection_cli:
+    CommandLine|contains:
+      - doas
+      - linux
+      - endpoint
+  condition: 1 of selection_*
+falsepositives:
+  - Likely
+level: low

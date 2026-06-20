@@ -1,0 +1,25 @@
+title: Invoke-Obfuscation STDIN+ Launcher - PowerShell Module
+id: b7185b89-b7c8-4f8b-a489-3ea22375cf69
+related:
+  - id: 72862bf2-0eb1-11eb-adc1-0242ac120002
+    type: derived
+status: test
+description: Detects Obfuscated use of stdin to execute PowerShell
+references:
+  - https://github.com/SigmaHQ/sigma/issues/1009
+author: Jonathan Cheong, oscd.community
+date: 2020-10-15
+modified: 2024-04-05
+tags:
+  - attack.t1059.001
+logsource:
+  product: windows
+  category: ps_module
+definition: 0ad03ef1-f21b-4a79-8ce8-e6900c54b65b
+detection:
+  selection_4103:
+    Payload|re: '(?i)(set).*&&\s?set.*(environment|invoke|\$?\{?input).*&&.*"'
+  condition: selection_4103
+falsepositives:
+  - Unknown
+level: high

@@ -1,0 +1,16 @@
+Generate a SIGMA rule to detect Cisco IOS CLI commands that move data onto
+or off the device — file transfer and archive operations abused for staging,
+exfiltration, or infiltration of configurations and binaries.
+
+Target product: cisco; log source service: aaa.
+
+Detection uses keyword matching against AAA command accounting logs for IOS
+commands related to file transfer protocols (TFTP, RCP), file copy/save
+operations, configuration replacement, and archive creation.
+
+The original rule has no external references — omit the references field or
+leave it empty.
+
+
+Primeira regra do conjunto inteiro sem nenhuma referência (o campo references simplesmente não existe na regra original). Isso cria uma situação curiosa para o seu agente: o prompt do Nó 4 instrui a não inventar URLs (instrução 5), e o agente nunca encontrou um caso onde não há referência alguma. Mantive a instrução explícita para o Estágio 4 — sem isso, o agente provavelmente alucinaria links para a documentação da Cisco.
+No Estágio 3 deixei o bloco # References vazio com nota explicativa. As 5 LLMs externas vão reagir de formas diferentes a isso — algumas vão omitir o campo, outras vão inventar URLs da Cisco, outras vão colocar references: []. Outro ponto de avaliação interessante para sua análise.

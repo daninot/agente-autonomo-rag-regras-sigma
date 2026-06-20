@@ -1,0 +1,37 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator would appear in the process creation logs, so the best category is `process_creation`.
+
+(b) FIELDS: The fields that contain the indicator of the threat are likely to be related to the command line arguments or the payload of the PowerShell script. Specifically, we can look at the `Payload` field.
+
+(c) MODIFIERS: Since we're looking for a specific pattern in the `Payload` field, an exact match is the correct choice. We don't need to use `|contains`, `|endswith`, or `|startswith`.
+
+(d) ATT&CK: The technique that best describes this threat is `T1059.001 - Command and Control (C2) Serverless` is not directly applicable here, but a more fitting one would be `T1027 - Obfuscated Files or Information`. However, since the threat involves using PowerShell to execute commands, we can also consider `T1055 - Process Injection`.
+
+Here's the corrected YAML rule:
+
+```yml
+title: Invoke-Obfuscation STDIN+ Launcher - PowerShell
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects Obfuscated use of stdin to execute PowerShell
+references:
+  - https://github.com/SigmaHQ/sigma/issues/1009
+author: [Your Name]
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+  - attack.obfuscation
+  - attack.t1027
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    Payload|exact:
+      'cmd.{0,5}(?:/c|/r).+clipboard]::\(\s"\{\d\}.+-f.+"'
+condition: selection
+falsepositives:
+  - Unknown
+level: high
+```

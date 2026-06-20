@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://www.python.org/dev/peps/pep-0249/#exceptions

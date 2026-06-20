@@ -1,0 +1,10 @@
+Generate a SIGMA rule to detect Python SQL exception classes in application
+logs — defined by PEP 249, these may indicate SQL injection probing or other
+database exploitation attempts.
+
+Target product: python; log source category: application.
+
+Detection uses keyword matching against PEP 249 SQL exception class names.
+
+References to include:
+- https://www.python.org/dev/peps/pep-0249/#exceptions

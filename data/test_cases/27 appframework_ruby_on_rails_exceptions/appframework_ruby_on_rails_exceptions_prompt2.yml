@@ -1,0 +1,30 @@
+<thinking>...</thinking>
+
+```yml
+title: Suspicious CSRF/CSRF Attacks in Rails Applications
+
+logsource:
+    category: webserver
+
+fields:
+  request_method
+  request_uri
+  status_code
+
+modifiers:
+  request_method: |contains
+  request_uri: |endswith
+  status_code: exact match
+
+detection:
+  - https://raw.githubusercontent.com/rails/rails/cd08e6bcc4cd8948fe01e0be1ea0c7ca60373a25/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb
+
+references:
+  - http://edgeguides.rubyonrails.org/security.html
+  - https://github.com/rails/rails/blob/cd08e6bcc4cd8948fe01e0be1ea0c7ca60373a25/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb
+
+level: high
+
+technique:
+  - T1055.001
+```

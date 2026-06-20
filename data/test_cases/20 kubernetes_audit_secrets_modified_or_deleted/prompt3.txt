@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect modification or deletion of Kubernetes Secrets
+— an attacker with sufficient RBAC permissions may create, alter, or destroy
+secrets to steal credentials, plant malicious values, or cover their tracks.
+
+Target product: kubernetes; log source service: audit.
+
+Detection matches audit events targeting the secrets resource, covering all
+mutating API verbs (creation, deletion, and update variants).
+
+References to include:
+- https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/
+- https://commandk.dev/blog/guide-to-audit-k8s-secrets-for-compliance/

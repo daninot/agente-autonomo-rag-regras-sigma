@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect creation of potentially malicious script or
+executable files in the Windows Startup folder — a persistence technique where
+files execute automatically at user login, frequently abused by info-stealers
+and malvertising campaigns.
+
+Target product: windows; log source category: file_event.
+
+Detection combines |contains for the Startup folder path with |endswith for
+a comprehensive list of abusable extensions: PowerShell, VBScript, JavaScript,
+batch, HTA, DLL, JAR, and similar script/executable types.
+
+References to include:
+- https://github.com/last-byte/PersistenceSniper
+- https://www.microsoft.com/en-us/security/blog/2025/03/06/malvertising-campaign-leads-to-info-stealers-hosted-on-github/
+- https://github.com/redcanaryco/atomic-red-team/blob/5ede8f21e42ebe37e0a6eff757dba60bcfa85859/atomics/T1547.001/T1547.001.md

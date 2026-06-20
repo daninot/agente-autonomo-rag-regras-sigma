@@ -1,0 +1,24 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Creation of potentially malicious script or executable files in the Windows
+Startup folder — a common persistence technique where files are automatically
+executed at user login. Frequently observed in malvertising campaigns and
+info-stealer distribution.
+
+# Target environment
+- Product: windows; log source category: file_event
+- Detection combines two conditions on the same field (all must match):
+  (a) file path contains the Windows Startup folder path (|contains);
+  (b) file extension matches a list of script and executable types commonly
+      abused for persistence: PowerShell, VBScript, JavaScript, batch, HTA,
+      DLL, JAR, and similar (|endswith with a comprehensive list).
+
+# References
+- https://github.com/last-byte/PersistenceSniper
+- https://www.microsoft.com/en-us/security/blog/2025/03/06/malvertising-campaign-leads-to-info-stealers-hosted-on-github/
+- https://github.com/redcanaryco/atomic-red-team/blob/5ede8f21e42ebe37e0a6eff757dba60bcfa85859/atomics/T1547.001/T1547.001.md
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

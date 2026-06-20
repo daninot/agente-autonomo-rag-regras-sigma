@@ -1,0 +1,37 @@
+======================================================================
+PARECER DO JUIZ SEMÂNTICO (Nó 6)
+Modelo: qwen2.5:14b (temperatura: 0.0)
+Cenário: 43 cisco_duo_mfa_bypass_via_bypass_code
+Prompt: prompt3
+======================================================================
+
+{
+  "veredito": "APPROVED_WITH_WARNINGS",
+  "dimensoes": {
+    "logsource": {
+      "status": "WARN",
+      "justificativa": "The log source category 'proxy' is not aligned with the threat description which mentions Duo authentication logs. It should be more specific to authentication events."
+    },
+    "modifiers": {
+      "status": "PASS",
+      "justificativa": "No modifiers are used in this rule, so it's compliant by default."
+    },
+    "condition": {
+      "status": "PASS",
+      "justificativa": "The condition 'selection' is syntactically and semantically correct."
+    },
+    "structure": {
+      "status": "PASS",
+      "justificativa": "All required fields (title, id, logsource, detection) are present."
+    },
+    "semantic_alignment": {
+      "status": "WARN",
+      "justificativa": "The rule uses user_status and previous_status to detect bypass codes but these may not be the correct attributes for Duo logs. The reference should be consulted for accurate attribute names."
+    },
+    "invented_filters": {
+      "status": "PASS",
+      "justificativa": "No invented filters are used in this rule."
+    }
+  },
+  "observacoes_gerais": "The rule structure is sound but needs verification of the log source category and detection attributes to ensure alignment with Duo authentication logs."
+}

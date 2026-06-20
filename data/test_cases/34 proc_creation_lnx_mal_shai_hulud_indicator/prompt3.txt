@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect Shai-Hulud malware execution on Linux — a
+supply chain worm targeting the npm ecosystem that exfiltrates secrets and
+leaves characteristic identifier strings in process command lines.
+
+Target product: linux; log source category: process_creation.
+
+Detection matches characteristic Shai-Hulud strings in CommandLine using
+|contains. Include the emerging-threats tag.
+
+References to include:
+- https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack
+- https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains
+- https://semgrep.dev/blog/2025/digging-for-secrets-sha1-hulud-the-second-coming-of-the-npm-worm/
+
+

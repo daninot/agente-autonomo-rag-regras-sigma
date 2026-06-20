@@ -1,0 +1,11 @@
+Generate a SIGMA rule to detect delete actions in GitHub audit logs targeting
+codespaces, environments, projects, and repositories — indicating potential
+destructive activity or unauthorized resource removal.
+
+Target product: github; log source service: audit. Requires GitHub audit log
+streaming to be enabled — document this in the rule, including the setup
+documentation URL.
+
+References to include:
+- https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization#audit-log-actions
+- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/security-log-events#codespaces

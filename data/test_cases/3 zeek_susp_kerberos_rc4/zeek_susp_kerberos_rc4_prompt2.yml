@@ -1,0 +1,38 @@
+title: Suspicious Kerberos Ticket Request via PowerShell Script - ScriptBlock
+
+id: bd2e707f-8294-47bc-a9fc-2de6ffb581a2
+
+status: test
+
+description: Detects service ticket requests using RC4 encryption type
+
+references:
+  - https://adsecurity.org/?p=3458
+  - https://www.trimarcsecurity.com/single-post/TrimarcResearch/Detecting-Kerberoasting-Activity
+
+author: Florian Roth (Nextron Systems)
+
+date: 2017-02-06
+
+modified: 2022-06-19
+
+tags:
+  - attack.credential-access
+  - attack.t1558.003
+
+logsource:
+  product: windows
+  service: security
+
+detection:
+  selection:
+    EventID: 4769
+    TicketOptions: '0x40810000'
+    TicketEncryptionType: ['0x17', '0x18', '0x19'] # corrected list of allowed values
+  condition: selection
+
+falsepositives:
+  - Service accounts used on legacy systems (e.g. NetApp)
+  - Windows Domains with DFL 2003 and legacy systems
+
+level: medium

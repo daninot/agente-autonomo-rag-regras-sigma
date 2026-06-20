@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect network connections initiated by MSBuild —
+a signed Microsoft binary abused by SilentTrinity and similar C2 frameworks
+to execute payloads while bypassing application allow-lists. Outbound traffic
+from MSBuild to standard web ports is highly suspicious.
+
+Target product: windows; log source category: network_connection.
+
+Detection combines: (a) connecting process is msbuild.exe (|endswith);
+(b) connection is outbound (Initiated true) to standard HTTP/HTTPS ports.
+Use condition: `selection and filter`.
+
+References to include:
+- https://www.blackhillsinfosec.com/my-first-joyride-with-silenttrinity/
+
+

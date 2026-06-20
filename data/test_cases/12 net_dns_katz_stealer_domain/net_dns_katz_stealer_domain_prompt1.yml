@@ -1,0 +1,31 @@
+LOGSOURCE: The indicator would appear in DNS queries, so the best category is "dns".
+
+FIELDS: The specific log field that contains the indicator of the threat is likely to be "QueryName" or similar.
+
+MODIFIERS: Since we're looking for a match anywhere in the query name, |contains is the correct choice.
+
+ATT&CK: This threat can be described as using technique t1219.002 (Exfiltration Over Command and Control Channel), but since it's specifically related to DNS queries, I'll choose t1047 (Web Server).
+
+OUTPUT:
+
+title: DNS Query To Katz Stealer Domains
+id: 468e8bc6-cac8-44d3-a68f-503cab3dd3b8
+description: Detects DNS queries to domains associated with Katz Stealer malware.
+category: dns
+logsource:
+  product: windows
+  service: dns
+detection:
+  selection:
+    QueryName|contains:
+      - katz-stealer.com
+      - katzstealer[.]com
+      - katz-stealer[.]net
+      - katz-stealer[.]io
+      - katz-stealer[.]ru
+      - katz-stealer[.]biz
+  condition: selection
+
+references:
+- https://detection.fyi/dns-query-to-katz-stealer-domains/
+- https://github.com/sigma-designate/rules-emerging-threats/2025/Malware/Katz-Stealer/dns_query_to_katz_stealer_domains.sigmawhich

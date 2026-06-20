@@ -1,0 +1,18 @@
+title: Download From Pwndrop
+id: a41f4748-1381-4ebb-91c9-2942d132f36f
+status: test
+description: Detects downloads from Pwndrop web servers
+references:
+  - https://breakdev.org/pwndrop/
+tags:
+  - attack.t1566
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-uri|endswith:
+      - '/pwndrop'
+  condition: selection
+falsepositives:
+  - Legitimate file downloads from Pwndrop web servers
+level: high

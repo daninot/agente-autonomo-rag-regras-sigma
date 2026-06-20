@@ -1,0 +1,53 @@
+<thinking>...</thinking>
+
+```yml
+title: Malware deployment via Windows Apps (APPX or MSIX packages)
+id: 4b3a1c6f-5d7e-4c8f-b2ed-9f0c6a5c4c4c
+description: Detects malware deployment via Windows Apps (APPX or MSIX packages) and Windows shortcut LNK files.
+status: experimental
+author: '@anomali'
+date: 2023/01/12
+
+logsource:
+  product: windows
+  category: process_creation
+
+selection_parent:
+  Image|endswith: '\sihost.exe'
+
+selection_susp_img:
+  Image|endswith:
+    - '\cmd.exe'
+    - '\cscript.exe'
+    - '\mshta.exe'
+    - '\powershell.exe'
+    - '\powershell_ise.exe'
+    - '\pwsh.exe'
+    - '\regsvr32.exe'
+    - '\rundll32.exe'
+    - '\wscript.exe'
+
+selection_susp_cli:
+  CommandLine|contains:
+    - 'cmd /c'
+    - 'Invoke-'
+    - 'Base64'
+
+filter_optional_terminal:
+  ParentImage|contains: ':\Program Files\WindowsApps\Microsoft.WindowsTerminal'
+  ParentImage|endswith: '\WindowsTerminal.exe'
+  Image|endswith:
+    - '\powershell.exe'
+    - '\cmd.exe'
+    - '\pwsh.exe'
+
+filter_optional_sysinternals:
+  ParentImage|startswith: 'C:\Program Files\WindowsApps\Microsoft.SysinternalsSuite'
+  Image|endswith: '\cmd.exe'
+
+condition: selection_parent and 1 of selection_susp_* and not 1 of filter_optional_*
+
+references:
+  - https://www.sentinelone.com/labs/inside-malicious-windows-apps-for-malware-deployment/
+  - https://learn.microsoft.com/en-us/windows/win32/appxpkg/troubleshooting
+```

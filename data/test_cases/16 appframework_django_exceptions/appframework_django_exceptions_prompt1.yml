@@ -1,0 +1,23 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best for the indicator is "webserver" because it's related to Django's logging configuration.
+
+(b) FIELDS: The log fields that contain the indicators of the threat are "log_level" and possibly other fields like "logger_name", but they're not explicitly mentioned in the documentation. However, we can infer that the log level (DEBUG, INFO, WARNING, ERROR, CRITICAL) is a relevant field.
+
+(c) MODIFIERS: For the "log_level" field, an exact match would be suitable because it's a specific value that indicates the severity of the message.
+
+(d) ATT&CK: The technique that best describes this threat is "T1068: Exploitation of Authentication Mechanisms", but since it's not directly related to authentication, we can consider it as a potential misconfiguration or oversight in security logging practices.
+
+
+```yml
+logsource:
+  category: webserver
+
+selection:
+  log_level: [DEBUG, INFO, WARNING, ERROR, CRITICAL]
+
+falsepositives:
+  - Unknown
+
+level: low
+```

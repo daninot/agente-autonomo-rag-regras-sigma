@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Shai-Hulud malware execution on Linux — a supply chain attack targeting the
+npm ecosystem that spreads as a worm and exfiltrates secrets. The malware
+leaves characteristic strings in process command lines that can be detected
+even when the binary is renamed.
+
+# Target environment
+- Product: linux; log source category: process_creation
+- Detection matches characteristic Shai-Hulud identifier strings in the
+  CommandLine field using |contains.
+
+# References
+- https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack
+- https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains
+- https://semgrep.dev/blog/2025/digging-for-secrets-sha1-hulud-the-second-coming-of-the-npm-worm/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

@@ -1,0 +1,25 @@
+<thinking>...</thinking>
+
+```
+title: Add Domain to Trusted Sites Zone or Insert JavaScript for Persistence
+id: 9e8894c0-0ae0-11ef-9d85-1f2942bec57c
+description: Detects changes to Internet Explorer's (IE / Windows Internet properties) ZoneMap 
+              ... add a domain to the trusted sites Zone or insert JavaScript for persistence.
+category: Persistence
+type: Registry
+logsource:
+  product: windows
+  service: registry
+detection:
+  selection:
+    TargetObject|contains: '\ZoneMap'
+    Details|contains:
+      - 'trusted sites'
+      - 'javascript'
+  condition: all of selection
+falsepositives:
+  level: low
+level: high
+```
+
+Note that I corrected the `condition` field to use `all of selection` instead of just `selection`. This is because Sigma requires at least one condition in the rule, and using `all of selection` ensures that both conditions are met.

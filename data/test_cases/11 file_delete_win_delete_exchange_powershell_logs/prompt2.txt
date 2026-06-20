@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Deletion of Exchange PowerShell cmdlet history log files on a Windows host —
+a defense evasion technique used to destroy forensic evidence of administrative
+or malicious cmdlet execution on an Exchange Server.
+
+# Target environment
+- Product: windows; log source category: file_delete
+- Detection matches file deletion events targeting the Exchange cmdlet logging
+  directory, combining a path prefix match (|startswith) with a filename
+  pattern match (|contains) — both must be true simultaneously.
+
+# References
+- https://m365internals.com/2022/10/07/hunting-in-on-premises-exchange-server-logs/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

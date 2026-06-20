@@ -1,0 +1,113 @@
+cenario_id,prompt_usado,status,tentativas,tempo_total_s,usou_web_search,tipo_input,contexto_pobre,erro_validacao_final,veredito_juiz,juiz_logsource,juiz_modifiers,juiz_condition,juiz_structure,juiz_semantic_alignment,juiz_invented_filters,motivo_reprovacao,regra_referencia,arquivo_regra_gerada,arquivo_parecer
+1 bitbucket_audit_unauthorized_full_data_export_triggered,prompt1,APROVADO,3,103.62,True,texto_livre,True,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,bitbucket_audit_unauthorized_full_data_export_triggered.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt1.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt1.parecer.txt
+1 bitbucket_audit_unauthorized_full_data_export_triggered,prompt2,APROVADO,4,115.57,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,bitbucket_audit_unauthorized_full_data_export_triggered.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt2.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt2.parecer.txt
+1 bitbucket_audit_unauthorized_full_data_export_triggered,prompt3,APROVADO,2,80.46,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,PASS,PASS,,bitbucket_audit_unauthorized_full_data_export_triggered.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt3.yml,bitbucket_audit_unauthorized_full_data_export_triggered_prompt3.parecer.txt
+10 db_anomalous_query,prompt1,REPROVADO,4,76.81,True,texto_livre,True,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used appropriately for detecting the presence of 'sqlmap' in Image or CommandLine, but it might be better to use exact match if specific paths or file names are known. | semantic_alignment[WARN]: The rule aims to detect suspicious code execution via SQLMap but may not catch all instances if the exact path or command line arguments vary widely.",db_anomalous_query.yml,db_anomalous_query_prompt1.yml,db_anomalous_query_prompt1.parecer.txt
+10 db_anomalous_query,prompt2,REPROVADO,4,83.7,True,texto_livre,False,Etapa 2 falhou - faltou campo obrigatório: 'title',REJECTED,FAIL,PASS,PASS,WARN,FAIL,FAIL,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category is incorrectly set to 'registry_event' instead of 'database'. Additionally, the product should be more specific if possible. | structure[WARN]: Missing required fields such as 'level' which should be set to 'high'. Additionally, the rule lacks a reference to SQL query logging being enabled. | semantic_alignment[FAIL]: The detection logic does not align with the threat description. The rule focuses on specific keywords but misses broader reconnaissance and exfiltration activities such as SELEC... | invented_filters[FAIL]: The log source category 'registry_event' has no basis in the threat description. The rule should use 'database' instead.",db_anomalous_query.yml,db_anomalous_query_prompt2.yml,db_anomalous_query_prompt2.parecer.txt
+10 db_anomalous_query,prompt3,APROVADO,3,77.4,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,db_anomalous_query.yml,db_anomalous_query_prompt3.yml,db_anomalous_query_prompt3.parecer.txt
+2 azure_app_device_code_authentication,prompt1,APROVADO,2,73.26,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,,azure_app_device_code_authentication.yml,azure_app_device_code_authentication_prompt1.yml,azure_app_device_code_authentication_prompt1.parecer.txt
+2 azure_app_device_code_authentication,prompt2,APROVADO,4,92.88,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,azure_app_device_code_authentication.yml,azure_app_device_code_authentication_prompt2.yml,azure_app_device_code_authentication_prompt2.parecer.txt
+2 azure_app_device_code_authentication,prompt3,REPROVADO,4,85.44,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 16, column 25:
+        properties.message: |contains Device code flow
+                            ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 16, column 26:
+        properties.message: |contains Device code flow
+                             ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 16, column 25:
+        properties.message: |contains Device code flow
+                            ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 16, column 26:
+        properties.message: |contains Device code flow
+                             ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used appropriately, but the syntax should be 'properties.message|contains Device code flow' instead of 'properties.message: |contains Device code flow'. The latter ... | structure[WARN]: Missing required fields such as 'tags' should be an array (e.g., tags: ['attack.t1092.004']). Additionally, the date format could use ISO 8601 standardization for consistency.",azure_app_device_code_authentication.yml,azure_app_device_code_authentication_prompt3.yml,azure_app_device_code_authentication_prompt3.parecer.txt
+3 zeek_susp_kerberos_rc4,prompt1,REPROVADO,4,85.34,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The category 'dns' might not be the best fit for Kerberoasting, which typically involves LDAP or other authentication protocols rather than DNS logs. | semantic_alignment[WARN]: The detection logic may not fully capture Kerberoasting activity since DNS logs might not contain relevant information. LDAP or other authentication-related logs would be more a...",zeek_susp_kerberos_rc4.yml,zeek_susp_kerberos_rc4_prompt1.yml,zeek_susp_kerberos_rc4_prompt1.parecer.txt
+3 zeek_susp_kerberos_rc4,prompt2,APROVADO,4,87.99,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,WARN,FAIL,WARN,PASS,,zeek_susp_kerberos_rc4.yml,zeek_susp_kerberos_rc4_prompt2.yml,zeek_susp_kerberos_rc4_prompt2.parecer.txt
+3 zeek_susp_kerberos_rc4,prompt3,APROVADO,4,83.55,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,FAIL,WARN,FAIL,PASS,,zeek_susp_kerberos_rc4.yml,zeek_susp_kerberos_rc4_prompt3.yml,zeek_susp_kerberos_rc4_prompt3.parecer.txt
+4 posh_ps_modify_group_policy_settings,prompt1,APROVADO,3,80.54,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,posh_ps_modify_group_policy_settings.yml,posh_ps_modify_group_policy_settings_prompt1.yml,posh_ps_modify_group_policy_settings_prompt1.parecer.txt
+4 posh_ps_modify_group_policy_settings,prompt2,APROVADO,4,83.52,True,texto_livre,False,APROVADO,REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,,posh_ps_modify_group_policy_settings.yml,posh_ps_modify_group_policy_settings_prompt2.yml,posh_ps_modify_group_policy_settings_prompt2.parecer.txt
+4 posh_ps_modify_group_policy_settings,prompt3,REPROVADO,4,108.53,True,texto_livre,False,Etapa 2 falhou - faltou campo obrigatório: 'detection',REJECTED,FAIL,PASS,WARN,PASS,FAIL,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'detection' || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category should be 'ps_script' as specified in the threat description, not 'registry_event'. Additionally, PowerShell Script Block Logging must be enabled. | condition[WARN]: The condition uses 'all of' logic incorrectly. It should be checking if either all options disabling preferences OR all other default actions allow conditions are met, not both ... | semantic_alignment[FAIL]: The rule is designed to detect modifications to Windows Defender settings rather than Group Policy settings. The detection logic does not align with the stated threat of tamperi...",posh_ps_modify_group_policy_settings.yml,posh_ps_modify_group_policy_settings_prompt3.yml,posh_ps_modify_group_policy_settings_prompt3.parecer.txt
+5 win_firewall_as_add_rule_wmiprvse,prompt1,APROVADO,1,68.35,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,,win_firewall_as_add_rule_wmiprvse.yml,win_firewall_as_add_rule_wmiprvse_prompt1.yml,win_firewall_as_add_rule_wmiprvse_prompt1.parecer.txt
+5 win_firewall_as_add_rule_wmiprvse,prompt2,REPROVADO,4,96.39,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",REJECTED,FAIL,WARN,FAIL,WARN,FAIL,WARN,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/REJECTED] logsource[FAIL]: The log source service should be 'firewall-as' as specified, but the rule uses an incorrect or unspecified value. | modifiers[WARN]: The modifier |contains is used for paths that are not necessarily path fragments (e.g., full system paths). It should use suffix matches like |endswith to avoid trivial bypasses. | condition[FAIL]: The condition logic does not correctly implement the requirement of detecting 'Allow' rules. The filter_main_block is incorrectly defined and does not align with the detection c... | structure[WARN]: The rule lacks some required fields such as 'falsepositives', which should be included for completeness. | semantic_alignment[FAIL]: The detection logic does not accurately capture the threat of adding an 'Allow' firewall rule by WmiPrvSE.EXE. The condition and filter_main_block do not align with the specifie... | invented_filters[WARN]: The filters for ApplicationPath include paths that are not mentioned in the threat description, which may introduce false positives or unnecessary complexity.",win_firewall_as_add_rule_wmiprvse.yml,win_firewall_as_add_rule_wmiprvse_prompt2.yml,win_firewall_as_add_rule_wmiprvse_prompt2.parecer.txt
+5 win_firewall_as_add_rule_wmiprvse,prompt3,REPROVADO,4,81.59,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 16, column 3:
+      ApplicationPath = 'WmiPrvSE.exe'
+      ^
+could not find expected ':'
+  in ""<unicode string>"", line 17, column 3:
+      ModifyingApplication = 'WmiPrvSE ... 
+      ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,PASS,WARN,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 16, column 3:
+      ApplicationPath = 'WmiPrvSE.exe'
+      ^
+could not find expected ':'
+  in ""<unicode string>"", line 17, column 3:
+      ModifyingApplication = 'WmiPrvSE ... 
+      ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: Exact match is used for process names, but the spec suggests using path-suffix matches to avoid trivial bypass. However, exact matching may still be effective in this context. | invented_filters[WARN]: Optional filters are added to exclude certain paths and processes that may not be relevant based on the threat description. However, these should be validated further for their ...",win_firewall_as_add_rule_wmiprvse.yml,win_firewall_as_add_rule_wmiprvse_prompt3.yml,win_firewall_as_add_rule_wmiprvse_prompt3.parecer.txt
+6 huawei_bgp_auth_failed,prompt1,APROVADO,3,81.69,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,,huawei_bgp_auth_failed.yml,huawei_bgp_auth_failed_prompt1.yml,huawei_bgp_auth_failed_prompt1.parecer.txt
+6 huawei_bgp_auth_failed,prompt2,APROVADO,3,79.71,True,texto_livre,False,APROVADO,REJECTED,FAIL,FAIL,PASS,WARN,FAIL,PASS,,huawei_bgp_auth_failed.yml,huawei_bgp_auth_failed_prompt2.yml,huawei_bgp_auth_failed_prompt2.parecer.txt
+6 huawei_bgp_auth_failed,prompt3,REPROVADO,4,84.97,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1090: Remote Services, as BGP hijack ... 
+                                         ^)",REJECTED,FAIL,WARN,FAIL,PASS,FAIL,WARN,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1090: Remote Services, as BGP hijack ... 
+                                         ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category 'network_connection' is not appropriate for BGP authentication failures. The correct category should be related to routing or bgp logs. | modifiers[WARN]: |contains is used but the specific keywords ('Huawei', 'BGP') may not accurately represent all possible indicators of a BGP auth failure in Huawei logs. | condition[FAIL]: The condition logic is incorrect. It should use '|all' modifier to ensure that both conditions must co-occur, as per the requirement. | semantic_alignment[FAIL]: The detection logic does not accurately reflect the threat. It should focus on BGP protocol markers and auth failure error signatures, not specific keywords like 'Huawei' or 'BGP'. | invented_filters[WARN]: Filters for 'BGP_key' and 'password' fields are invented without basis in the threat description. The rule should use keyword matching on raw log content instead.",huawei_bgp_auth_failed.yml,huawei_bgp_auth_failed_prompt3.yml,huawei_bgp_auth_failed_prompt3.parecer.txt
+7 rpc_firewall_printing_lateral_movement,prompt1,REPROVADO,4,108.63,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 10:
+      Image: |contains
+             ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 11:
+      Image: |contains
+              ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 10:
+      Image: |contains
+             ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 11:
+      Image: |contains
+              ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used correctly for path fragments. However, modifiers are not necessary for exact matches which were specified in the rule. | structure[WARN]: All required fields are present, but service_name should be under detection rather than logsource for clarity.",rpc_firewall_printing_lateral_movement.yml,rpc_firewall_printing_lateral_movement_prompt1.yml,rpc_firewall_printing_lateral_movement_prompt1.parecer.txt
+7 rpc_firewall_printing_lateral_movement,prompt2,APROVADO,3,75.84,True,cve,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,rpc_firewall_printing_lateral_movement.yml,rpc_firewall_printing_lateral_movement_prompt2.yml,rpc_firewall_printing_lateral_movement_prompt2.parecer.txt
+7 rpc_firewall_printing_lateral_movement,prompt3,REPROVADO,4,81.05,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 4, column 9:
+    author: @your_handle
+            ^)",REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 4, column 9:
+    author: @your_handle
+            ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category is incorrectly set to 'file_event' instead of the required 'application'. Additionally, the product should be 'rpc_firewall', not 'windows'. | structure[WARN]: Missing required fields such as 'id' and 'description'. Additionally, the title should be more descriptive of the threat being detected. | semantic_alignment[FAIL]: The detection logic targets Windows file events rather than RPC interface invocations. It does not align with the requirement to detect remote RPC calls abusing MS-RPRN and MS-P...",rpc_firewall_printing_lateral_movement.yml,rpc_firewall_printing_lateral_movement_prompt3.yml,rpc_firewall_printing_lateral_movement_prompt3.parecer.txt
+8 registry_set_change_security_zones,prompt1,APROVADO,3,90.44,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,registry_set_change_security_zones.yml,registry_set_change_security_zones_prompt1.yml,registry_set_change_security_zones_prompt1.parecer.txt
+8 registry_set_change_security_zones,prompt2,APROVADO,3,85.84,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,FAIL,WARN,FAIL,PASS,,registry_set_change_security_zones.yml,registry_set_change_security_zones_prompt2.yml,registry_set_change_security_zones_prompt2.parecer.txt
+8 registry_set_change_security_zones,prompt3,REPROVADO,4,88.52,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule falsepositives must be a list",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,FAIL,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule falsepositives must be a list || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used for both TargetObject and Details, but it's not clear if this is appropriate for all cases. The spec suggests using |endswith or |startswith for terminal token... | structure[WARN]: The rule includes an additional condition related to JavaScript persistence, which was not specified in the original threat description. This might be considered an extension ra... | invented_filters[FAIL]: The rule includes a condition related to JavaScript persistence which is not mentioned in the original threat description. This introduces an invented filter that has no basis i...",registry_set_change_security_zones.yml,registry_set_change_security_zones_prompt3.yml,registry_set_change_security_zones_prompt3.parecer.txt
+9 app_sqlinjection_errors,prompt1,REPROVADO,4,79.69,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 22:
+    Here is the YAML rule:
+                         ^)",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 22:
+    Here is the YAML rule:
+                         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source is specified as 'process_creation', but SQL injection errors are more likely to appear in application or database logs rather than process creation events. | structure[WARN]: The rule structure is mostly correct, but it lacks a reference to ATT&CK techniques which should be included.",app_sqlinjection_errors.yml,app_sqlinjection_errors_prompt1.yml,app_sqlinjection_errors_prompt1.parecer.txt
+9 app_sqlinjection_errors,prompt2,REPROVADO,4,101.4,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,PASS,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The category 'file_event' is not the most appropriate for application logs containing SQL error messages. The correct category should be 'application'. However, this does not si...",app_sqlinjection_errors.yml,app_sqlinjection_errors_prompt2.yml,app_sqlinjection_errors_prompt2.parecer.txt
+9 app_sqlinjection_errors,prompt3,APROVADO,3,84.44,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,app_sqlinjection_errors.yml,app_sqlinjection_errors_prompt3.yml,app_sqlinjection_errors_prompt3.parecer.txt

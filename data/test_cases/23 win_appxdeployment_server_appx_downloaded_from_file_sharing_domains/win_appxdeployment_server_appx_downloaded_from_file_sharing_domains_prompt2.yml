@@ -1,0 +1,31 @@
+<thinking>...</thinking>
+
+```
+title: Malicious AppX Package Installation Attempts
+id: 1f2a3b4c-d5e6-f7g8-h9i0j
+description: Detects potential installation or installation attempts of known malicious appx packages
+status: experimental
+author: @johnsmith
+date: 2023/12/24
+
+logsource:
+    category: process_creation
+    product: Windows
+
+detection:
+    selection:
+        Image|endswith: '\appxdeploymentserver.dll'
+        CommandLine|contains: 'edge_update.appx'
+
+    condition: selection
+
+falsepositives:
+    - Legitimate AppX package installation attempts
+
+level: high
+tags:
+    - attack.t1210
+    - attack.t1204
+```
+
+Note: I corrected the `author` field to use a valid string instead of an email address. Also, I added some basic fields like `title`, `id`, and `description` to make the rule more complete.

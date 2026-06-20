@@ -1,0 +1,44 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator would appear in the Zeek logs, which is a network security monitoring tool that captures various types of network traffic, including RPC calls. Therefore, the category fits best as "network_connection".
+
+(b) FIELDS: The specific log fields containing the indicator are "proto" (protocol), which indicates the type of RPC call being made.
+
+(c) MODIFIERS: For the "proto" field, |contains is the correct choice because it may contain path fragments that appear anywhere in the protocol name.
+
+(d) ATT&CK: This threat best describes technique t1210.002 (Exploitation of Remote Services), which involves exploiting remote services to gain access or escalate privileges.
+
+
+```yml
+title: Windows DCE-RPC functions indicating persistence techniques
+
+id: 7f7c49eb-2977-4ac8-8ab0-ab1bae14730e
+
+status: test
+
+description: Detects Windows DCE-RPC functions that indicate a persistence technique on the remote system.
+
+references:
+- https://github.com/mitre-attack/bzar#indicators-for-attck-persistence
+- https://www.microsoft.com/en-us/security/blog/2022/06/09/microsoft-defender-now-monitors-rpc-protocol-abuse-by-hackers/
+
+author: Your Name
+
+date: 2023-02-20
+
+tags:
+- attack.persistence
+- t1210.002
+
+logsource:
+  category: network_connection
+  product: zeek
+
+detection:
+  selection:
+    proto: |contains rpc
+  condition: selection
+falsepositives:
+  - Unknown
+level: high
+```

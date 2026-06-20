@@ -1,0 +1,4 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://github.com/last-byte/PersistenceSniper
+- https://www.microsoft.com/en-us/security/blog/2025/03/06/malvertising-campaign-leads-to-info-stealers-hosted-on-github/
+- https://github.com/redcanaryco/atomic-red-team/blob/5ede8f21e42ebe37e0a6eff757dba60bcfa85859/atomics/T1547.001/T1547.001.md

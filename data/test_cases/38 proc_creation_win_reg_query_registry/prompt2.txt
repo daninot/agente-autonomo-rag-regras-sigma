@@ -1,0 +1,22 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Registry reconnaissance via reg.exe — adversaries query sensitive registry
+keys to gather credentials, persistence mechanisms, installed software, and
+service configurations.
+
+# Target environment
+- Product: windows; log source category: process_creation
+- Detection requires THREE selections combined with AND (all of selection_*):
+  (a) process is reg.exe — match both Image path and OriginalFileName to
+      cover renamed binaries;
+  (b) command line contains the query subcommand;
+  (c) command line targets sensitive registry paths related to run keys,
+      services, shell loading, policies, and logon configuration.
+
+# References
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1012/T1012.md
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

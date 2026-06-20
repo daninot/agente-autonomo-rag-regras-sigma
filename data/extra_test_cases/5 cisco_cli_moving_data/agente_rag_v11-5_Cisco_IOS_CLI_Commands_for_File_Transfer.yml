@@ -1,0 +1,25 @@
+title: Cisco IOS CLI Commands for File Transfer
+id: 0f859f70-7e10-4310-8527-a9499ccbd467
+status: stable
+description: Detects use of Cisco IOS CLI commands that move data onto or off the device — file transfer and archive operations.
+references:
+    - None
+author: Your Name
+date: 2023-02-20
+tags:
+    - attack.command-and-control
+    - attack.t1105
+logsource:
+    product: cisco
+    service: aaa
+detection:
+    keywords:
+        - 'copy'
+        - 'archive'
+        - 'tftp'
+        - 'rcp'
+        - 'file transfer'
+    condition: 1 of keywords
+falsepositives:
+    - Unknown
+level: high

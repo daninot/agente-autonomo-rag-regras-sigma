@@ -1,0 +1,29 @@
+<thinking>...</thinking>
+
+The LOGSOURCE category that fits best is "dns" because the indicator of the threat (Kerberoasting) would appear in DNS logs related to service account password changes or authentication attempts.
+
+The FIELDS that contain the indicator of the threat are likely related to service accounts, passwords, and authentication. Specifically, fields such as "service_account", "password", "expiration", and "authentication" might be relevant.
+
+For each field, |contains is a suitable choice because it allows for partial matches, which can help detect indicators of Kerberoasting activity even if the exact phrase is not present in the log entry.
+
+The ATT&CK technique that best describes this threat is t1208.1 (Kerberoasting).
+
+Here is the YAML rule:
+
+```
+logsource:
+  product: Active Directory
+  category: dns
+
+selection:
+  service_account|contains:
+    - Kerberoast
+    - Kerberoasting
+  password|contains:
+    - expiration
+    - authentication
+  authentication|contains:
+    - service account
+
+condition: selection
+```

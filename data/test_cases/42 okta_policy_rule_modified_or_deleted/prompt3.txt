@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect modification or deletion of an Okta policy
+rule — attackers with admin access may weaken or remove security policies
+(MFA enforcement, sign-on rules, access controls) to facilitate persistent
+access.
+
+Target product: okta; log source service: okta.
+
+Detection matches Okta system log eventType values for policy rule update and
+delete operations.
+
+References to include:
+- https://developer.okta.com/docs/reference/api/system-log/
+- https://developer.okta.com/docs/reference/api/event-types/

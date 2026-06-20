@@ -1,0 +1,26 @@
+(a) LOGSOURCE: The indicator of the threat would appear in a file event log, as it involves the deletion of files. Therefore, the category that fits best is "file_event".
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to the deleted files, such as "TargetFilename" or similar.
+
+(c) MODIFIERS: Since we're looking for a file path, |startswith would be the correct choice. This will match any file paths that start with the specified directory.
+
+(d) ATT&CK: The technique that best describes this threat is Defense Evasion (TA0005), as it involves deleting files to evade detection or destroy forensic evidence.
+
+YAML rule:
+
+title: PowerShell History File Deletion
+id: a4c442d6-d9d9-4e4d-9fe6-24d18a6a7d82
+status: test
+description: Detects the deletion of PowerShell history files, which may indicate an attempt to evade detection or destroy forensic evidence.
+references:
+  - https://m365internals.com/2022/10/07/hunting-in-on-premises-exchange-server-logs/
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|startswith: 'C:\Users\*\\AppData\\Roaming\\Microsoft\\Windows\\PowerShell\\'
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium

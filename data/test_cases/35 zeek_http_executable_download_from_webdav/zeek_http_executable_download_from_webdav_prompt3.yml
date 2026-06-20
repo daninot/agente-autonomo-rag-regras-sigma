@@ -1,0 +1,11 @@
+title: WebDAV Remote Code Execution via URL/LNK Files
+id: a1a8fbfd-0161-4eee-9561-3d79cc5c6c92
+description: Detects executable access via the WebDAV6 tool.
+logsource:
+  category: proxy
+  product: web_server
+detection:
+  selection:
+    UserAgent|contains: webdav
+    URI|endswith: .url
+  condition: selection

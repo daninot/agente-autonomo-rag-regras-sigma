@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect potential MeshAgent execution on macOS — a
+remote access tool abused by threat actors including Medusa ransomware, who
+rename the binary to evade detection but retain its characteristic command-line
+arguments.
+
+Target product: macos; log source category: process_creation.
+
+Detection matches a specific MeshAgent command-line argument that persists
+even when the binary is renamed, using |contains on CommandLine.
+
+References to include:
+- https://www.huntress.com/blog/know-thy-enemy-a-novel-november-case-on-persistent-remote-access
+- https://thecyberexpress.com/ukraine-hit-by-meshagent-malware-campaign/
+- https://wazuh.com/blog/how-to-detect-meshagent-with-wazuh/
+- https://www.security.com/threat-intelligence/medusa-ransomware-attacks

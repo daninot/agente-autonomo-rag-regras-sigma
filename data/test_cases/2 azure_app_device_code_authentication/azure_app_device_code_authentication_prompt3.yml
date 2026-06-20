@@ -1,0 +1,33 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the signinlogs category, which is related to authentication events.
+
+FIELDS: The fields that contain the indicator of the threat are 'properties.message', which contains the message related to the device code flow.
+
+MODIFIERS: For the field 'properties.message', |contains is the correct choice because it may appear anywhere in the message.
+
+ATT&CK: The technique that best describes this threat is t1092.004, which is related to OAuth token abuse.
+
+
+```yml
+title: Device Code Flow Detection
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects device code flow exploitation in Azure signinlogs.
+references:
+  - https://learn.microsoft.com/en-us/entra/architecture/security-operations-applications#application-authentication-flows
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.t1092.004
+logsource:
+  product: azure
+  service: signinlogs
+detection:
+  selection:
+    properties.message: |contains Device code flow
+condition: selection
+falsepositives:
+  - Applications that are being used as part of automated testing or a legacy application that cannot use any other modern authentication flow
+level: medium
+```

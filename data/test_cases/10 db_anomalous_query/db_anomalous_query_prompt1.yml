@@ -1,0 +1,42 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator would appear in process creation events, so the category that fits best is `process_creation`.
+
+(b) FIELDS: The log fields that contain the indicator of the threat are likely to be `Image` and/or `CommandLine`, as they typically hold information about the executed process and its command line arguments.
+
+(c) MODIFIERS: Since we're looking for a specific string pattern, exact match is the correct choice. However, considering the context of the user request, it's more likely that we're dealing with a path or file name, so `|contains` might be a better option.
+
+(d) ATT&CK: The technique that best describes this threat is not explicitly mentioned in the user request, but based on the provided information, it seems to be related to code execution and potential privilege escalation. Therefore, I'll assume `t1055` (Server Software Component: Web Shell) as a possible match.
+
+Here's the YAML rule:
+
+```yml
+title: Suspicious Code Execution via SQLMap
+
+id: 12345678-1234-5678-9012-345678901234
+
+status: test
+
+description: Detects suspicious code execution via SQLMap
+
+references:
+  - https://github.com/sqlmapproject/sqlmap
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    Image|contains: 'sqlmap'
+    CommandLine|contains: 'sqlmap'
+
+condition: selection
+
+falsepositives:
+  - Unknown
+
+level: high
+```
+
+Please note that this is a basic rule and might need to be adjusted based on the specific requirements of your environment. Additionally, it's essential to test and validate any new rules before deploying them in production.

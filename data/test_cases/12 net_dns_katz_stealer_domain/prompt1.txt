@@ -1,0 +1,1 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) that detects DNS queries to domains associated with Katz Stealer malware. Katz Stealer is a malware variant that is known to be used for stealing sensitive information from compromised systems. In Enterprise environments, DNS queries to these domains may indicate potential malicious activity or compromise.

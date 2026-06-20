@@ -1,0 +1,35 @@
+======================================================================
+RELATÓRIO DE UNIFICAÇÃO DE METADADOS
+Gerado em: 2026-06-19 01:15:51
+======================================================================
+
+Arquivos de entrada: 5
+  [lote 1] metadados_geracao_1.csv
+  [lote 2] metadados_geracao_2.csv
+  [lote 3] metadados_geracao_3.csv
+  [lote 4] metadados_geracao_4.csv
+  [lote 5] metadados_geracao_5.csv
+
+Total de linhas no DataFrame unificado: 150
+Cenários únicos:                       50
+Prompts distintos:                     ['prompt1', 'prompt2', 'prompt3']
+
+Distribuição de `status`:
+  APROVADO               75   ( 50.0%)
+  REPROVADO              75   ( 50.0%)
+
+Distribuição de `veredito_juiz` (parecer do nó 6):
+  APPROVED_WITH_WARNINGS           95   ( 63.3%)
+  REJECTED                         40   ( 26.7%)
+  APPROVED                         12   (  8.0%)
+  (vazio)                           3   (  2.0%)
+
+Distribuição de linhas por lote:
+  lote 1: 30 linhas
+  lote 2: 30 linhas
+  lote 3: 30 linhas
+  lote 4: 30 linhas
+  lote 5: 30 linhas
+
+INTEGRIDADE: OK (nenhum problema detectado).
+======================================================================

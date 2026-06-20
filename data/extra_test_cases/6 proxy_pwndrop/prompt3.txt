@@ -1,0 +1,11 @@
+Generate a SIGMA rule to detect downloads from PwnDrp servers — a self-hosted
+file delivery platform built for red team operations but abused by threat
+actors to stage and distribute payloads.
+
+Log source category: proxy.
+
+Detection matches proxy URIs containing the characteristic PwnDrp path
+fragment using |contains.
+
+References to include:
+- https://breakdev.org/pwndrop/

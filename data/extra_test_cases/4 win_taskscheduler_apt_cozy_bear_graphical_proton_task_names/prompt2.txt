@@ -1,0 +1,24 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Creation, update, or deletion of scheduled tasks with names previously observed
+in SVR (Cozy Bear / APT29) operations using the GraphicalProton backdoor.
+The tasks masquerade as Microsoft Defender, Windows Update, and other
+legitimate system maintenance components.
+
+# Target environment
+- Product: windows; log source service: taskscheduler
+- Requires the "Microsoft-Windows-TaskScheduler/Operational" log to be
+  enabled — document this in the rule.
+- Detection matches Task Scheduler EventIDs for task creation/update/deletion
+  (129, 140, 141) combined with a comprehensive list of known SVR task names
+  — these impersonate Defender services, Windows Update components,
+  Application Experience tasks, Error Reporting, and similar legitimate
+  Microsoft scheduled tasks (per CISA advisory AA23-347A).
+
+# References
+- https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

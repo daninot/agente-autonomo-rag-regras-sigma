@@ -1,0 +1,21 @@
+Generate a SIGMA rule to detect creation or renaming of a Windows user account
+whose name contains the '$' character — a stealth technique mimicking machine
+accounts to hide the account or evade detections that don't parse the suffix.
+
+Target product: windows; log source service: security.
+
+Detection combines TWO alternative selections (OR via 1 of selection_*):
+(a) account creation EventID with SamAccountName containing '$';
+(b) account rename EventID with NewTargetUserName containing '$'.
+
+EXCLUDE the legitimate HomeGroupUser$ built-in account on the creation event
+via a filter_main_* block.
+
+Condition: `1 of selection_* and not 1 of filter_main_*`.
+
+References to include:
+- https://twitter.com/SBousseaden/status/1387743867663958021
+
+
+
+Padrão interessante de selections com campos diferentes entre elas (SamAccountName no 4720 vs NewTargetUserName no 4781) — porque o esquema de log da Microsoft usa campos distintos para o nome do alvo dependendo do tipo de evento. Sinalizei os dois campos explicitamente; sem isso, o agente provavelmente usaria o mesmo campo para ambos os EventIDs (com SamAccountName para 4781, a regra simplesmente não casa nada).

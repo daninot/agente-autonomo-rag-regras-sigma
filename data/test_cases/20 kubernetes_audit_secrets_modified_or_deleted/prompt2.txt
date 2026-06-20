@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Modification or deletion of Kubernetes Secrets — an attacker with sufficient
+RBAC permissions may create, alter, or destroy secrets to steal credentials,
+plant malicious values, or cover their tracks.
+
+# Target environment
+- Product: kubernetes; log source service: audit
+- Detection matches audit events targeting the secrets resource, covering all
+  mutating API verbs (creation, deletion, and update variants).
+
+# References
+- https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/
+- https://commandk.dev/blog/guide-to-audit-k8s-secrets-for-compliance/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

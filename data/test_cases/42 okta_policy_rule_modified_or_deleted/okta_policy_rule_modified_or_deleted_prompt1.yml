@@ -1,0 +1,37 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is "registry_event" because the indicator of the threat appears in the Okta System Log API logs, which are related to system occurrences.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to event types and release notes. For example, the field "eventType" might contain values like "oie-only", "event-hook-eligible", etc., while the field "releaseNotes" might contain version numbers like "2026.07.0".
+
+(c) MODIFIERS: Since we're looking for specific event types and release notes, exact match is likely the correct choice.
+
+(d) ATT&CK: The technique that best describes this threat is t1048 (Server Software Component: Web Server), as it involves potential information disclosure through API documentation.
+
+
+```yml
+title: Potential Information Disclosure Through API Documentation
+
+logsource:
+  category: registry_event
+  product: okta_system_log_api
+
+detection:
+  selection:
+    eventType:
+      - oie-only
+      - event-hook-eligible
+    releaseNotes:
+      - 2026.07.0
+      - 2024.08.3
+  condition: selection
+
+falsepositives:
+  unknown
+
+level: medium
+
+references:
+  - https://developer.okta.com/docs/reference/api/system-log/
+  - https://developer.okta.com/docs/reference/api/event-types/
+```

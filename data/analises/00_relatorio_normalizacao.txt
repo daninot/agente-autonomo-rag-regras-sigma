@@ -1,0 +1,23 @@
+RELATÓRIO DE NORMALIZAÇÃO DE TAGS MITRE ATT&CK
+======================================================================
+
+Mapa aplicado:
+  stealth → defense-evasion
+  defense-impairment → defense-evasion
+
+14 regra(s) tiveram tag normalizada (total de 14 normalizações):
+
+  file_delete_win_delete_exchange_powershell_logs.yml: stealth → defense-evasion
+  opencanary_ssh_login_attempt.yml: stealth → defense-evasion
+  azure_app_device_code_authentication.yml: stealth → defense-evasion
+  av_exploit_cve_2021_34527_print_nightmare.yml: stealth → defense-evasion
+  microsoft365_new_federated_domain_added_audit.yml: defense-impairment → defense-evasion
+  win_appxdeployment_server_appx_downloaded_from_file_sharing_domains.yml: stealth → defense-evasion
+  posh_pm_invoke_obfuscation_stdin.yml: stealth → defense-evasion
+  image_load_susp_clickonce_unsigned_module_loaded.yml.yml: stealth → defense-evasion
+  posh_ps_modify_group_policy_settings.yml: defense-impairment → defense-evasion
+  cisco_duo_mfa_bypass_via_bypass_code.yml: stealth → defense-evasion
+  file_rename_win_non_dll_to_dll_ext.yml: stealth → defense-evasion
+  net_connection_win_silenttrinity_stager_msbuild_activity.yml: stealth → defense-evasion
+  win_firewall_as_add_rule_wmiprvse.yml: defense-impairment → defense-evasion
+  huawei_bgp_auth_failed.yml: stealth → defense-evasion

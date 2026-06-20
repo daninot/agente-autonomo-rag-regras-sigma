@@ -1,0 +1,14 @@
+title: Process Injection via DLL Loading
+id: 635e9cd8-8e45-4038-9ff2-1a88c1edb3bb
+description: Detects process injection via DLL loading
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ImageLoaded: '*\\dll.dll'
+    ParentProcessName: 'svchost.exe'
+    NewProcessName: '*\\svchost.exe'
+  condition: ImageLoaded and (ParentProcessName = 'svchost.exe' or NewProcessName = '*\\svchost.exe')
+references:
+  - https://attack.mitre.org/techniques/T1055/

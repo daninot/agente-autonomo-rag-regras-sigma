@@ -1,0 +1,21 @@
+title: Internet Explorer Security Zones Registry Modification
+id: 472404d6-7d93-4359-8a1b-0474dc695a4b
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection_set_1:
+    TargetObject = '*\Software\Policies\Microsoft\Windows\Safer\CodeGroup'
+    Details = 'DWORD (0x00000001)'
+  condition: 1 of selection_set_1
+
+falsepositives:
+  - Legitimate admin script
+
+level: medium
+
+references:
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1112/T1112.md#atomic-test-4---add-domain-to-trusted-sites-zone
+  - https://learn.microsoft.com/en-us/troubleshoot/developer/browsers/security-privacy/ie-security-zones-registry-entries

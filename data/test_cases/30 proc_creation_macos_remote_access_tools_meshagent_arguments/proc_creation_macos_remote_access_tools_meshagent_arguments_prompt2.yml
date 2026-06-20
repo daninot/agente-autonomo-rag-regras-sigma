@@ -1,0 +1,12 @@
+title: Remote Access Tool - Potential MeshAgent Execution - MacOS
+id: de7ac4a0-da7f-40e4-966c-bf2c9af99aed
+logsource:
+    category: process_creation
+    product: MacOS
+detection:
+    selection:
+        process_name: |-
+            /usr/bin/meshagent
+        command_line: |-
+            --meshServiceName
+    condition: selection

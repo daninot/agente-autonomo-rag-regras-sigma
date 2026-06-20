@@ -1,0 +1,24 @@
+title: Suspicious SQL Query
+
+id: 252878f8-d9c5-41b4-8f1e-b085119106ad
+
+description: Detects suspicious SQL query keywords that are often used during recon, exfiltration or destructive activities.
+
+references:
+  - https://github.com/sqlmapproject/sqlmap
+  - https://www.splunk.com/en_us/blog/security/sinister-sql-queries-and-how-to-catch-them.html
+
+tags:
+  - attack.t1090
+
+logsource:
+  category: database
+  product: sqlserver
+
+detection:
+  selection_query:
+    query = 'DROP TABLE'
+    query = 'SELECT * FROM'
+    query = 'INSERT INTO'
+
+  condition: all of selection_query

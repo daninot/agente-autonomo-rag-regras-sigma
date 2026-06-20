@@ -1,0 +1,24 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+BGP authentication failures on a Huawei network device — potentially
+indicative of brute-force attempts to hijack or manipulate routing.
+
+# Target environment
+- Product: huawei; log source service: bgp
+- Requires Huawei BGP logs to be enabled and ingested — document this in the
+  rule.
+- Logs are UNSTRUCTURED free-text (no named fields). Detection must rely on
+  keyword matching against the raw log content, requiring ALL indicators to
+  co-occur (use the SIGMA `'|all'` modifier).
+- The event is characterized by two indicators: a BGP protocol/port marker
+  and the textual error signature emitted on auth failure.
+- Brute-force against a routing protocol can span multiple MITRE ATT&CK
+  tactics — include the relevant ones.
+
+# References
+- https://www.blackhat.com/presentations/bh-usa-03/bh-us-03-convery-franz-v3.pdf
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

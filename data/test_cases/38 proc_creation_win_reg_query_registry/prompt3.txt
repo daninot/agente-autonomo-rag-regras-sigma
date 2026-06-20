@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect registry reconnaissance via reg.exe —
+adversaries query sensitive registry keys to gather credentials, persistence
+mechanisms, and service configurations.
+
+Target product: windows; log source category: process_creation.
+
+Detection requires THREE selections with AND (all of selection_*): (a) process
+is reg.exe matching both Image path and OriginalFileName to cover renamed
+binaries; (b) command line contains the query subcommand; (c) command line
+targets sensitive registry paths covering run keys, services, shell loading,
+policies, and logon configuration.
+
+References to include:
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1012/T1012.md

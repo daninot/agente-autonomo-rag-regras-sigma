@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+DNS queries to anonfiles.com from a Windows host — anonymous file sharing
+platform abused by ransomware operators (e.g., BlackByte) for data
+exfiltration and payload staging.
+
+# Target environment
+- Product: windows; log source service: dns-client
+- Requires the Microsoft-Windows-DNS Client Events/Operational log to be
+  enabled and collected — document this in the rule.
+- Detection matches the DNS Client query EventID combined with the
+  anonfiles.com domain in the QueryName field (use |contains to also catch
+  subdomains).
+
+# References
+- https://www.trendmicro.com/vinfo/us/security/news/ransomware-spotlight/ransomware-spotlight-blackbyte
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

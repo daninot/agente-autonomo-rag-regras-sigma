@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect executable downloads via WebDAV — a technique
+used in APT29 campaigns to deliver malicious binaries over WebDAV channels.
+
+Target product: zeek; log source service: http.
+
+Detection combines TWO selections with AND: (a) WebDAV indicator matching
+either user-agent or URI (OR within selection); (b) executable indicator
+matching either response MIME type or URI extension (OR within selection).
+Both must match simultaneously.
+
+References to include:
+- http://carnal0wnage.attackresearch.com/2012/06/webdav-server-to-download-custom.html
+- https://github.com/OTRF/detection-hackathon-apt29
+

@@ -1,0 +1,18 @@
+title: Phishing-Resistant MFA Authentication Events
+id: fc8a6a14-4ab4-4675-ba25-d935d12219e1
+status: test
+description: Detects authentication events related to phishing-resistant MFA
+references:
+  - https://duo.com/docs/adminapi#logs
+  - https://help.duo.com/s/article/6327?language=en_US
+logsource:
+  product: Duo Security logs or related products that monitor authentication events
+  category: proxy
+detection:
+  selection:
+    authentication_method: '*phishing-resistant*'
+    auth_type: 'MFA'
+  condition: 1 of them
+falsepositives:
+  - Unknown
+level: high

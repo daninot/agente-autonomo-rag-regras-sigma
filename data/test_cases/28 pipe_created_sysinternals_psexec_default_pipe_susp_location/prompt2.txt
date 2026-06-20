@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Creation of the default PsExec named pipe on a Windows host — indicating
+PsExec service execution, commonly used for lateral movement or remote
+command execution by both administrators and attackers.
+
+# Target environment
+- Product: windows; log source category: pipe_created
+- Requires Sysmon named pipe event logging (Event ID 17/18) to be configured
+  — document this in the rule.
+- Detection matches the specific default pipe name created by the PsExec
+  service.
+
+# References
+- https://www.jpcert.or.jp/english/pub/sr/ir_research.html
+- https://jpcertcc.github.io/ToolAnalysisResultSheet
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

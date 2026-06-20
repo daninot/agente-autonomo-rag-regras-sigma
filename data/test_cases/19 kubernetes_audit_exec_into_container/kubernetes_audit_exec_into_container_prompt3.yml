@@ -1,0 +1,47 @@
+<thinking>...</thinking>
+
+The log source category that fits best is "application" because the indicator of the threat (kubectl exec) would appear in Kubernetes audit logs.
+
+The specific log fields that contain the indicator of the threat are:
+
+* verb: contains the action performed by kubectl
+* objectRef.resource: contains the resource affected by the action (e.g. pods, containers)
+* objectRef.namespace: contains the namespace where the resource is located
+
+The correct modifiers for each field are:
+
+* |exact: for fields that contain exact values (verb and objectRef.resource)
+* |contains: not needed in this case because we're looking for exact matches
+
+The ATT&CK technique that best describes this threat is t1055.005 (Exec into container).
+
+</thinking>
+
+```yml
+title: Exec into Container via kubectl exec
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects execution of code in a container using kubectl exec
+references:
+  - https://microsoft.github.io/Threat-Matrix-for-Kubernetes/techniques/Exec%20into%20container/
+author: [Your Name]
+date: 2024-09-01
+tags:
+  - attack.execution
+  - attack.t1055.005
+
+logsource:
+  category: application
+  product: kubernetes
+
+detection:
+  selection:
+    verb|exact: 'exec'
+    objectRef.resource|exact: 'pods' or 'containers'
+    objectRef.namespace|exact: '*'
+
+condition: all of selection
+falsepositives:
+  - Unknown
+level: high
+```

@@ -1,0 +1,27 @@
+title: Masquerading - Renaming System Utilities
+id: 54c9c7af-6257-4276-a692-50ad0c00759c
+
+logsource:
+  category: file_event
+  product: windows
+
+detection:
+  selection1:
+    TargetFilename|endswith:
+      - '.dat'
+      - '.jpg'
+      - '.pdf'
+      - '.exe' # added .exe to the list of extensions
+  filter_main_localassembly:
+    TargetFilename|contains: '\AppData\Local\assembly\tmp\'
+    TargetFilename|endswith: '.dll'
+  condition: all of selection* and not 1 of filter_main_*
+
+falsepositives:
+  - Unknown
+
+level: high
+
+references:
+  - https://twitter.com/ffforward/status/1481672378639912960
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1036/T1036.md#atomic-test-1---system-file-copied-to-unusual-location

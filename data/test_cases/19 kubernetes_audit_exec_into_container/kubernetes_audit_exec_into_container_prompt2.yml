@@ -1,0 +1,35 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the Kubernetes audit log, which is an application-level log. Therefore, the category that fits best is "application".
+
+FIELDS: The fields that contain the indicator of the threat are likely to be related to the execution of commands on pods, such as `verb`, `objectRef.resource`, and possibly others.
+
+MODIFIERS: For each field, |contains would be the correct choice because we're looking for indicators that may appear anywhere in the log entry.
+
+ATT&CK: The technique that best describes this threat is t1609 (Execution).
+
+<yaml>
+id: 12345678-1234-5678-9012-345678901234
+title: Exec commands on Kubernetes pods with root access
+status: test
+description: Detects execution of commands on Kubernetes pods with root access.
+references:
+  - https://microsoft.github.io/Threat-Matrix-for-Kubernetes/techniques/Exec%20into%20container/
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.execution
+  - t1609
+logsource:
+  category: application
+  product: kubernetes
+  service: audit
+detection:
+  selection:
+    verb: 'exec'
+    objectRef.resource: 'pods'
+  condition: selection
+falsepositives:
+  - Authorized administrative maintenance via kubectl
+level: medium
+</yaml>

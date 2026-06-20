@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect suspicious SQL query keywords associated with
+reconnaissance, exfiltration, or destructive activity against databases —
+including operations like dropping tables, truncating data, dumping contents,
+or wildcard selection.
+
+Log source category: database. Requires SQL query logging to be enabled —
+document this in the rule.
+
+Detection uses keyword matching against logged SQL queries.
+
+References to include:
+- https://github.com/sqlmapproject/sqlmap

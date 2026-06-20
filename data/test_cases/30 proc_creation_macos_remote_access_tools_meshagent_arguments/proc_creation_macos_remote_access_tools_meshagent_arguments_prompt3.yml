@@ -1,0 +1,28 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The best category for this threat is `process_creation` because the indicator of the threat (MeshAgent binary) would appear in process creation logs.
+
+(b) FIELDS: The relevant log fields are `image_loaded` and `command_line`.
+
+(c) MODIFIERS: For the `image_loaded` field, we should use `exact match` to detect the exact name of the MeshAgent binary. For the `command_line` field, we should use `|contains` to detect the presence of the `--meshServiceName` argument.
+
+(d) ATT&CK: The technique that best describes this threat is `T1210 - Exploit Remote Services`.
+
+```yml
+title: Detect potential MeshAgent execution
+
+logsource:
+  product: *
+  category: process_creation
+
+detection:
+  selection:
+    image_loaded: '*MeshAgent*'
+    command_line: '--meshServiceName'
+
+references:
+  - https://www.huntress.com/blog/know-thy-enemy-a-novel-november-case-on-persistent-remote-access
+  - https://thecyberexpress.com/ukraine-hit-by-meshagent-malware-campaign/
+  - https://wazuh.com/blog/how-to-detect-meshagent-with-wazuh/
+  - https://www.security.com/threat-intelligence/medusa-ransomware-attacks
+```

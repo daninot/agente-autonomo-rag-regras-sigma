@@ -1,0 +1,38 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in application logs, so the best category is "application". This makes sense because Spring Security errors are typically logged at the application level.
+
+FIELDS: The relevant log field is likely to be the exception message or class name, which contains the indicator of the threat. We can use |contains for this purpose.
+
+MODIFIERS: Since we're looking for a specific string within the exception message or class name, exact match is not necessary. However, using |contains will allow us to capture cases where the string appears anywhere in the log entry.
+
+ATT&CK: The technique that best describes this threat is t1190 (Exploit Public-Facing Application), as it involves exploiting a vulnerability in a publicly-facing application.
+
+---
+
+title: Potential Spring Security Exploitation Attempt
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects potential exploitation attempts of Spring Security vulnerabilities.
+references:
+    - https://docs.spring.io/spring-security/site/docs/current/api/overview-tree.html
+author: [Your Name]
+date: 2023-02-26
+tags:
+    - attack.initial-access
+    - attack.t1190
+logsource:
+    category: application
+    product: spring
+detection:
+    keywords:
+        - 'org.springframework.security.access'
+        - 'org.springframework.security.authentication'
+        - 'org.springframework.security.authorization'
+        - 'org.springframework.security.acls'
+        - 'ExpressionException'
+        - 'CSRFError'
+    condition: keywords
+falsepositives:
+    - Unknown
+level: medium

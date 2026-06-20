@@ -1,0 +1,4 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack
+- https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains
+- https://semgrep.dev/blog/2025/digging-for-secrets-sha1-hulud-the-second-coming-of-the-npm-worm/

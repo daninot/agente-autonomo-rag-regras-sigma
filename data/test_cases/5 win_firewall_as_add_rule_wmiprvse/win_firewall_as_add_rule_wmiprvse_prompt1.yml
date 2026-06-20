@@ -1,0 +1,31 @@
+title: Potential Rhysida Ransomware Activity
+id: 20b7beec-36b4-4305-94c6-c6c7f4837132
+status: test
+description: Detects specific process characteristics of Rhysida ransomware
+references:
+  - https://malware.news/t/the-rhysida-ransomware-activity-analysis-and-ties-to-vice-society/72170
+author: Furkan Caliskan (@caliskanfurkan_)
+date: 2023-02-21
+modified: 2023-02-21
+tags:
+  - attack.execution
+  - attack.t1562
+logsource:
+  category: process_creation
+  product: Check Point
+detection:
+  selection:
+    Image|endswith:
+      - '\rhysida.exe'
+      - '\vice_society.exe'
+    CommandLine|contains|all:
+      - '-m '
+      - '-net '
+      - '-size ' # Size 10 in references
+      - '-nomutex '
+      - '-p \\\\'
+      - '$'
+  condition: selection
+falsepositives:
+  - Unlikely
+level: critical

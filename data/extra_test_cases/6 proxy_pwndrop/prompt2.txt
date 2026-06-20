@@ -1,0 +1,18 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Downloads from PwnDrp servers — a self-hosted file delivery platform built
+for red team operations but commonly abused by threat actors to stage and
+distribute payloads.
+
+# Target environment
+- Log source category: proxy
+- Detection matches proxy URIs containing the characteristic PwnDrp path
+  fragment using |contains.
+
+# References
+- https://breakdev.org/pwndrop/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

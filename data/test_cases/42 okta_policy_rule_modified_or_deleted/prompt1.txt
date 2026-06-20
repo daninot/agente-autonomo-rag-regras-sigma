@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://developer.okta.com/docs/reference/api/system-log/
+- https://developer.okta.com/docs/reference/api/event-types/

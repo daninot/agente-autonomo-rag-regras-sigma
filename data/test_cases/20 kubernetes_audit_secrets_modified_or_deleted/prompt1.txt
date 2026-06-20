@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://kubernetes.io/docs/reference/config-api/apiserver-audit.v1/
+- https://commandk.dev/blog/guide-to-audit-k8s-secrets-for-compliance/

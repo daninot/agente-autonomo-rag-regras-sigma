@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://www.jpcert.or.jp/english/pub/sr/ir_research.html
+- https://jpcertcc.github.io/ToolAnalysisResultSheet

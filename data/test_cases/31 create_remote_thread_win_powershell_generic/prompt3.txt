@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect remote thread creation from a PowerShell
+process into another process — a code injection technique used to execute
+shellcode or migrate into other processes.
+
+Target product: windows; log source category: create_remote_thread.
+
+Detection matches events where the source process is PowerShell (both Windows
+PowerShell and PowerShell Core) using |endswith on the source image field.
+Exclude legitimate noise: threads originating from PowerShell when its parent
+is the Windows compatibility telemetry runner. Use
+`selection and not 1 of filter_main_*` as the condition.
+
+References to include:
+- https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse

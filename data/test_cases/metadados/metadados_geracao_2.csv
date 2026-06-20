@@ -1,0 +1,105 @@
+cenario_id,prompt_usado,status,tentativas,tempo_total_s,usou_web_search,tipo_input,contexto_pobre,erro_validacao_final,veredito_juiz,juiz_logsource,juiz_modifiers,juiz_condition,juiz_structure,juiz_semantic_alignment,juiz_invented_filters,motivo_reprovacao,regra_referencia,arquivo_regra_gerada,arquivo_parecer
+11 file_delete_win_delete_exchange_powershell_logs,prompt1,APROVADO,2,98.37,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,file_delete_win_delete_exchange_powershell_logs.yml,file_delete_win_delete_exchange_powershell_logs_prompt1.yml,file_delete_win_delete_exchange_powershell_logs_prompt1.parecer.txt
+11 file_delete_win_delete_exchange_powershell_logs,prompt2,APROVADO,1,75.75,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,,file_delete_win_delete_exchange_powershell_logs.yml,file_delete_win_delete_exchange_powershell_logs_prompt2.yml,file_delete_win_delete_exchange_powershell_logs_prompt2.parecer.txt
+11 file_delete_win_delete_exchange_powershell_logs,prompt3,REPROVADO,4,100.1,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: `|endswith` is appropriate for matching file extensions, but it would be better to use a combination of `startswith` and `contains` to match the directory path and filename patt... | semantic_alignment[WARN]: The rule aims to detect deletion of Exchange PowerShell cmdlet history logs but does not specify a directory path or filename pattern that is typical for such logs. This may lea... | invented_filters[FAIL]: The rule lacks specific filters for the Exchange cmdlet logging directory structure and does not include a filename pattern, which has a basis in the threat description. This om...",file_delete_win_delete_exchange_powershell_logs.yml,file_delete_win_delete_exchange_powershell_logs_prompt3.yml,file_delete_win_delete_exchange_powershell_logs_prompt3.parecer.txt
+12 net_dns_katz_stealer_domain,prompt1,APROVADO,4,85.53,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,net_dns_katz_stealer_domain.yml,net_dns_katz_stealer_domain_prompt1.yml,net_dns_katz_stealer_domain_prompt1.parecer.txt
+12 net_dns_katz_stealer_domain,prompt2,APROVADO,2,75.25,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,net_dns_katz_stealer_domain.yml,net_dns_katz_stealer_domain_prompt2.yml,net_dns_katz_stealer_domain_prompt2.parecer.txt
+12 net_dns_katz_stealer_domain,prompt3,APROVADO,1,64.41,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,net_dns_katz_stealer_domain.yml,net_dns_katz_stealer_domain_prompt3.yml,net_dns_katz_stealer_domain_prompt3.parecer.txt
+13 opencanary_ssh_login_attempt,prompt1,REPROVADO,4,88.72,True,texto_livre,True,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The product field is not typically used in this way and may be better specified with a service or category that aligns more closely with the threat. | semantic_alignment[WARN]: The detection may not accurately catch the stated threat as it relies on 'hpfeeds' appearing in network connection fields, which might be too broad or specific depending on log ...",opencanary_ssh_login_attempt.yml,opencanary_ssh_login_attempt_prompt1.yml,opencanary_ssh_login_attempt_prompt1.parecer.txt
+13 opencanary_ssh_login_attempt,prompt2,REPROVADO,4,91.5,True,texto_livre,False,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: Exact match is used for logtype, but no modifier was specified. Should be |equals to ensure exact matching. | semantic_alignment[WARN]: The detection logic targets SSH_LOGIN_ATTEMPT, but ATT&CK technique t1133 (External Remote Services) is not fully aligned with the threat of SSH login attempts on a honeypot. A ...",opencanary_ssh_login_attempt.yml,opencanary_ssh_login_attempt_prompt2.yml,opencanary_ssh_login_attempt_prompt2.parecer.txt
+13 opencanary_ssh_login_attempt,prompt3,REPROVADO,4,93.79,True,texto_livre,False,"Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.stealth. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais.",APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,"[no_5_validador] Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.stealth. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais.",opencanary_ssh_login_attempt.yml,opencanary_ssh_login_attempt_prompt3.yml,opencanary_ssh_login_attempt_prompt3.parecer.txt
+14 proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21,prompt1,APROVADO,3,94.88,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt1.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt1.parecer.txt
+14 proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21,prompt2,REPROVADO,4,110.04,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 14, column 14:
+      s-content: |contains 'country' and |endswit ... 
+                 ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 14, column 15:
+      s-content: |contains 'country' and |endswith ... 
+                  ^)",APPROVED_WITH_WARNINGS,WARN,PASS,WARN,PASS,WARN,FAIL,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 14, column 14:
+      s-content: |contains 'country' and |endswit ... 
+                 ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 14, column 15:
+      s-content: |contains 'country' and |endswith ... 
+                  ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source category should be 'proxy' as per the spec, not 'webserver'. The product is correctly specified as 'tp-link', but the category needs to match the target environment. | condition[WARN]: The condition should be 'all of selection_*' as per the spec, not just 'selection'. This requires two separate selection blocks combined with AND logic. | semantic_alignment[WARN]: The detection logic does not fully align with the threat description. It should include HTTP method (GET or POST) and specific keywords indicating write operation or injection p... | invented_filters[FAIL]: The rule includes a filter for 's-content: |contains 'country' and |endswith '.py'' which has no basis in the threat description. This is an invented filter that does not align ...",proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt2.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt2.parecer.txt
+14 proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21,prompt3,REPROVADO,4,104.89,True,cve,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule falsepositives must be a list",APPROVED_WITH_WARNINGS,WARN,PASS,WARN,PASS,WARN,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule falsepositives must be a list || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source category should be 'proxy' as per the specification, not 'webserver'. The product is correctly specified. | condition[WARN]: The condition should be more specific to combine two selection blocks with AND logic, rather than a single 'selection' block. | semantic_alignment[WARN]: The current rule does not fully align with the threat description. It should detect both HTTP method (GET or POST) and specific URI fragments in combination with keywords indica...",proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt3.yml,proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21_prompt3.parecer.txt
+15 registry_event_runkey_winekey,prompt1,REPROVADO,4,89.26,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used correctly to detect specific keywords in the URL, but it may also match partial strings which could lead to false positives. | semantic_alignment[WARN]: The detection logic is likely to catch the stated threat, but it may also detect benign traffic if 'ke-tapt' or 'singlemalt' appear in legitimate URLs.",registry_event_runkey_winekey.yml,registry_event_runkey_winekey_prompt1.yml,registry_event_runkey_winekey_prompt1.parecer.txt
+15 registry_event_runkey_winekey,prompt2,APROVADO,2,74.32,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,,registry_event_runkey_winekey.yml,registry_event_runkey_winekey_prompt2.yml,registry_event_runkey_winekey_prompt2.parecer.txt
+15 registry_event_runkey_winekey,prompt3,REPROVADO,4,98.29,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block mapping
+  in ""<unicode string>"", line 18, column 5:
+        TargetObject|endswith: '\run'
+        ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 19, column 24:
+        Details: 'WINEKEY' or 'TEAM9'
+                           ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,FAIL,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block mapping
+  in ""<unicode string>"", line 18, column 5:
+        TargetObject|endswith: '\run'
+        ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 19, column 24:
+        Details: 'WINEKEY' or 'TEAM9'
+                           ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |endswith is used for TargetObject, but it should be more specific to match the exact run key path. |contains might be better if we need partial matches. | structure[WARN]: Missing fields like 'date', 'tags', and 'level'. The level should be more specific if critical is not necessary. | invented_filters[FAIL]: The rule does not specify a specific path or key name, which is necessary based on the threat description. It should include 'Software\Microsoft\Windows\CurrentVersion\Run' or s...",registry_event_runkey_winekey.yml,registry_event_runkey_winekey_prompt3.yml,registry_event_runkey_winekey_prompt3.parecer.txt
+16 appframework_django_exceptions,prompt1,REPROVADO,4,86.61,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,WARN,PASS,WARN,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The category 'webserver' is appropriate, but the product and service fields are missing which could provide more context. | condition[WARN]: The condition is simple and correct but does not specify a logical operator for combining the log levels. It should be 'or' if multiple log levels are being checked. | semantic_alignment[WARN]: The rule aims to detect logging events but does not specify which logger or specific context within Django's web application is being monitored. This could lead to a broader sco...",appframework_django_exceptions.yml,appframework_django_exceptions_prompt1.yml,appframework_django_exceptions_prompt1.parecer.txt
+16 appframework_django_exceptions,prompt2,APROVADO,4,90.41,True,texto_livre,False,APROVADO,REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,,appframework_django_exceptions.yml,appframework_django_exceptions_prompt2.yml,appframework_django_exceptions_prompt2.parecer.txt
+16 appframework_django_exceptions,prompt3,APROVADO,1,69.6,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,WARN,PASS,FAIL,PASS,,appframework_django_exceptions.yml,appframework_django_exceptions_prompt3.yml,appframework_django_exceptions_prompt3.parecer.txt
+17 github_delete_action_invoked,prompt1,APROVADO,1,67.95,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,github_delete_action_invoked.yml,github_delete_action_invoked_prompt1.yml,github_delete_action_invoked_prompt1.parecer.txt
+17 github_delete_action_invoked,prompt2,APROVADO,3,92.39,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,github_delete_action_invoked.yml,github_delete_action_invoked_prompt2.yml,github_delete_action_invoked_prompt2.parecer.txt
+17 github_delete_action_invoked,prompt3,REPROVADO,4,99.04,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule author must be a string || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used for actions, but it may be more appropriate to use exact matches or |startswith if specific prefixes are indicative of destructive activity. The current setup ... | semantic_alignment[WARN]: The rule aims to detect deletions but uses 'create' actions in the selection criteria which does not align with the threat description. It should focus on deletion or removal ac... | invented_filters[FAIL]: The rule includes filters for creating secrets, which are unrelated to the described destructive activity of deleting codespaces, environments, projects, and repositories.",github_delete_action_invoked.yml,github_delete_action_invoked_prompt3.yml,github_delete_action_invoked_prompt3.parecer.txt
+18 java_local_file_read,prompt1,REPROVADO,4,133.07,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: While |contains is used appropriately for path fragments, exact matches are used for user-agents which may be too restrictive and could miss variations. | semantic_alignment[WARN]: The rule aims to detect exploitation attempts in Exchange server logs but the specific user-agent checks may not fully align with all potential threat vectors described. | invented_filters[FAIL]: The rule includes exact matches for user-agents which have no basis in the original threat description and could be overly restrictive, missing legitimate threats.",java_local_file_read.yml,java_local_file_read_prompt1.yml,java_local_file_read_prompt1.parecer.txt
+18 java_local_file_read,prompt2,APROVADO,2,72.15,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,java_local_file_read.yml,java_local_file_read_prompt2.yml,java_local_file_read_prompt2.parecer.txt
+18 java_local_file_read,prompt3,REPROVADO,4,93.06,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,PASS,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: The rule uses '|all' modifier which is not explicitly mentioned in the spec, but it's appropriate for detecting path traversal patterns anywhere within the log message. However,...",java_local_file_read.yml,java_local_file_read_prompt3.yml,java_local_file_read_prompt3.parecer.txt
+19 kubernetes_audit_exec_into_container,prompt1,APROVADO,1,68.48,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,kubernetes_audit_exec_into_container.yml,kubernetes_audit_exec_into_container_prompt1.yml,kubernetes_audit_exec_into_container_prompt1.parecer.txt
+19 kubernetes_audit_exec_into_container,prompt2,REPROVADO,4,100.94,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 9, column 1:
+    <yaml>
+    ^
+could not find expected ':'
+  in ""<unicode string>"", line 10, column 1:
+    id: 298486eb-51e3-4dce-a8cd-6fe1 ... 
+    ^)",APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 9, column 1:
+    <yaml>
+    ^
+could not find expected ':'
+  in ""<unicode string>"", line 10, column 1:
+    id: 298486eb-51e3-4dce-a8cd-6fe1 ... 
+    ^)",kubernetes_audit_exec_into_container.yml,kubernetes_audit_exec_into_container_prompt2.yml,kubernetes_audit_exec_into_container_prompt2.parecer.txt
+19 kubernetes_audit_exec_into_container,prompt3,REPROVADO,4,86.77,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block mapping
+  in ""<unicode string>"", line 19, column 5:
+        verb|exact: 'exec'
+        ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 20, column 38:
+     ... bjectRef.resource|exact: 'pods' or 'containers'
+                                         ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block mapping
+  in ""<unicode string>"", line 19, column 5:
+        verb|exact: 'exec'
+        ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 20, column 38:
+     ... bjectRef.resource|exact: 'pods' or 'containers'
+                                         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: The modifier |exact is used appropriately for exact matches, but the use of 'or' in objectRef.resource|exact: 'pods' or 'containers' is not valid syntax. It should be separated ... | structure[WARN]: The rule lacks some required fields such as 'tags', which should include specific ATT&CK technique IDs. Additionally, the date format might need to be reviewed for consistency w...",kubernetes_audit_exec_into_container.yml,kubernetes_audit_exec_into_container_prompt3.yml,kubernetes_audit_exec_into_container_prompt3.parecer.txt
+20 kubernetes_audit_secrets_modified_or_deleted,prompt1,APROVADO,2,78.2,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,kubernetes_audit_secrets_modified_or_deleted.yml,kubernetes_audit_secrets_modified_or_deleted_prompt1.yml,kubernetes_audit_secrets_modified_or_deleted_prompt1.parecer.txt
+20 kubernetes_audit_secrets_modified_or_deleted,prompt2,APROVADO,2,74.69,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,kubernetes_audit_secrets_modified_or_deleted.yml,kubernetes_audit_secrets_modified_or_deleted_prompt2.yml,kubernetes_audit_secrets_modified_or_deleted_prompt2.parecer.txt
+20 kubernetes_audit_secrets_modified_or_deleted,prompt3,APROVADO,1,66.85,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,kubernetes_audit_secrets_modified_or_deleted.yml,kubernetes_audit_secrets_modified_or_deleted_prompt3.yml,kubernetes_audit_secrets_modified_or_deleted_prompt3.parecer.txt

@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Addition of a new federated domain in Microsoft 365 — adversaries abuse domain
+federation to establish persistent backdoor access via forged SAML tokens,
+effectively bypassing MFA and password controls across the tenant.
+
+# Target environment
+- Product: m365; log source service: audit
+- Detection must combine TWO selections with AND (all of selection_*):
+  (a) the operation refers to a domain;
+  (b) the operation indicates creation or addition.
+- Use |contains matching on the operation field for both selections.
+
+# References
+- https://research.splunk.com/cloud/e155876a-6048-11eb-ae93-0242ac130002/
+- https://o365blog.com/post/aadbackdoor/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

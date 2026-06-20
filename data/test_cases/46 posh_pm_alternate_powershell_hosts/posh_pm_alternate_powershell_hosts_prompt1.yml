@@ -1,0 +1,22 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is process_access, as the indicator would appear in Windows Event Logs related to LSASS memory read access.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are ExceptionName and ImageLoaded.
+
+(c) MODIFIERS: For each field, |contains is the correct choice for path fragments that may appear anywhere. However, since we're looking for exact matches of exception names and image loaded, we'll use exact match instead.
+
+(d) ATT&CK: The technique that best describes this threat is t1055 (DLL Process Injection).
+
+---
+
+process_access:
+  log_source:
+    category: process_access
+  selection:
+    ExceptionName: CreateRemoteThread
+    ImageLoaded: LoadLibrary
+  condition: selection
+
+references:
+  - https://threathunterplaybook.com/hunts/windows/190815-RemoteServiceInstallation/notebook.html

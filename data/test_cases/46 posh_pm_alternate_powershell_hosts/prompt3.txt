@@ -1,0 +1,19 @@
+Generate a SIGMA rule to detect PowerShell execution from alternate (non-default)
+hosts — attackers embed the PowerShell runtime in custom executables to bypass
+detections focused on powershell.exe. Logged via the HostApplication field in
+PowerShell classic event logging.
+
+Target product: windows; log source category: ps_classic_start.
+
+Detection: match HostApplication marker in the Data field, then EXCLUDE known
+legitimate hosts in two groups:
+- main filters: standard PowerShell binary paths (System32 and SysWOW64, both
+  forward- and back-slash variants), the diagnostic host sdiagnhost.exe, and
+  bare "powershell" string;
+- optional filters: Citrix ConfigSync and Hexnode Agent.
+
+Use condition:
+`selection and not 1 of filter_main_* and not 1 of filter_optional_*`.
+
+References to include:
+- https://threathunterplaybook.com/hunts/windows/190815-RemoteServiceInstallation/notebook.html

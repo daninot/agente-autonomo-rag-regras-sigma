@@ -1,0 +1,22 @@
+title: Windows Boot or Logon Autostart Execution
+id: 1058d649-fe76-49c5-af83-4bacd06659d6
+description: Detects the creation of files in the Windows %startup% folder, a common persistence technique.
+status: experimental
+author: '@anomali'
+date: 2023/03/09
+modified: 2023/03/09
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        EventID: '1' # File creation event
+        Path: '*\Startup\*.*' # Files in the Startup folder
+    condition: selection
+falsepositives:
+    - Legitimate software installation
+    - Misconfigured system settings
+level: high
+tags:
+    - attack.t1547.001
+    - attack.persistence

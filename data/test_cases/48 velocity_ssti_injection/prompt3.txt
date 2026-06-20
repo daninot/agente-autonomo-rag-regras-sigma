@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect Velocity template engine exceptions in
+application logs — when triggered by user input, these indicate Server-Side
+Template Injection (SSTI) attempts that can lead to RCE.
+
+Target product: velocity; log source category: application. Requires error
+logs at LOG_LEVEL ERROR or above — document this in the rule.
+
+Detection uses keyword matching against Velocity-specific exception class
+names covering parsing, generic Velocity, and template initialization errors.
+
+References to include:
+- https://antgarsil.github.io/posts/velocity/
+- https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs

@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://github.com/redcanaryco/atomic-red-team/blob/40b77d63808dd4f4eafb83949805636735a1fd15/atomics/T1484.001/T1484.001.md

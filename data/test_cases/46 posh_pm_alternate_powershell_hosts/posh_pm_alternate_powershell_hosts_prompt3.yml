@@ -1,0 +1,29 @@
+title: Alternate PowerShell Hosts - PowerShell Module
+id: add6e58e-60e0-41d3-8f53-1ba2fe991dcb
+status: test
+description: Detects alternate PowerShell hosts potentially bypassing detections looking for powershell.exe
+references:
+  - https://threathunterplaybook.com/hunts/windows/190815-RemoteServiceInstallation/notebook.html
+author: Roberto Rodriguez @Cyb3rWard0g
+date: 2019-08-11
+modified: 2025-10-17
+tags:
+  - attack.execution
+  - attack.t1059.001
+logsource:
+  product: windows
+  category: ps_classic_start
+detection:
+  selection:
+    Data|contains:
+      - 'EngineVersion=2.'
+      - 'EngineVersion=4.'
+      - 'EngineVersion=5.'
+    ContextInfo|contains:
+      - '= powershell'
+      - '= C:\Windows\System32\WindowsPowerShell\v1.0\powershell'
+      - '= C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell'
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+level: high

@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect PowerShell scripts that modify Group Policy
+settings on a Windows host — adversaries abuse GPO modifications to disable
+security controls (e.g., SmartScreen) or tamper with policy refresh intervals
+to delay enforcement.
+
+Target product: windows; log source category: ps_script. Requires PowerShell
+Script Block Logging enabled — document this.
+
+Detection combines TWO conditions that BOTH must match (multiple selections
+with `all of selection_*`): (a) script touches the Group Policy system
+registry path; (b) script manipulates specific GPO-related value names.
+
+References to include:
+- https://github.com/redcanaryco/atomic-red-team/blob/40b77d63808dd4f4eafb83949805636735a1fd15/atomics/T1484.001/T1484.001.md

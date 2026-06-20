@@ -1,0 +1,17 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Python SQL exception classes in application logs — defined by PEP 249 (Python
+Database API), these exceptions may indicate SQL injection probing or other
+database-related exploitation attempts.
+
+# Target environment
+- Product: python; log source category: application
+- Detection uses keyword matching against PEP 249 SQL exception class names.
+
+# References
+- https://www.python.org/dev/peps/pep-0249/#exceptions
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

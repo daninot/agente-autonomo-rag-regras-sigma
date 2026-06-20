@@ -1,0 +1,30 @@
+<thinking>...</thinking>
+
+```
+title: Shai-Hulud Supply Chain Attack
+id: 4d1c3f6b-8e2a-4f5b-b7ed-f9b0c5c9a5c5
+description: Detects the Shai-Hulud supply chain attack by monitoring for suspicious npm package versions and repository activity.
+status: experimental
+author: '@anomali'
+date_created: 2023/03/01
+tags:
+- shai-hulud
+- supply-chain-attack
+- npm
+
+logsource:
+    category: process_creation
+    product: windows
+
+detection:
+    selection:
+        Image|endswith: ['npm.cmd', 'npm.exe']
+        CommandLine|contains: ['install', 'update', 'publish']
+        ProcessCommandLine|contains: ['git clone', 'git pull', 'git push']
+    condition: 1 of them
+
+falsepositives:
+    - Legitimate use of npm and git commands
+
+level: high
+```

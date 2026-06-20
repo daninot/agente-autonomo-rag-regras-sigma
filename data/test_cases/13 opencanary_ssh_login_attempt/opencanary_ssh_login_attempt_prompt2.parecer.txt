@@ -1,0 +1,37 @@
+======================================================================
+PARECER DO JUIZ SEMÂNTICO (Nó 6)
+Modelo: qwen2.5:14b (temperatura: 0.0)
+Cenário: 13 opencanary_ssh_login_attempt
+Prompt: prompt2
+======================================================================
+
+{
+  "veredito": "APPROVED_WITH_WARNINGS",
+  "dimensoes": {
+    "logsource": {
+      "status": "PASS",
+      "justificativa": "The category 'application' and product 'opencanary' are correctly used as per the spec."
+    },
+    "modifiers": {
+      "status": "WARN",
+      "justificativa": "Exact match is used for logtype, but no modifier was specified. Should be |equals to ensure exact matching."
+    },
+    "condition": {
+      "status": "PASS",
+      "justificativa": "The boolean logic 'selection' is syntactically and semantically correct."
+    },
+    "structure": {
+      "status": "PASS",
+      "justificativa": "All required fields are present per the spec."
+    },
+    "semantic_alignment": {
+      "status": "WARN",
+      "justificativa": "The detection logic targets SSH_LOGIN_ATTEMPT, but ATT&CK technique t1133 (External Remote Services) is not fully aligned with the threat of SSH login attempts on a honeypot. A more relevant technique would be T1098 - Valid Accounts or T1133 - External Remote Services."
+    },
+    "invented_filters": {
+      "status": "PASS",
+      "justificativa": "No filters were added that have no basis in the threat description."
+    }
+  },
+  "observacoes_gerais": "The rule is well-structured and aligns with the provided specifications, but ATT&CK technique selection could be more precise."
+}

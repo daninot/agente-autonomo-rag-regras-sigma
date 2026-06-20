@@ -1,0 +1,24 @@
+<thinking>...</thinking>
+
+The log source category that fits best is "process_creation" because the indicator of the threat would appear in the process creation logs.
+
+The specific log fields that contain the indicator of the threat are likely to be related to the Ruby on Rails framework and its exceptions, such as "exception_message" or "error_class".
+
+For each field, exact match seems to be the correct choice since we're looking for a specific string value (e.g., "ActionController::RoutingError").
+
+The ATT&CK technique that best describes this threat is t1090: Remote Services.
+
+Here's the corrected YAML rule:
+
+process_creation:
+  - event_id: 1
+    fields:
+      exception_message: |exact match|
+        ActionController::RoutingError
+      error_class: |exact match|
+        ActionController::RoutingError
+
+references:
+  - http://edgeguides.rubyonrails.org/security.html
+  - http://guides.rubyonrails.org/action_controller_overview.html
+  - https://raw.githubusercontent.com/rails/rails/cd08e6bcc4cd8948fe01e0be1ea0c7ca60373a25/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb

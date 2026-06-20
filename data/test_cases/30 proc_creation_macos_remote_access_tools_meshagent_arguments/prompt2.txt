@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Potential MeshAgent execution on macOS — a remote access tool abused by threat
+actors (including Medusa ransomware) who often rename the binary to evade
+detection, but retain its characteristic command-line arguments.
+
+# Target environment
+- Product: macos; log source category: process_creation
+- Detection matches a specific MeshAgent command-line argument that persists
+  even when the binary is renamed, using |contains on the CommandLine field.
+
+# References
+- https://www.huntress.com/blog/know-thy-enemy-a-novel-november-case-on-persistent-remote-access
+- https://thecyberexpress.com/ukraine-hit-by-meshagent-malware-campaign/
+- https://wazuh.com/blog/how-to-detect-meshagent-with-wazuh/
+- https://www.security.com/threat-intelligence/medusa-ransomware-attacks
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

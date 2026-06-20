@@ -1,0 +1,34 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in a webserver log category, as it is related to a URL.
+
+FIELDS: The relevant fields are likely to be the URL itself, which can be extracted from the request or response logs.
+
+MODIFIERS: Since we're looking for specific keywords within the URL, |contains seems like the correct choice.
+
+ATT&CK: This threat appears to involve exploitation of a vulnerability, so the technique that best describes this threat is t1190 (Exploitation of Vulnerability).
+
+---
+
+title: KeTAPT and SingleMalt Ransomware Exploitation Indicators
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects indicators of exploitation by threat actors during exploitation of the "KeTAPT" and "SingleMalt" ransomware as reported by Mandiant.
+references:
+  - https://www.fireeye.com/blog/threat-research/2020/10/ke-tapt-and-singlemalt-with-a-ransomware-chaser.html
+author: Florian Roth (Nextron Systems)
+date: 2020-10-01
+tags:
+  - detection.emerging-threats
+  - attack.exploitation
+logsource:
+  category: webserver
+detection:
+  selection1:
+    Request_URI|contains:
+      - 'ke-tapt'
+      - 'singlemalt'
+  condition: 1 of selection*
+falsepositives:
+  - Unknown
+level: critical

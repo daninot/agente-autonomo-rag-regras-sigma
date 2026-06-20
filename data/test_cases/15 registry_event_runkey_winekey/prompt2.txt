@@ -1,0 +1,18 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Registry Run key modification by the WINEKEY or Team9 backdoor — malware
+associated with ransomware campaigns that persists by creating a Run key entry
+disguised as a legitimate backup manager application.
+
+# Target environment
+- Product: windows; log source category: registry_event
+- Detection matches registry write events targeting a specific Run key path
+  using |endswith.
+
+# References
+- https://www.fireeye.com/blog/threat-research/2020/10/kegtap-and-singlemalt-with-a-ransomware-chaser.html
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

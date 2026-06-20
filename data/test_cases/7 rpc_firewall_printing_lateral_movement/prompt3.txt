@@ -1,0 +1,20 @@
+Generate a SIGMA rule to detect remote RPC calls abusing the Windows remote
+printing services (MS-RPRN / MS-PAR) for lateral movement — the attack class
+popularized by PrintNightmare (CVE-2021-34527).
+
+Target product: rpc_firewall; log source category: application. This rule
+targets the RPC Firewall product (Zero Networks), which monitors RPC interface
+invocations. It is NOT a rule against native Windows Print Spooler logs.
+
+The RPC Firewall must be configured to audit the MS-RPRN and MS-PAR interface
+UUIDs. Detection matches the structured event emitted by the RPC Firewall when
+a monitored RPC interface is invoked, filtering by the specific interface UUIDs
+that correspond to the printing protocols.
+
+References to include:
+- https://msrc.microsoft.com/update-guide/vulnerability/CVE-2021-34527
+- https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rprn/d42db7d5-f141-4466-8f47-0a4be14e2fc1
+- https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-pan/e44d984c-07d3-414c-8ffc-f8c8ad8512a8
+- https://github.com/jsecurity101/MSRPC-to-ATTACK/blob/ddd4608fe8684fcf2fcf9b48c5f0b3c28097f8a3/documents/MS-RPRN-PAR.md
+- https://github.com/zeronetworks/rpcfirewall
+- https://zeronetworks.com/blog/stopping-lateral-movement-via-the-rpc-firewall/

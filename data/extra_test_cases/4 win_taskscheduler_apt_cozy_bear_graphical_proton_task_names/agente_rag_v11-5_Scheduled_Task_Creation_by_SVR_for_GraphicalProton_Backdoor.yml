@@ -1,0 +1,23 @@
+title: Scheduled Task Creation by SVR for GraphicalProton Backdoor
+id: 4747cd00-7384-42cf-95a6-19863e1b8dd5
+status: test
+description: Hunts for known SVR-specific scheduled task names used by the GraphicalProton backdoor.
+references:
+  - https://www.cisa.gov/news-events/alerts/2023/11/15/russian-foreign-intelligence-service-svr-exploiting-jetbrains-products
+author: CISA
+date: 2023/11/15
+tags:
+  - attack.execution
+  - attack.privilege-escalation
+  - attack.persistence
+  - attack.t1053.005
+logsource:
+  product: windows
+  category: taskscheduler
+detection:
+  selection:
+    EventID: 4698, 4699, 4702
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+level: high

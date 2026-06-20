@@ -1,0 +1,24 @@
+<thinking>...</thinking>
+
+LOGSOURCE: network_connection fits best because the threat involves sending messages to a server via hpfeeds protocol.
+
+FIELDS: The fields that contain the indicator of the threat are likely to be related to network connections, such as cs-dest-port or cs-src-ip.
+
+MODIFIERS: For each field, |contains is the correct choice because the hpfeeds library and its usage in the getLogger function may appear anywhere in the log data.
+
+ATT&CK: The technique that best describes this threat is t1210 (Exploitation of Remote Services).
+
+```yml
+title: RCE via hpfeeds
+
+logsource:
+  category: network_connection
+  product: opencanary/logger.py
+
+detection:
+  selection:
+    cs-dest-port|contains: hpfeeds
+    cs-src-ip|contains: hpfeeds
+```
+
+Note that this is a basic detection rule and may need to be refined based on the specific log data and requirements.

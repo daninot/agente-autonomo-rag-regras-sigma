@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect creation of the default PsExec named pipe on
+a Windows host — indicating PsExec service execution, used for lateral
+movement or remote command execution.
+
+Target product: windows; log source category: pipe_created. Requires Sysmon
+named pipe event logging (Event ID 17/18) — document this in the rule.
+
+Detection matches the specific default pipe name created by the PsExec service.
+
+References to include:
+- https://www.jpcert.or.jp/english/pub/sr/ir_research.html
+- https://jpcertcc.github.io/ToolAnalysisResultSheet
+

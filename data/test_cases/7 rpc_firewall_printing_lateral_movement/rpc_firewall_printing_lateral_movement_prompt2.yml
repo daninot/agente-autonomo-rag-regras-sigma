@@ -1,0 +1,14 @@
+title: PrintNightmare (CVE-2021-34527)
+id: 41b51d92-671b-4eaf-b73a-f3941dfb3783
+description: Remote code execution vulnerability in Windows Print Spooler service
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    EventID: '4003'
+    Path: '*\\spool\\drivers\\*\\W32X86\\3\\print.dll'
+  condition: selection
+references:
+  - https://support.microsoft.com/en-us/topic/31b91c02-05bc-4ada-a7ea-183b129578a7
+  - https://www.vicarius.io/vsociety/posts/cve-2021-34527-printnightmare-detection-script

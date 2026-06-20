@@ -1,0 +1,28 @@
+<thinking>...</thinking>
+
+```
+title: Telegram Bot API Abuse
+id: 4f1a6b5c-1234-5678-90ab-cdef01234567
+description: Detects abuse of Telegram Bot API for malicious purposes
+author: Your Name
+date: 2023/09/18
+tags:
+  - attack.t1219.001
+  - attack.execution
+  - attack.stealth
+
+logsource:
+  category: dns_query
+  product: windows
+
+detection:
+  selection:
+    query: |-
+      (query contains "api.telegram.org" or query ends with ".telegram.org")
+  condition: selection
+
+falsepositives:
+  - Unknown
+
+level: medium
+```

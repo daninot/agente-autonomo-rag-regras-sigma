@@ -1,0 +1,22 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+An AppX package queued for installation on Windows was downloaded from a file
+sharing or CDN domain — a technique abused by malware campaigns (e.g.,
+BazarLoader) to deliver malicious Windows apps via trusted delivery mechanisms.
+
+# Target environment
+- Product: windows; log source service: appxdeployment-server
+- Detection matches a specific AppX deployment EventID combined with a path
+  containing known file sharing, paste, or CDN domains (use |contains with a
+  comprehensive list covering GitHub, Discord CDN, Dropbox, Mega, Pastebin,
+  and similar platforms commonly abused for malware staging).
+
+# References
+- https://www.sentinelone.com/labs/inside-malicious-windows-apps-for-malware-deployment/
+- https://learn.microsoft.com/en-us/windows/win32/appxpkg/troubleshooting
+- https://news.sophos.com/en-us/2021/11/11/bazarloader-call-me-back-attack-abuses-windows-10-apps-mechanism/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

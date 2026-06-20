@@ -1,0 +1,23 @@
+title: Detecting SQL Injection Attacks
+id: 6af9320f-5809-41e5-8052-dfeccbba41d1
+status: experimental
+description: |
+    Detects SQL injection attacks by monitoring for suspicious SQL queries in web server logs.
+references:
+  - http://www.sqlinjection.net/errors
+  - https://www.solarwinds.com/sql-injection-monitoring
+  - https://www.websecurityacademy.com/what-is-sql-injection-tutorial-examples
+tags:
+  - attack.t1059.001
+logsource:
+  category: webserver
+detection:
+  selection:
+    request_body|contains:
+      - ' AND EXTRACTVALUE (1, CONCAT (0x7e, VERSION ()))'
+      - ' OR 1=1--'
+      - ' UNION SELECT * FROM table_name --'
+  condition: selection
+falsepositives:
+  - Legitimate SQL queries from sysadmins.
+level: high

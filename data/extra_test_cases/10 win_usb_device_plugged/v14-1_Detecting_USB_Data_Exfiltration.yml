@@ -1,0 +1,25 @@
+title: Detecting USB Data Exfiltration
+id: b414afe9-2d29-406e-98d1-3da7120da9b7
+status: test
+description: Detects potential USB data exfiltration using Windows event logs.
+references:
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-20001
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-20003
+author: Your Name
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+    - attack.exfiltration
+    - attack.t1200
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_eid:
+        EventID: 20001
+    selection_field:
+        - DeviceDescription: 'USB Mass Storage Device'
+    condition: all of selection_*
+falsepositives:
+    - Likely
+level: low

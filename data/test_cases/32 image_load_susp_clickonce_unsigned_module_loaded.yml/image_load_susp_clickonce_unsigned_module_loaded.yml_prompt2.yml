@@ -1,0 +1,35 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the `image_load` category, as it involves loading images (DLLs) into processes.
+
+FIELDS: The relevant log fields are `ImageLoaded` and possibly `Image`, depending on how the ClickOnce mechanism is implemented.
+
+MODIFIERS: For `ImageLoaded`, we need to check if the loaded image has a specific path or extension. Since we're looking for DLLs, we can use `|endswith`. However, since the threat involves side-loading DLLs into legitimate processes, we should also consider using `|contains` to catch any path fragments that may appear anywhere.
+
+ATT&CK: The technique that best describes this threat is `t1210.001`, which is related to code signing and validation bypass.
+
+---
+
+title: ClickOnce Mechanism Abused for Code Execution
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects the abuse of the ClickOnce mechanism for code execution.
+references:
+  - https://posts.specterops.io/less-smartscreen-more-caffeine-ab-using-clickonce-for-trusted-code-execution-1446ea8051c5
+author: [Your Name]
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+  - attack.execution
+  - attack.t1210.001
+logsource:
+  category: image_load
+  product: windows
+detection:
+  selection:
+    ImageLoaded|endswith: '\dll'
+    ImageLoaded|contains: 'ClickOnce'
+  condition: or
+falsepositives:
+  - Unknown
+level: high

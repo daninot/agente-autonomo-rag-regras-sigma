@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect registry modifications that add a domain to
+the Internet Explorer ZoneMap trusted sites — lowering security controls for
+attacker-controlled domains and enabling defense evasion or persistence via
+browser trust abuse.
+
+Target product: windows; log source category: registry_set.
+
+Detection matches registry write events targeting the IE ZoneMap Domains
+path, but must EXCLUDE legitimate zone assignments (My Computer, Local
+Intranet, and empty values) — use exclusion logic in the condition.
+
+References to include:
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1112/T1112.md#atomic-test-4---add-domain-to-trusted-sites-zone
+- https://learn.microsoft.com/en-us/troubleshoot/developer/browsers/security-privacy/ie-security-zones-registry-entries

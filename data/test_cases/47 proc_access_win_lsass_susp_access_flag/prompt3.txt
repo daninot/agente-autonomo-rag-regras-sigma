@@ -1,0 +1,33 @@
+Generate a SIGMA rule to detect process access requests to LSASS with
+GrantedAccess flags consistent with credential dumping (Mimikatz-class tools).
+Suspicious masks include 0x1F0FFF / 0x1F1FFF / 0x1F2FFF / 0x1F3FFF and the
+0x1010 / 0x1410 / 0x1438 family.
+
+Target product: windows; log source category: process_access.
+
+Detection requires TWO selections with AND (all of selection_*): (a) target is
+lsass.exe (|endswith); (b) GrantedAccess matches the suspicious mask catalog —
+use both |endswith (low-byte pairs '30', '50', '70', '90', 'B0', 'D0', 'F0',
+plus '8'/'A' variants) AND |startswith (0x100000, 0x1f0fff family, 0x1418,
+0x1438, 0x143a, 0x40).
+
+Then EXCLUDE AV/EDR/system noise in TWO filter groups:
+- filter_main_*: generic Program Files / System32 / SysWOW64 source paths,
+  Windows Defender (MsMpEng.exe, mpengine.dll call trace with 0x1418 using
+  |contains|all, MpClient/mprtp call trace), explorer.exe with 0x401;
+- filter_optional_*: Malwarebytes (mbupdatr.exe, MBAMInstallerService.exe
+  with 0x40), VS Code, VMware Tools vmtoolsd.exe, Sysinternals Process
+  Explorer and handle.exe/handle64.exe with 0x40, Nextron Aurora/Thor with
+  0x40, WebexHost.exe with 0x401, Steam apps path.
+
+Condition:
+`all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*`.
+
+References to include:
+- https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
+- https://web.archive.org/web/20230208123920/https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html
+- https://www.slideshare.net/heirhabarov/hunting-for-credentials-dumping-in-windows-environment
+- https://web.archive.org/web/20230420013146/http://security-research.dyndns.org/pub/slides/FIRST2017/FIRST-2017_Tom-Ueltschi_Sysmon_FINAL_notes.pdf
+
+
+

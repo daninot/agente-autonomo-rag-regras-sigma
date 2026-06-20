@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Use of Cisco IOS CLI commands that move data onto or off the device — file
+transfer and archive operations that can be abused for staging,
+exfiltration, or infiltration of configurations and binaries.
+
+# Target environment
+- Product: cisco; log source service: aaa
+- Detection uses keyword matching against AAA command accounting logs for
+  Cisco IOS commands related to file transfer protocols (TFTP, RCP), file
+  copy/save operations, configuration replacement, and archive creation.
+
+# References
+(none provided in the original rule)
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

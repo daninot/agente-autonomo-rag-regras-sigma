@@ -1,0 +1,32 @@
+title: AppX Located in Known Staging Directory Added to Deployment Pipeline
+id: 814236fa-3bb5-4e1d-b2c6-6f33ed9f6026
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection_eid:
+    EventID: 4688
+  selection_paths_forward:
+    Image|contains: # Paths can be written using forward slash if the "file://" protocol is used
+      - ':/Perflogs/'
+      - ':/Users/Public/'
+      - ':/Windows/Temp/'
+      - '/AppdData/Local/Temp/'
+      - '/Desktop/'
+      - '/Downloads/'
+  selection_paths_back:
+    Image|contains: # Paths can be written using forward slash if the "file://" protocol is used
+      - ':\PerfLogs\'
+      - ':\Users\Public\'
+      - ':\Windows\Temp\'
+      - '\AppdData\Local\Temp\'
+      - '\Desktop\'
+      - '\Downloads\'
+  condition: selection_eid and 1 of selection_paths_*
+
+falsepositives:
+  - Unknown
+
+level: high

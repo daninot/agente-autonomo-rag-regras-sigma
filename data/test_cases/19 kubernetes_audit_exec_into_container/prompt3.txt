@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect remote command execution inside a Kubernetes
+pod container via kubectl exec or equivalent — an attacker with API server
+access can spawn a shell inside a running container, bypassing endpoint
+controls.
+
+Target product: kubernetes; log source category: application; service: audit.
+
+Detection matches Kubernetes audit events combining the API verb, resource
+type (pods), and subresource (exec) in a single selection.
+
+References to include:
+- https://microsoft.github.io/Threat-Matrix-for-Kubernetes/techniques/Exec%20into%20container/

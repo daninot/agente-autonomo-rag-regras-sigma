@@ -1,0 +1,20 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Velocity template engine exceptions in application logs — when these are
+triggered by user-controlled input, they typically indicate Server-Side
+Template Injection (SSTI) attempts that can lead to remote code execution.
+
+# Target environment
+- Product: velocity; log source category: application
+- Requires error logs at LOG_LEVEL ERROR or above — document this in the rule.
+- Detection uses keyword matching against Velocity-specific exception class
+  names (parsing, generic Velocity, and template initialization errors).
+
+# References
+- https://antgarsil.github.io/posts/velocity/
+- https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+An unsigned or expired-signature module loaded by a ClickOnce application —
+attackers abuse the ClickOnce trusted execution mechanism to load malicious
+unsigned DLLs while bypassing SmartScreen and other trust controls.
+
+# Target environment
+- Product: windows; log source category: image_load
+- Detection combines TWO selections with AND (all of selection_*):
+  (a) the loading process image path contains the ClickOnce application
+      deployment directory;
+  (b) the loaded module is either unsigned or has an expired signature —
+      match both conditions as separate values in the same selection block.
+
+# References
+- https://posts.specterops.io/less-smartscreen-more-caffeine-ab-using-clickonce-for-trusted-code-execution-1446ea8051c5
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

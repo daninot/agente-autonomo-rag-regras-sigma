@@ -1,0 +1,33 @@
+title: Linux Doas Conf File Creation
+
+id: df13af4e-6b56-4ea1-ad08-8db9aeca6eeb
+
+status: test
+
+description: Detects the creation of doas.conf file in linux host platform.
+
+references:
+- https://www.makeuseof.com/how-to-install-and-use-doas/
+- https://duckduckgo.com/
+
+author: Nasreddine Bencherchali (Nextron Systems)
+
+date: 2023-10-24
+
+tags:
+- attack.privilege-escalation
+- detection.emerging-threats
+
+logsource:
+    category: file_event
+    product: linux
+
+detection:
+    selection:
+        TargetFilename|endswith: '/doas.conf'
+    condition: selection
+
+falsepositives:
+    - Creation of legitimate files in sudoers.d folder as part of administrator work
+
+level: medium

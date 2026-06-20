@@ -1,0 +1,13 @@
+title: Cisco Duo Successful MFA Authentication Via Bypass Code
+id: 54a19982-b416-4fa7-bb33-e0013383a2d1
+
+logsource:
+  product: duo_admin_panel
+  category: proxy
+
+detection:
+  selection:
+    user_status: "Bypass"
+    previous_status: "Active"
+
+  condition: selection

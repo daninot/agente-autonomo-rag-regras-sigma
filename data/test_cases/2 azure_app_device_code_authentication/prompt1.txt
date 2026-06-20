@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://learn.microsoft.com/en-us/entra/architecture/security-operations-applications#application-authentication-flows

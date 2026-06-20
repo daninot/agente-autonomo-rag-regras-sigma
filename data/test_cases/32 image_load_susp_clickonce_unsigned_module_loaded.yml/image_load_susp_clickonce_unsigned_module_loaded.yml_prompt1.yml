@@ -1,0 +1,17 @@
+title: ClickOnce Deployment and Execution
+id: 2e429195-0b2a-4f13-94c2-3103aa695b54
+status: test
+description: Detects ClickOnce deployment and execution activity
+references:
+  - https://posts.specterops.io/less-smartscreen-more-caffeine-ab-using-clickonce-for-trusted-code-execution-1446ea8051c5
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ImageLoaded|contains: 'ClickOnce'
+    ProcessCommandLine|contains: 'ClickOnce'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

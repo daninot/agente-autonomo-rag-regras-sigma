@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect DNS queries to anonfiles.com from a Windows
+host — anonymous file sharing platform abused by ransomware operators
+(e.g., BlackByte) for data exfiltration and payload staging.
+
+Target product: windows; log source service: dns-client. Requires the
+Microsoft-Windows-DNS Client Events/Operational log enabled — document this.
+
+Detection matches the DNS Client query EventID combined with the
+anonfiles.com domain in the QueryName field (use |contains to also catch
+subdomains).
+
+References to include:
+- https://www.trendmicro.com/vinfo/us/security/news/ransomware-spotlight/ransomware-spotlight-blackbyte

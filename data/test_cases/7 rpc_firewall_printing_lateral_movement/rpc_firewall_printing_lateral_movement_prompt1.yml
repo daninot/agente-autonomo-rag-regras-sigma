@@ -1,0 +1,33 @@
+Based on the provided information, I will attempt to create a YAML rule for Sigma that describes the threat of "PrintNightmare" (CVE-2021-34527). Here is my reasoning:
+
+<thinking>
+LOGSOURCE: Windows
+FIELDS: Image, ProcessName, CommandLine
+MODIFIERS: |contains for path fragments; exact match for file extensions and terminal tokens
+ATT&CK: t1210 - Exploit Public-Facing Service
+</thinking>
+
+Here is the YAML rule:
+```yml
+title: PrintNightmare (CVE-2021-34527)
+description: |
+  This Sigma rule detects the exploitation of the PrintNightmare vulnerability.
+logsource:
+  category: process_creation
+  product: Windows
+  service_name: spoolsv.exe
+fields:
+  Image: |contains
+    C:\Windows\System32\spool\drivers\w32x86\
+  ProcessName: exact match
+    spoolsv.exe
+  CommandLine: exact match
+    /c print.dll
+modifiers:
+  Image: |contains
+  ProcessName: exact match
+  CommandLine: exact match
+references:
+  - https://support.microsoft.com/topic/31b91c02-05bc-4ada-a7ea-183b129578a7
+```
+Please note that I have corrected the error in the previous attempt by adding the correct chomping and indentation indicators for the `Image` field.

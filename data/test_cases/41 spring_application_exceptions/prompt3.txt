@@ -1,0 +1,8 @@
+Generate a SIGMA rule to detect suspicious Spring framework security exception classes in application logs — indicators of exploitation including unauthorized access, CSRF token abuse, cookie tampering, and rejected malformed requests.
+
+Target product: spring; log source category: application.
+
+Detection uses keyword matching against Spring Security exception class names.
+
+References to include:
+- https://docs.spring.io/spring-security/site/docs/current/api/overview-tree.html

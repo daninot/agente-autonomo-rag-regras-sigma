@@ -1,0 +1,19 @@
+title: Download from Pwndrop
+id: 49afa13f-482f-40ab-a85d-06d83dc7c608
+status: test
+description: Detects download of files from pwndrop
+references:
+  - https://breakdev.org/pwndrop/
+logsource:
+  category: network_traffic
+  product: network_traffic
+detection:
+  selection:
+    c-uri|endswith:
+      - '/pwndrop'
+    cs-host|endswith:
+      - '.com'
+  condition: all of selection
+falsepositives:
+  - Legitimate file sharing services
+level: high

@@ -1,0 +1,25 @@
+title: USB Device Detection
+id: 85ced813-5516-4567-a5b3-d19e1fb520cc
+status: test
+description: Detects external USB devices connected to the system.
+references:
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-6416
+author: Your Name
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+    - attack.initial-access
+    - attack.t1200
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_eid:
+        EventID: 6416
+    selection_field:
+        - ClassName: 'DiskDrive'
+        - DeviceDescription: 'USB Mass Storage Device'
+    condition: all of selection_*
+falsepositives:
+    - Legitimate administrative activity
+level: low

@@ -1,0 +1,25 @@
+title: Potentially Suspicious Child Process of Django
+id: 5c3c5b4b-f0be-4e63-aa8f-6a97e0150204
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith: '\django.exe'
+  selection_binaries:
+    - Image|endswith:
+        - '\cmd.exe'
+        - '\cscript.exe'
+        - '\mshta.exe'
+        - '\powershell.exe'
+        - '\pwsh.exe'
+        - '\regsvr32.exe'
+        - '\rundll32.exe'
+        - '\wscript.exe'
+  condition: all of selection_*
+falsepositives:
+  - Unknown
+level: medium
+references:
+  - https://docs.djangoproject.com/en/1.11/ref/exceptions/
+  - https://docs.djangoproject.com/en/1.11/topics/logging/#django-security

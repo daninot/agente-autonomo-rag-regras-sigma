@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect unsigned or expired-signature modules loaded
+by a ClickOnce application — attackers abuse ClickOnce trusted execution to
+load malicious DLLs while bypassing SmartScreen.
+
+Target product: windows; log source category: image_load.
+
+Detection combines TWO selections with AND (all of selection_*): one matching
+the ClickOnce application deployment directory in the loading process image
+path, another matching unsigned or expired-signature status on the loaded
+module.
+
+References to include:
+- https://posts.specterops.io/less-smartscreen-more-caffeine-ab-using-clickonce-for-trusted-code-execution-1446ea8051c5

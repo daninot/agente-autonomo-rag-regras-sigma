@@ -1,0 +1,18 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Suspicious Spring framework security exception classes in application logs —
+indicators of exploitation attempts including unauthorized access, CSRF token
+abuse, cookie tampering, and rejected malformed requests.
+
+# Target environment
+- Product: spring; log source category: application
+- Detection uses keyword matching against Spring Security exception class
+  names.
+
+# References
+- https://docs.spring.io/spring-security/site/docs/current/api/overview-tree.html
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

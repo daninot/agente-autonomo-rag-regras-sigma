@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Delete actions in GitHub audit logs targeting codespaces, environments,
+projects, and repositories — indicating destructive activity or unauthorized
+resource removal.
+
+# Target environment
+- Product: github; log source service: audit
+- Requires GitHub audit log streaming to be enabled — document this in the
+  rule, including the setup documentation URL.
+- Detection matches specific GitHub audit action strings for deletion events
+  across multiple resource types.
+
+# References
+- https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization#audit-log-actions
+- https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/security-log-events#codespaces
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

@@ -1,0 +1,17 @@
+Generate a SIGMA rule to detect Windows DCE-RPC calls indicating remote
+persistence techniques — adversaries invoke specific RPC endpoint/operation
+pairs to install print monitors, print processors, or create processes under
+another user's logon session on a remote host. From the MITRE BZAR project.
+
+Target product: zeek; log source service: dce_rpc.
+
+Detection uses SIX parallel selections (op1..op6) combined with OR (1 of op*),
+each matching a specific endpoint + operation pair:
+- spoolss with RpcAddMonitor and RpcAddPrintProcessor;
+- IRemoteWinspool with the async variants of both;
+- ISecLogon with SeclCreateProcessWithLogonW and its Ex variant.
+
+References to include:
+- https://github.com/mitre-attack/bzar#indicators-for-attck-persistence
+
+

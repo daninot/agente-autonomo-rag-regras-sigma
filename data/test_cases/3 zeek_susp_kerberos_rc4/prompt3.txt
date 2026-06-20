@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect Kerberos TGS requests issued using RC4
+encryption — a classic indicator of Kerberoasting, where an adversary
+requests service tickets to crack offline.
+
+Target product: zeek; log source service: kerberos.
+
+The detection must filter OUT legitimate computer/machine account activity,
+which routinely matches this pattern in normal enterprise networks. Use
+exclusion logic in the condition (selection AND NOT exclusion).
+
+References to include:
+- https://adsecurity.org/?p=3458

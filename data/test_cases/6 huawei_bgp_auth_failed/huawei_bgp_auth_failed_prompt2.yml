@@ -1,0 +1,18 @@
+title: B2B Software Malicious Activity Detection
+id: 026d9ae4-6b9b-4945-9213-430f13c17152
+
+description: Detects malicious activity related to B2B software exploitation
+
+references:
+  - https://www.blackhat.com/presentations/bh-usa-03/Bh-US-03-Convery-Franz.pdf
+
+logsource:
+  category: network_connection
+  product: unknown
+
+detection:
+  selection:
+    protocol: contains 'exploit'
+    source_ip: contains 'B2B'
+    destination_ip: contains 'exploit'
+  condition: selection

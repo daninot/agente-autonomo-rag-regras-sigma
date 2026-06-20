@@ -1,0 +1,17 @@
+Generate a SIGMA rule to detect creation of Python path configuration files
+(.pth) in macOS Python library folders — these execute at every Python startup
+(3.5+) regardless of import, enabling code execution and persistence. Observed
+in CVE-2024-3400 (Palo Alto GlobalProtect) exploitation.
+
+Target product: macos; log source category: file_event.
+
+Detection combines: (a) regex match (|re) on the target filename for the
+Python site-packages directory across versions 3.5+, case-insensitive,
+covering both single- and double-digit minor versions; (b) |endswith on the
+.pth extension.
+
+References to include:
+- https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/
+- https://www.virustotal.com/gui/file/3de2a4392b8715bad070b2ae12243f166ead37830f7c6d24e778985927f9caac
+- https://docs.python.org/3/library/site.html
+

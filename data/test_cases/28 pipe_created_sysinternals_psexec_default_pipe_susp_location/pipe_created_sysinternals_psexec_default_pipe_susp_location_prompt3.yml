@@ -1,0 +1,52 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the Windows Event Logs, specifically in the category of process creation or file events.
+
+FIELDS: The fields that contain the indicator are TargetFilename (for the PSEXESVC.exe file) and PipeName (for the named pipe created by PsExec).
+
+MODIFIERS: For TargetFilename, |endswith is the correct choice because we're looking for files with a specific extension (.exe). For PipeName, |contains is the correct choice because the named pipe name may appear anywhere in the path.
+
+ATT&CK: The technique that best describes this threat is t1569.002 (Lateral Movement).
+
+OUTPUT:
+
+title: PsExec Remote Execution
+
+id: 12345678-1234-5678-9012-345678901234
+
+status: test
+
+description: Detects creation of the PSEXESVC.exe file and named pipe created by PsExec.
+
+references:
+- https://www.jpcert.or.jp/english/pub/sr/ir_research.html
+- https://jpcertcc.github.io/ToolAnalysisResultSheet
+
+author: "Your Name"
+
+date: 2023-02-20
+
+modified: 2023-02-20
+
+tags:
+- attack.execution
+- attack.t1569.002
+- attack.s0029
+
+logsource:
+  category: file_event
+  product: windows
+
+detection:
+  selection:
+    TargetFilename|endswith: '\PSEXESVC.exe'
+    PipeName|contains:
+      - '\\imposecost'
+      - '\\imposingcost'
+
+  condition: selection
+
+falsepositives:
+- Unknown
+
+level: high

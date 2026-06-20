@@ -1,0 +1,26 @@
+<thinking>...</thinking>
+
+```
+title: Shai-Hulud npm Supply Chain Attack
+id: 5f9e3c1d-4b6a-47cd-b7ac-0f8e2f3d7e56
+description: Detects the Shai-Hulud npm supply chain attack
+author: Your Name
+date: 2023/03/01
+tags:
+  - attack.scanning
+  - attack.t1059.006
+  - attack.t1195.002
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: ['node.exe', 'npm.cmd']
+    CommandLine|contains: ['curl', '/tmp/ld.py', 'python3', 'nohup', '6202033']
+  condition: 1 of selection
+falsepositives:
+  - Unlikely
+level: high
+```
+
+Note: I've assumed the logsource category is `process_creation` based on the indicators appearing in process creation events. The fields used are `Image` and `CommandLine`, which contain the indicator of the threat. The modifiers used are `|endswith` for file extensions and terminal tokens, and `|contains` for path fragments that may appear anywhere. The ATT&CK technique is `t1059.006` (Server Software Component: Web Shell) as it involves the use of a web shell to steal credentials.

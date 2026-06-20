@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://docs.djangoproject.com/en/1.11/ref/exceptions/
+- https://docs.djangoproject.com/en/1.11/topics/logging/#django-security

@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect creation of the doas configuration file on a
+Linux host — doas is a minimal sudo alternative, and its config file creation
+may indicate an attacker establishing privilege escalation capabilities.
+
+Target product: linux; log source category: file_event.
+
+Detection matches file creation events targeting the doas configuration file
+path using |endswith.
+
+References to include:
+- https://research.splunk.com/endpoint/linux_doas_conf_file_creation/
+- https://www.makeuseof.com/how-to-install-and-use-doas/

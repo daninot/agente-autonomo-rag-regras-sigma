@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+An application authenticates via the OAuth 2.0 Device Code flow in Azure /
+Entra ID. This flow is legitimate only for input-constrained devices (smart
+TVs, CLI tools); seen elsewhere, it may indicate device-code phishing or
+token theft.
+
+# Target environment
+- Product: azure; log source service: signinlogs
+- Detection matches sign-in events where the message field indicates the
+  Device Code flow.
+
+# References
+- https://learn.microsoft.com/en-us/entra/architecture/security-operations-applications#application-authentication-flows
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

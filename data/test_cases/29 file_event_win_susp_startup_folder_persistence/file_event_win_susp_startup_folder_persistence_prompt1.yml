@@ -1,0 +1,19 @@
+<thinking>...</thinking>
+
+```yml
+title: Malvertising campaign leads to info stealers hosted on GitHub
+id: 5ede8f21e42ebe37e0a6eff757dba60bcfa85859
+description: Malvertising campaign leads to info stealers hosted on GitHub
+author: Microsoft Threat Intelligence and Microsoft Defender Experts
+date: 2025/03/06
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection:
+        process_name: *info_stealer.exe
+    condition: process_name
+references:
+    - https://www.microsoft.com/en-us/security/blog/2025/03/06/malvertising-campaign-leads-to-info-stealers-hosted-on-github/
+    - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/5ede8f21e42ebe37e0a6eff757dba60bcfa85859/atomics/T1547.001/T1547.001.md
+```

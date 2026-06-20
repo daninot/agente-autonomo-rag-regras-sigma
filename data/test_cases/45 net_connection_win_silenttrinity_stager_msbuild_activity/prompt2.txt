@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Network connections initiated by MSBuild — a signed Microsoft binary abused
+by SilentTrinity and similar C2 frameworks to execute attacker-controlled
+payloads while bypassing application allow-lists. Outbound traffic from
+MSBuild to standard web ports is highly suspicious.
+
+# Target environment
+- Product: windows; log source category: network_connection
+- Detection combines two conditions (both must match):
+  (a) the connecting process is msbuild.exe (|endswith);
+  (b) the connection is outbound (initiated) to standard HTTP/HTTPS ports.
+- Use condition: `selection and filter`.
+
+# References
+- https://www.blackhillsinfosec.com/my-first-joyride-with-silenttrinity/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

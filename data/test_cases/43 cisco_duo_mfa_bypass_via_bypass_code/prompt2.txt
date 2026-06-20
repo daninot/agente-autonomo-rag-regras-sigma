@@ -1,0 +1,20 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Successful Cisco Duo MFA authentication completed using a bypass code —
+temporary admin-issued passcodes intended as backup credentials. Attackers
+with admin access (or via social engineering of support) can issue bypass
+codes to defeat MFA without compromising the user's enrolled device.
+
+# Target environment
+- Product: cisco; log source service: duo
+- Detection matches Duo authentication log events where the authentication
+  reason indicates a bypass code was used.
+
+# References
+- https://duo.com/docs/adminapi#logs
+- https://help.duo.com/s/article/6327?language=en_US
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

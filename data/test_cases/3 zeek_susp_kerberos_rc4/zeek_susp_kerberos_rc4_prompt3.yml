@@ -1,0 +1,26 @@
+LOGSOURCE: The indicator would appear in the process_creation category, as it involves a Kerberos TGT request using RC4 encryption.
+
+FIELDS: The relevant log fields are EventID (specifically 4768 or 4769), TicketEncryptionType, and ServiceName.
+
+MODIFIERS: For each field, |contains is not the correct choice. Instead, we should use exact match for EventID and TicketEncryptionType, as they have specific values that indicate a potential threat. For ServiceName, we can use |endswith to check if it ends with 'krbtgt', which is a common service account name.
+
+ATT&CK: The technique that best describes this threat is t1558.004 (AS-REP Roasting via Kerberos TGT Requests), but since the request uses RC4 encryption, it's more likely related to Kerberoasting (t1558.003). However, I'll choose t1558.003 as it's a broader category that includes AS-REP Roasting.
+
+Here is the YAML rule:
+
+title: Detecting Kerberoasting Activity
+id: e5c29a91-d581-4c15-976f-29310acd8fc1
+status: test
+description: |
+  Detects suspicious Kerberos TGT requests using RC4 encryption, which may be indicative of kerberoasting.
+references:
+  - https://adsecurity.org/?p=3458
+logsource:
+  product: windows
+  service: security
+detection:
+  selection:
+    EventID: 4769
+    TicketEncryptionType: '0x17'
+    ServiceName: '*krbtgt*'
+  condition: selection

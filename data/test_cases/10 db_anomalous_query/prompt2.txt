@@ -1,0 +1,18 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Suspicious SQL keywords in database query logs associated with reconnaissance,
+exfiltration, or destructive activity — including operations that drop or
+truncate tables, dump data, or select all columns indiscriminately.
+
+# Target environment
+- Log source category: database (no specific product)
+- Requires SQL query logging to be enabled — document this in the rule.
+- Detection uses keyword matching against logged query content.
+
+# References
+- https://github.com/sqlmapproject/sqlmap
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

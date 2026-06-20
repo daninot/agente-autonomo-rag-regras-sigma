@@ -1,0 +1,27 @@
+title: DCE-RPC Functions Indicating Execution Techniques
+id: 3425265d-8407-4e36-b168-c126ab0197e9
+description: Detects Windows DCE-RPC functions indicating execution techniques on the remote system.
+status: experimental
+author: '@author'
+date: 2023/09/01
+modified: 2023/09/01
+logsource:
+    category: network_connection
+    product: windows
+detection:
+    selection:
+        protocol: 6 (TCP)
+        src_ip: any
+        dst_ip: any
+        src_port: any
+        dst_port: any
+        packet: 
+            - 'DCE-RPC function calls indicating execution techniques'
+    condition: packet | contains all of ('execution', 'techniques')
+    within: 1m
+    timeline:
+        start: 2023/09/01
+        end: 2023/09/30
+level: critical
+tags:
+    - attack.t1210

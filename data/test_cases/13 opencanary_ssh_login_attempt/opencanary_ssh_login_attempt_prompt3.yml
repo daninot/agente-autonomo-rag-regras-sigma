@@ -1,0 +1,38 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is "application" because the indicator would appear in log entries related to interactions with the OpenCanary honeypot services.
+
+(b) FIELDS: Based on the provided code and documentation, the specific log field that contains the indicator of the threat is likely "logtype".
+
+(c) MODIFIERS: Since we are looking for a match against a specific value (the log type), exact match is the correct choice. We will use the "=" operator instead of "|contains" or other modifiers.
+
+(d) ATT&CK: The technique that best describes this threat is t1133, which refers to "External Remote Services".
+
+Here is the corrected YAML rule:
+
+title: OpenCanary - SSH Login Attempt
+id: cd55f721-5623-4663-bd9b-5229cab5237d
+status: test
+description: Detects instances where an SSH service on an OpenCanary node has had a login attempt.
+references:
+  - https://opencanary.readthedocs.io/en/latest/starting/configuration.html#services-configuration
+  - https://github.com/thinkst/opencanary/blob/a0896adfcaf0328cfd5829fe10d2878c7445138e/opencanary/logger.py#L52
+author: Security Onion Solutions
+date: 2024-03-08
+tags:
+  - attack.privilege-escalation
+  - attack.initial-access
+  - attack.lateral-movement
+  - attack.persistence
+  - attack.stealth
+  - t1133
+logsource:
+  category: application
+  product: opencanary
+detection:
+  selection:
+    logtype = "4000"
+condition: selection
+falsepositives:
+  - Unlikely
+level: high

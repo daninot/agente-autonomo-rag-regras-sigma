@@ -1,0 +1,51 @@
+arquivo,logsource_descricao,logsource_familia,logsource_category,logsource_product,logsource_service,level,taticas_originais,taticas_normalizadas,tatica_primaria,tem_tag_mitre,houve_normalizacao
+bitbucket_audit_unauthorized_full_data_export_triggered.yml,bitbucket (genérico),Cloud / SaaS,,bitbucket,audit,critical,collection;resource-development,collection;resource-development,collection,True,False
+db_anomalous_query.yml,database,Aplicação,database,,,medium,exfiltration;initial-access;privilege-escalation;persistence,exfiltration;initial-access;privilege-escalation;persistence,exfiltration,True,False
+file_delete_win_delete_exchange_powershell_logs.yml,file_delete,Endpoint Windows,file_delete,windows,,high,stealth,defense-evasion,defense-evasion,True,True
+net_dns_katz_stealer_domain.yml,dns,Rede e proxy,dns,,,high,command-and-control,command-and-control,command-and-control,True,False
+opencanary_ssh_login_attempt.yml,application,Aplicação,application,opencanary,,high,privilege-escalation;initial-access;lateral-movement;persistence;stealth,privilege-escalation;initial-access;lateral-movement;persistence;defense-evasion,privilege-escalation,True,True
+proxy_exploit_cve_2023_1389_unauth_command_injection_tplink_archer_ax21.yml,proxy,Rede e proxy,proxy,,,medium,initial-access,initial-access,initial-access,True,False
+registry_event_runkey_winekey.yml,registry_event,Endpoint Windows,registry_event,windows,,high,privilege-escalation;persistence,privilege-escalation;persistence,privilege-escalation,True,False
+appframework_django_exceptions.yml,application,Aplicação,application,django,,medium,initial-access,initial-access,initial-access,True,False
+github_delete_action_invoked.yml,github (genérico),Cloud / SaaS,,github,audit,medium,impact;collection,impact;collection,impact,True,False
+java_local_file_read.yml,application,Aplicação,application,jvm,,high,initial-access,initial-access,initial-access,True,False
+kubernetes_audit_exec_into_container.yml,application,Cloud / SaaS,application,kubernetes,audit,medium,execution,execution,execution,True,False
+azure_app_device_code_authentication.yml,azure (genérico),Cloud / SaaS,,azure,signinlogs,medium,stealth;persistence;privilege-escalation;initial-access,defense-evasion;persistence;privilege-escalation;initial-access,defense-evasion,True,True
+kubernetes_audit_secrets_modified_or_deleted.yml,kubernetes (genérico),Cloud / SaaS,,kubernetes,audit,medium,credential-access,credential-access,credential-access,True,False
+av_exploit_cve_2021_34527_print_nightmare.yml,antivirus,Aplicação,antivirus,,,critical,privilege-escalation;stealth,privilege-escalation;defense-evasion,privilege-escalation,True,True
+microsoft365_new_federated_domain_added_audit.yml,m365 (genérico),Cloud / SaaS,,m365,audit,medium,privilege-escalation;defense-impairment,privilege-escalation;defense-evasion,privilege-escalation,True,True
+win_appxdeployment_server_appx_downloaded_from_file_sharing_domains.yml,windows (genérico),Endpoint Windows,,windows,appxdeployment-server,high,stealth,defense-evasion,defense-evasion,True,True
+file_event_lnx_doas_conf_creation.yml,file_event,Endpoint Linux/macOS,file_event,linux,,medium,privilege-escalation,privilege-escalation,privilege-escalation,True,False
+posh_pm_invoke_obfuscation_stdin.yml,ps_module,Endpoint Windows,ps_module,windows,,high,stealth;execution,defense-evasion;execution,defense-evasion,True,True
+win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern.yml,windows (genérico),Endpoint Windows,,windows,security,high,command-and-control,command-and-control,command-and-control,True,False
+appframework_ruby_on_rails_exceptions.yml,application,Aplicação,application,ruby_on_rails,,medium,initial-access,initial-access,initial-access,True,False
+pipe_created_sysinternals_psexec_default_pipe_susp_location.yml,pipe_created,Endpoint Windows,pipe_created,windows,,low,execution,execution,execution,True,False
+file_event_win_susp_startup_folder_persistence.yml,file_event,Endpoint Windows,file_event,windows,,high,privilege-escalation;execution;persistence,privilege-escalation;execution;persistence,privilege-escalation,True,False
+zeek_susp_kerberos_rc4.yml,zeek (genérico),Rede e proxy,,zeek,kerberos,medium,credential-access,credential-access,credential-access,True,False
+proc_creation_macos_remote_access_tools_meshagent_arguments.yml,process_creation,Endpoint Linux/macOS,process_creation,macos,,medium,command-and-control,command-and-control,command-and-control,True,False
+create_remote_thread_win_powershell_generic.yml.yml,create_remote_thread,Endpoint Windows,create_remote_thread,windows,,medium,execution,execution,execution,True,False
+image_load_susp_clickonce_unsigned_module_loaded.yml.yml,image_load,Endpoint Windows,image_load,windows,,medium,privilege-escalation;persistence;execution;stealth,privilege-escalation;persistence;execution;defense-evasion,privilege-escalation,True,True
+web_sql_injection_in_access_logs.yml,webserver,Aplicação,webserver,,,high,initial-access,initial-access,initial-access,True,False
+proc_creation_lnx_mal_shai_hulud_indicator.yml.yml,process_creation,Endpoint Linux/macOS,process_creation,linux,,high,execution,execution,execution,True,False
+zeek_http_executable_download_from_webdav.yml,zeek (genérico),Rede e proxy,,zeek,http,medium,command-and-control,command-and-control,command-and-control,True,False
+file_event_win_malware_darkgate_autoit3_save_temp.yml,file_event,Endpoint Windows,file_event,windows,,medium,execution,execution,execution,True,False
+nodejs_rce_exploitation_attempt.yml,application,Aplicação,application,nodejs,,high,initial-access,initial-access,initial-access,True,False
+proc_creation_win_reg_query_registry.yml,process_creation,Endpoint Windows,process_creation,windows,,medium,discovery,discovery,discovery,True,False
+app_python_sql_exceptions.yml,application,Aplicação,application,python,,medium,initial-access,initial-access,initial-access,True,False
+posh_ps_modify_group_policy_settings.yml,ps_script,Endpoint Windows,ps_script,windows,,medium,privilege-escalation;defense-impairment,privilege-escalation;defense-evasion,privilege-escalation,True,True
+file_event_macos_python_path_configuration_files.yml,file_event,Endpoint Linux/macOS,file_event,macos,,medium,execution,execution,execution,True,False
+spring_application_exceptions.yml,application,Aplicação,application,spring,,medium,initial-access,initial-access,initial-access,True,False
+okta_policy_rule_modified_or_deleted.yml,okta (genérico),Cloud / SaaS,,okta,okta,medium,impact,impact,impact,True,False
+cisco_duo_mfa_bypass_via_bypass_code.yml,cisco (genérico),Rede e proxy,,cisco,duo,medium,credential-access;initial-access;stealth,credential-access;initial-access;defense-evasion,credential-access,True,True
+file_rename_win_non_dll_to_dll_ext.yml,file_rename,Endpoint Windows,file_rename,windows,,medium,stealth,defense-evasion,defense-evasion,True,True
+net_connection_win_silenttrinity_stager_msbuild_activity.yml,network_connection,Rede e proxy,network_connection,windows,,high,execution;stealth,execution;defense-evasion,execution,True,True
+posh_pm_alternate_powershell_hosts.yml,ps_classic_start,Endpoint Windows,ps_classic_start,windows,,medium,execution,execution,execution,True,False
+proc_access_win_lsass_susp_access_flag.yml,process_access,Endpoint Windows,process_access,windows,,medium,credential-access,credential-access,credential-access,True,False
+velocity_ssti_injection.yml,application,Aplicação,application,velocity,,high,initial-access,initial-access,initial-access,True,False
+zeek_dce_rpc_mitre_bzar_persistence.yml,zeek (genérico),Rede e proxy,,zeek,dce_rpc,medium,privilege-escalation;persistence,privilege-escalation;persistence,privilege-escalation,True,False
+win_firewall_as_add_rule_wmiprvse.yml,windows (genérico),Endpoint Windows,,windows,firewall-as,medium,defense-impairment,defense-evasion,defense-evasion,True,True
+net_dns_susp_telegram_api.yml,dns,Rede e proxy,dns,,,medium,command-and-control,command-and-control,command-and-control,True,False
+huawei_bgp_auth_failed.yml,huawei (genérico),Rede e proxy,,huawei,bgp,low,initial-access;persistence;privilege-escalation;credential-access;collection;stealth,initial-access;persistence;privilege-escalation;credential-access;collection;defense-evasion,initial-access,True,True
+rpc_firewall_printing_lateral_movement.yml,application,Aplicação,application,rpc_firewall,,high,lateral-movement,lateral-movement,lateral-movement,True,False
+registry_set_change_security_zones.yml,registry_set,Endpoint Windows,registry_set,windows,,medium,persistence,persistence,persistence,True,False
+app_sqlinjection_errors.yml,application,Aplicação,application,sql,,high,initial-access,initial-access,initial-access,True,False

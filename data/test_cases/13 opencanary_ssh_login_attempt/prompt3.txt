@@ -1,0 +1,19 @@
+Generate a SIGMA rule to detect SSH login attempts against an OpenCanary node.
+OpenCanary is a honeypot — any interaction with its SSH service is inherently
+suspicious, since legitimate users have no reason to authenticate against a
+decoy host. Login attempts therefore indicate reconnaissance, lateral
+movement, or active intrusion.
+
+Target product: opencanary; log source category: application.
+
+Detection matches the specific OpenCanary log type identifier emitted when an
+SSH login attempt is logged. Consult the OpenCanary logger source for the
+correct numeric logtype value.
+
+A successful SSH probe against a honeypot can map to multiple MITRE ATT&CK
+tactics (initial access, lateral movement, persistence, among others) — tag
+all relevant ones.
+
+References to include:
+- https://opencanary.readthedocs.io/en/latest/starting/configuration.html#services-configuration
+- https://github.com/thinkst/opencanary/blob/a0896adfcaf0328cfd5829fe10d2878c7445138e/opencanary/logger.py#L52

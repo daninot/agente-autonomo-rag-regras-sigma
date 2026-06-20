@@ -1,0 +1,114 @@
+REGRA ORIGINAL:
+
+title: USB Device Plugged
+id: 1a4bd6e3-4c6e-405d-a9a3-53a116e341d4
+status: test
+description: Detects plugged/unplugged USB devices
+references:
+    - https://df-stream.com/2014/01/the-windows-7-event-log-and-usb-device/
+    - https://www.techrepublic.com/article/how-to-track-down-usb-flash-drive-usage-in-windows-10s-event-viewer/
+author: Florian Roth (Nextron Systems)
+date: 2017-11-09
+modified: 2021-11-30
+tags:
+    - attack.initial-access
+    - attack.t1200
+logsource:
+    product: windows
+    service: driver-framework
+    definition: 'Requires enabling and collection of the Microsoft-Windows-DriverFrameworks-UserMode/Operational eventlog'
+detection:
+    selection:
+        EventID:
+            - 2003  # Loading drivers
+            - 2100  # Pnp or power management
+            - 2102  # Pnp or power management
+    condition: selection
+falsepositives:
+    - Legitimate administrative activity
+level: low
+
+---
+PROMPT2:
+
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+USB device plug/unplug events on a Windows host — can indicate physical
+access attacks, data exfiltration via removable media, or unauthorized
+peripheral introduction.
+
+# Target environment
+- Product: windows; log source service: driver-framework
+- Requires the Microsoft-Windows-DriverFrameworks-UserMode/Operational event
+  log to be enabled and collected — document this in the rule.
+- Detection matches EventIDs related to driver loading and Plug-and-Play /
+  power management events triggered when USB devices are connected or
+  disconnected.
+
+# References
+- https://df-stream.com/2014/01/the-windows-7-event-log-and-usb-device/
+- https://www.techrepublic.com/article/how-to-track-down-usb-flash-drive-usage-in-windows-10s-event-viewer/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.
+
+---
+  -> [DUMP TOP-1] primeiros 400 chars do exemplo #1:
+------------------------------------------------------------
+title: External Disk Drive Or USB Storage Device Was Recognized By The System
+id: f69a87ea-955e-4fb4-adb2-bb9fd6685632
+status: test
+description: Detects external disk drives or plugged-in USB devices.
+references:
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-6416
+author: Keith Wright
+date: 2019-11-20
+modified: 2024-02-
+------------------------------------------------------------
+ -> origem (metadata): {'source': '/home/daniela/Documents/TCC/tcc_sigma_agent/src/../data/rag_knowledge/rules_windows_builtin_security_win_security_external_device.yml'}
+
+ -> [DIAGNÓSTICO RAG] coerência de logsource dos top-5 exemplos:
+    EX 1 (score 1.778): External Disk Drive Or USB Storage Device Was Recognize
+           logsource: category=— | product=windows | service=security
+    EX 2 (score 1.750): Data Exfiltration to Unsanctioned Apps
+           logsource: category=— | product=m365 | service=threat_management
+    EX 3 (score 1.698): Tap Driver Installation
+           logsource: category=— | product=windows | service=system
+    EX 4 (score 1.669): Potential Privileged System Service Operation - SeLoadD
+           logsource: category=— | product=windows | service=security
+    EX 5 (score 1.629): Protected Storage Service Access
+           logsource: category=— | product=windows | service=security
+ -> Categorias distintas nos top-5: 0 (nenhuma)
+ -> Produtos distintos nos top-5:   2 (m365, windows)
+
+---
+RESULTADO:
+
+title: Detecting USB Data Exfiltration
+id: f31f7870-0717-41f3-af05-babd1d417a9f
+status: test
+description: Detects potential data exfiltration via USB devices.
+references:
+    - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-6416
+    - https://community.openvpn.net/openvpn/wiki/ManagingWindowsTAPDrivers
+author: Your Name
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+    - attack.t1091
+    - attack.t1200
+logsource:
+    product: windows
+    service: security
+detection:
+    selection_eid:
+        EventID: 20001
+    selection_field:
+        - ClassName: 'DiskDrive'
+        - DeviceDescription: 'USB Mass Storage Device'
+    condition: all of selection_*
+falsepositives:
+    - Likely
+level: low

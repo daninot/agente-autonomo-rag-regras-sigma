@@ -1,0 +1,27 @@
+title: PowerShell Abuse Detection
+id: 1affc7c8-2153-415e-9372-27010efb5352
+status: test
+description: Detects malicious uses of PowerShell.
+references:
+  - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse
+author: Nikita Nazarov, oscd.community
+date: 2020-10-16
+modified: 2022-12-02
+tags:
+  - attack.discovery
+  - attack.t1518
+logsource:
+  product: windows
+  category: ps_script
+definition: 'Requirements: Script Block Logging must be enabled'
+detection:
+  selection:
+    ScriptBlockText|contains|all:
+      - get-itemProperty
+      - \software\
+      - select-object
+      - format-table
+  condition: selection
+falsepositives:
+  - Legitimate administration activities
+level: medium

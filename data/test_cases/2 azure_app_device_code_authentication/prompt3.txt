@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect an application authenticating via the OAuth 2.0
+Device Code flow in Azure / Entra ID. This flow is legitimate only for
+input-constrained devices (smart TVs, CLI tools); seen elsewhere, it may
+indicate device-code phishing or token theft.
+
+Target product: azure; log source service: signinlogs.
+
+Detection matches sign-in events where the message field indicates the Device
+Code flow.
+
+References to include:
+- https://learn.microsoft.com/en-us/entra/architecture/security-operations-applications#application-authentication-flows

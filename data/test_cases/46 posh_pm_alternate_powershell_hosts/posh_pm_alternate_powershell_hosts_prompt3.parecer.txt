@@ -1,0 +1,37 @@
+======================================================================
+PARECER DO JUIZ SEMÂNTICO (Nó 6)
+Modelo: qwen2.5:14b (temperatura: 0.0)
+Cenário: 46 posh_pm_alternate_powershell_hosts
+Prompt: prompt3
+======================================================================
+
+{
+  "veredito": "APPROVED_WITH_WARNINGS",
+  "dimensoes": {
+    "logsource": {
+      "status": "PASS",
+      "justificativa": "The log source category 'ps_classic_start' and product 'windows' are correctly used as per the spec."
+    },
+    "modifiers": {
+      "status": "WARN",
+      "justificativa": "|contains is used for partial matches, but it should be more specific to avoid false positives. For example, using |endswith or exact matching would be better."
+    },
+    "condition": {
+      "status": "FAIL",
+      "justificativa": "The condition 'all of selection_*' does not match the required logic specified in the spec which is `selection and not 1 of filter_main_* and not 1 of filter_optional_*`. The current condition lacks exclusion filters."
+    },
+    "structure": {
+      "status": "WARN",
+      "justificativa": "Missing filter_main_* and filter_optional_* sections as per the spec. Also, 'modified' date seems incorrect (2025-10-17)."
+    },
+    "semantic_alignment": {
+      "status": "PASS",
+      "justificativa": "The detection logic aims to catch PowerShell execution from alternate hosts which aligns with the threat description."
+    },
+    "invented_filters": {
+      "status": "WARN",
+      "justificativa": "The rule includes filters for 'ContextInfo' that are not mentioned in the original threat description, such as specific paths and '= powershell'. This may introduce false positives or negatives."
+    }
+  },
+  "observacoes_gerais": "Overall, the rule aims to detect PowerShell execution from alternate hosts but lacks proper exclusion filters and uses overly broad matching criteria."
+}

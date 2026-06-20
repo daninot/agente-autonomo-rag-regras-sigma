@@ -1,0 +1,33 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the file system, so the category that fits best is `file_event`.
+
+FIELDS: The log field that contains the indicator of the threat is likely to be `TargetFilename`, which stores the path of the deleted file.
+
+MODIFIERS: Since we're looking for files with a specific extension or pattern, `|endswith` is the correct choice. We'll use it to match the `.log` extension, which is typical for log files.
+
+ATT&CK: The technique that best describes this threat is `T1070`, which is related to Lateral Movement and covers actions like deleting logs.
+
+OUTPUT:
+
+title: Exchange PowerShell Cmdlet History Deleted
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects the deletion of the Exchange PowerShell cmdlet History logs which may indicate an attempt to destroy forensic evidence.
+references:
+  - https://m365internals.com/2022/10/07/hunting-in-on-premises-exchange-server-logs/
+author: [Your Name]
+date: 2023-02-20
+tags:
+  - attack.t1070
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    TargetFilename|endswith: '.log'
+condition: selection
+
+falsepositives:
+  - Unknown
+level: medium

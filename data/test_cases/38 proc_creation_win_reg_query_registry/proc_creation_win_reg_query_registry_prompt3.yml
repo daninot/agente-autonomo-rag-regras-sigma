@@ -1,0 +1,17 @@
+<thinking>...</thinking>
+
+```
+title: Query Registry
+description: Detects the usage of "reg.exe" in order to query reconnaissance information from the registry.
+category: Reconnaissance
+logsource:
+  product: windows
+  service: sysmon
+detection:
+  selection:
+    CommandLine: |contains reg, query, registry
+  condition: selection
+references:
+  - https://attack.mitre.org/techniques/T1012/
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1012/T1012.md
+```

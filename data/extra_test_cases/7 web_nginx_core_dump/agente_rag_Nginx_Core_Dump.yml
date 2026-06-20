@@ -1,0 +1,19 @@
+title: Nginx Core Dump
+id: 538bbfa7-2a1e-4818-bf78-51d6482206f3
+status: test
+description: Detects a core dump of a crashing Nginx worker process, which could be a signal of a serious problem or exploitation attempts.
+references:
+  - https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+  - https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+logsource:
+  category: process
+  product: nginx
+detection:
+  selection:
+    EventID: '1'
+    ProcessName: 'nginx'
+    CommandLine|contains: '--with-debug'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

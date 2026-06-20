@@ -1,0 +1,27 @@
+LOGSOURCE: registry_event fits best because the indicator would appear in the Windows Registry Event Log.
+
+FIELDS: The log fields that contain the indicator of the threat are TargetObject and Details.
+
+MODIFIERS: For TargetObject, |contains is the correct choice to match path fragments. For Details, exact match is likely the correct choice since it's a specific value (DWORD 0x00000001).
+
+ATT&CK: The technique that best describes this threat is t1112 (Abuse Elevation Control Host) because the adversary is using the registry to elevate privileges.
+
+OUTPUT:
+
+title: Registry Run Key Modification
+id: 66501229-dbcd-4c36-98cb-80755cfb485b
+status: test
+description: Detects modification of a registry run key created during Azorult execution
+references:
+  - https://www.fireeye.com/blog/threat-research/2020/10/kegtap-and-singlemalt-with-a-ransomware-chaser.html
+logsource:
+  product: windows
+  category: registry_event
+detection:
+  selection:
+    TargetObject|contains: 'SYSTEM\\'
+    Details: 'DWORD (0x00000001)'
+  condition: selection
+falsepositives:
+  - Unknown
+level: critical

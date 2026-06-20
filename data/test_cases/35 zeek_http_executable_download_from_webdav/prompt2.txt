@@ -1,0 +1,24 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Executable file download via WebDAV — a technique observed in APT29 campaigns
+to deliver malicious binaries over WebDAV channels while blending with
+legitimate file-sharing traffic.
+
+# Target environment
+- Product: zeek; log source service: http
+- Detection combines TWO selections with AND:
+  (a) WebDAV indicator — either the user-agent contains 'WebDAV' OR the URI
+      contains 'webdav' (OR logic within the selection);
+  (b) Executable indicator — either the response MIME type indicates a DOS
+      executable OR the URI ends with an executable extension (OR logic within
+      the selection).
+- Both selections must match simultaneously.
+
+# References
+- http://carnal0wnage.attackresearch.com/2012/06/webdav-server-to-download-custom.html
+- https://github.com/OTRF/detection-hackathon-apt29
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

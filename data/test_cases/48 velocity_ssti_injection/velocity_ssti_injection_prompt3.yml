@@ -1,0 +1,58 @@
+<thinking>...</thinking>
+
+The LOGSOURCE category that fits best is "registry_event". This is because the indicator of the threat (Velocity exceptions) would appear in the Windows Event Log under the Application section.
+
+The specific log fields that contain the indicator of the threat are "Message" and possibly others, but we will focus on "Message".
+
+For the field "Message", |contains is the correct choice. We want to match any occurrence of the string "Velocity exception" within the message text.
+
+The ATT&CK technique that best describes this threat is t1086 (Application Dissemination).
+
+Here is the YAML rule:
+
+```
+title: Potential Server-Side Template Injection in Velocity
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection:
+    Message: |contains "Velocity exception"
+  filter_main_wmiprvse:
+    SourceImage: 'C:\Windows\System32\Wbem\Wmiprvse.exe'
+    TargetImage: 'C:\Windows\system32\lsass.exe'
+  filter_optional_dell_folders:
+    # If dell software is installed we get matches like these
+    # Example 1:
+    #   SourceImage: C:\Program Files\Dell\SupportAssistAgent\bin\SupportAssistAgent.exe
+    #   TargetImage: C:\Program Files\Dell\TechHub\Dell.TechHub.exe
+    #   GrantedAccess: 0x1F3FFF
+    # Example 2:
+    #   SourceImage: C:\Program Files (x86)\Dell\UpdateService\DCF\Dell.DCF.UA.Bradbury.API.SubAgent.exe
+    #   TargetImage: C:\Program Files\Dell\TechHub\Dell.TechHub.exe
+    #   GrantedAccess: 0x1F3FFF
+    # Example 3:
+    #   SourceImage: C:\Program Files\Dell\TechHub\Dell.TechHub.exe
+    #   TargetImage: C:\Program Files (x86)\Dell\UpdateService\DCF\Dell.DCF.UA.Bradbury.API.SubAgent.exe
+    #   GrantedAccess: 0x1F3FFF
+    SourceImage|startswith:
+      - 'C:\Program Files\Dell\'
+      - 'C:\Program Files (x86)\Dell\'
+    TargetImage|startswith:
+      - 'C:\Program Files\Dell\'
+      - 'C:\Program Files (x86)\Dell\'
+  filter_optional_dell_specifc:
+    SourceImage: 'C:\Program Files (x86)\Dell\UpdateService\ServiceShell.exe'
+    TargetImage: 'C:\Windows\Explorer.EXE'
+  filter_optional_visual_studio:
+    SourceImage|startswith: 'C:\Program Files\Microsoft Visual Studio\'
+    TargetImage|startswith: 'C:\Program Files\Microsoft Visual Studio\'
+
+condition: selection and not 1 of filter_main_* and not 1 of filter_optional_*
+
+references:
+  - https://antgarsil.github.io/posts/velocity/
+  - https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs
+```

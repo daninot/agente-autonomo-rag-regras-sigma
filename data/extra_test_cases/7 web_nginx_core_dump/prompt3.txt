@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect core dumps of crashing Nginx worker processes
+— may indicate a serious configuration issue or active exploitation attempt
+(e.g., resolver memory corruption vulnerabilities).
+
+Log source service: nginx (no product specified).
+
+Detection uses keyword matching against the characteristic Nginx error log
+message emitted when a worker exits via signal 6 with a core dump.
+
+References to include:
+- https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+- https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+
+
+Regra com logsource minimalista — só service: nginx, sem product nem category. Sinalizei explicitamente "no product specified" nos dois prompts porque o instinto natural de uma LLM (e do agente, especialmente com RAG puxando regras Windows que sempre têm product) é adicionar product: linux ou category: webserver — o que tornaria a regra estilisticamente divergente da original. Reproduzir a minimalidade do logsource é a escolha do autor e merece ser preservada.

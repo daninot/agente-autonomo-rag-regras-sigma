@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs

@@ -1,0 +1,28 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+SQL injection attempts in web server access logs — GET requests whose URIs
+contain SQL injection payloads including schema enumeration, UNION-based
+extraction, blind injection, and URL-encoded variants of common SQLi strings.
+
+# Target environment
+- Log source category: webserver
+- Detection combines THREE conditions with AND:
+  (a) HTTP method is GET;
+  (b) the URI contains any of a comprehensive list of SQL injection payload
+      strings — include both plain-text and URL-encoded variants, covering
+      UNION SELECT, information_schema enumeration, version/database
+      fingerprinting, and boolean-based payloads;
+  (c) exclude 404 responses to reduce noise from scanners hitting non-existent
+      endpoints. Use `selection and keywords and not 1 of filter_main_*`.
+
+# References
+- https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/
+- https://www.acunetix.com/blog/articles/using-logs-to-investigate-a-web-application-attack/
+- https://brightsec.com/blog/sql-injection-payloads/
+- https://github.com/payloadbox/sql-injection-payload-list
+- https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

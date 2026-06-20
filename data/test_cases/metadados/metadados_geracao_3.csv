@@ -1,0 +1,117 @@
+cenario_id,prompt_usado,status,tentativas,tempo_total_s,usou_web_search,tipo_input,contexto_pobre,erro_validacao_final,veredito_juiz,juiz_logsource,juiz_modifiers,juiz_condition,juiz_structure,juiz_semantic_alignment,juiz_invented_filters,motivo_reprovacao,regra_referencia,arquivo_regra_gerada,arquivo_parecer
+21 av_exploit_cve_2021_34527_print_nightmare.yml,prompt1,APROVADO,2,105.32,True,texto_livre,True,APROVADO,,,,,,,,,av_exploit_cve_2021_34527_print_nightmare.yml,av_exploit_cve_2021_34527_print_nightmare_prompt1.yml,av_exploit_cve_2021_34527_print_nightmare_prompt1.parecer.txt
+21 av_exploit_cve_2021_34527_print_nightmare.yml,prompt2,APROVADO,1,90.68,True,cve,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,av_exploit_cve_2021_34527_print_nightmare.yml,av_exploit_cve_2021_34527_print_nightmare_prompt2.yml,av_exploit_cve_2021_34527_print_nightmare_prompt2.parecer.txt
+21 av_exploit_cve_2021_34527_print_nightmare.yml,prompt3,APROVADO,2,102.14,True,cve,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,av_exploit_cve_2021_34527_print_nightmare.yml,av_exploit_cve_2021_34527_print_nightmare_prompt3.yml,av_exploit_cve_2021_34527_print_nightmare_prompt3.parecer.txt
+22 microsoft365_new_federated_domain_added_audit,prompt1,APROVADO,1,71.87,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,microsoft365_new_federated_domain_added_audit.yml,microsoft365_new_federated_domain_added_audit_prompt1.yml,microsoft365_new_federated_domain_added_audit_prompt1.parecer.txt
+22 microsoft365_new_federated_domain_added_audit,prompt2,APROVADO,2,76.03,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,microsoft365_new_federated_domain_added_audit.yml,microsoft365_new_federated_domain_added_audit_prompt2.yml,microsoft365_new_federated_domain_added_audit_prompt2.parecer.txt
+22 microsoft365_new_federated_domain_added_audit,prompt3,APROVADO,2,87.7,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,microsoft365_new_federated_domain_added_audit.yml,microsoft365_new_federated_domain_added_audit_prompt3.yml,microsoft365_new_federated_domain_added_audit_prompt3.parecer.txt
+23 win_appxdeployment_server_appx_downloaded_from_file_sharing_domains,prompt1,REPROVADO,4,109.12,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'detection',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,WARN,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'detection' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used appropriately in most cases, but it's questionable to use |endswith on command line arguments (CommandLine|contains) as these may not always end with the speci... | structure[WARN]: The rule lacks the 'date' field format (YYYY/MM/DD) and does not include a 'level' or 'tags' field, which are recommended for completeness. | invented_filters[WARN]: The rule includes filters for specific paths (e.g., Windows Terminal, SysinternalsSuite) which are not directly mentioned in the threat description but may be relevant to exclud...",win_appxdeployment_server_appx_downloaded_from_file_sharing_domains.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt1.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt1.parecer.txt
+23 win_appxdeployment_server_appx_downloaded_from_file_sharing_domains,prompt2,REPROVADO,4,94.47,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 5, column 9:
+    author: @johnsmith
+            ^)",REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 5, column 9:
+    author: @johnsmith
+            ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source specified is incorrect. The rule should use 'appxdeployment-server' as the product, not 'Windows'. Additionally, there's no service mentioned. | modifiers[WARN]: |contains and |endswith are used but they do not align with the threat description which requires checking for known domains in a path. The current rule checks command line argu... | structure[WARN]: Missing required fields such as 'service' in logsource and incorrect use of category (should be process_creation or appxdeployment-server). | semantic_alignment[FAIL]: The detection logic does not align with the threat description. It checks for command line arguments instead of paths containing known domains.",win_appxdeployment_server_appx_downloaded_from_file_sharing_domains.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt2.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt2.parecer.txt
+23 win_appxdeployment_server_appx_downloaded_from_file_sharing_domains,prompt3,APROVADO,3,99.16,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,WARN,PASS,FAIL,PASS,,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt3.yml,win_appxdeployment_server_appx_downloaded_from_file_sharing_domains_prompt3.parecer.txt
+24 file_event_lnx_doas_conf_creation,prompt1,APROVADO,3,95.7,True,texto_livre,True,APROVADO,REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,,file_event_lnx_doas_conf_creation.yml,file_event_lnx_doas_conf_creation_prompt1.yml,file_event_lnx_doas_conf_creation_prompt1.parecer.txt
+24 file_event_lnx_doas_conf_creation,prompt2,APROVADO,2,77.16,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,file_event_lnx_doas_conf_creation.yml,file_event_lnx_doas_conf_creation_prompt2.yml,file_event_lnx_doas_conf_creation_prompt2.parecer.txt
+24 file_event_lnx_doas_conf_creation,prompt3,APROVADO,4,81.14,True,texto_livre,False,APROVADO,APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,,file_event_lnx_doas_conf_creation.yml,file_event_lnx_doas_conf_creation_prompt3.yml,file_event_lnx_doas_conf_creation_prompt3.parecer.txt
+25 posh_pm_invoke_obfuscation_stdin,prompt1,REPROVADO,4,95.19,True,texto_livre,True,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used correctly for TargetObject, but it may be too broad as it matches any occurrence of the path fragments. This could lead to false positives. | semantic_alignment[WARN]: The rule aims to detect malicious registry modifications but may also catch legitimate activities due to the broad use of |contains. This could result in a high number of false ... | invented_filters[FAIL]: The rule does not specify any specific hosts or paths, but it introduces path fragments that are not explicitly mentioned in the threat description. The exact registry keys to b...",posh_pm_invoke_obfuscation_stdin.yml,posh_pm_invoke_obfuscation_stdin_prompt1.yml,posh_pm_invoke_obfuscation_stdin_prompt1.parecer.txt
+25 posh_pm_invoke_obfuscation_stdin,prompt2,REPROVADO,4,102.57,True,texto_livre,False,"Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.obfuscation. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais.",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,WARN,PASS,PASS,"[no_5_validador] Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.obfuscation. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais. || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source should be 'process_creation' instead of 'security'. The rule is looking for process creation events, not security logs. | structure[WARN]: The rule lacks some fields such as 'id', 'modified', and 'tags'. Additionally, the date format should be consistent with ISO 8601 (YYYY-MM-DD).",posh_pm_invoke_obfuscation_stdin.yml,posh_pm_invoke_obfuscation_stdin_prompt2.yml,posh_pm_invoke_obfuscation_stdin_prompt2.parecer.txt
+25 posh_pm_invoke_obfuscation_stdin,prompt3,APROVADO,3,86.85,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,posh_pm_invoke_obfuscation_stdin.yml,posh_pm_invoke_obfuscation_stdin_prompt3.yml,posh_pm_invoke_obfuscation_stdin_prompt3.parecer.txt
+26 win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern,prompt1,APROVADO,1,73.61,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt1.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt1.parecer.txt
+26 win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern,prompt2,REPROVADO,4,98.27,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 18, column 5:
+        or
+        ^
+could not find expected ':'
+  in ""<unicode string>"", line 19, column 5:
+        Path|contains: '\\DavWWWRoot\\'
+        ^)",REJECTED,FAIL,WARN,FAIL,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 18, column 5:
+        or
+        ^
+could not find expected ':'
+  in ""<unicode string>"", line 19, column 5:
+        Path|contains: '\\DavWWWRoot\\'
+        ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The rule uses 'file_event' as the category, but the threat description specifies that it should be related to file share access which is typically found in security logs under a... | modifiers[WARN]: The use of |contains for Path and Image fields does not align with the spec. The spec mentions using |contains for path fragments but exact match or other modifiers should be us... | condition[FAIL]: The condition 'all of selection_path and selection_image' is incorrect based on the requirement to use `1 of selection_share_*` syntax. The rule does not correctly implement thi... | structure[WARN]: Missing required fields such as EventID, ShareName, and ShareLocalPath which are critical for detecting file share access events. | semantic_alignment[FAIL]: The detection logic does not align with the threat description. It lacks conditions to match specific IP patterns in share names or paths as required by the spec.",win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt2.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt2.parecer.txt
+26 win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern,prompt3,APROVADO,1,68.82,True,cve,False,APROVADO,REJECTED,FAIL,PASS,WARN,FAIL,FAIL,PASS,,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt3.yml,win_security_exploit_cve_2023_36884_office_windows_html_rce_share_access_pattern_prompt3.parecer.txt
+27 appframework_ruby_on_rails_exceptions,prompt1,REPROVADO,4,90.24,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1090: Remote Services.
+                                         ^)",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1090: Remote Services.
+                                         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The chosen category 'process_creation' is not the most appropriate for Ruby on Rails exceptions, which are more likely to be logged in application logs rather than process creat... | structure[WARN]: The structure uses a format that does not align with the provided Sigma rule example. The fields should be under detection rather than directly in process_creation.",appframework_ruby_on_rails_exceptions.yml,appframework_ruby_on_rails_exceptions_prompt1.yml,appframework_ruby_on_rails_exceptions_prompt1.parecer.txt
+27 appframework_ruby_on_rails_exceptions,prompt2,REPROVADO,4,83.46,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 13, column 19:
+      request_method: |contains
+                      ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 13, column 20:
+      request_method: |contains
+                       ^)",REJECTED,FAIL,WARN,FAIL,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 13, column 19:
+      request_method: |contains
+                      ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 13, column 20:
+      request_method: |contains
+                       ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The logsource category should be 'application' for Ruby on Rails logs, not 'webserver'. Additionally, the product is specified as ruby_on_rails in the threat description. | modifiers[WARN]: Modifiers are not used correctly. The rule does not specify how modifiers apply to fields like request_method or status_code. Also, there's no indication of which field uses |co... | condition[FAIL]: The detection logic is incorrect as it references a URL instead of defining conditions based on exception classes or other relevant criteria. | structure[WARN]: Missing required fields such as 'fields' and 'detection'. The rule structure does not align with the provided spec, which requires specific fields like request_method, request_u... | semantic_alignment[FAIL]: The detection logic does not catch the stated threat of suspicious Ruby on Rails exception classes in application logs. The rule references a URL instead of defining conditions ...",appframework_ruby_on_rails_exceptions.yml,appframework_ruby_on_rails_exceptions_prompt2.yml,appframework_ruby_on_rails_exceptions_prompt2.parecer.txt
+27 appframework_ruby_on_rails_exceptions,prompt3,APROVADO,3,89.67,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,appframework_ruby_on_rails_exceptions.yml,appframework_ruby_on_rails_exceptions_prompt3.yml,appframework_ruby_on_rails_exceptions_prompt3.parecer.txt
+28 pipe_created_sysinternals_psexec_default_pipe_susp_location,prompt1,APROVADO,2,87.68,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,WARN,PASS,,pipe_created_sysinternals_psexec_default_pipe_susp_location.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt1.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt1.parecer.txt
+28 pipe_created_sysinternals_psexec_default_pipe_susp_location,prompt2,APROVADO,3,89.93,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,PASS,WARN,FAIL,PASS,,pipe_created_sysinternals_psexec_default_pipe_susp_location.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt2.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt2.parecer.txt
+28 pipe_created_sysinternals_psexec_default_pipe_susp_location,prompt3,REPROVADO,4,96.69,True,texto_livre,False,"Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.s0029. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais.",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.s0029. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais. || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source category should be 'pipe_created' as per the requirement, not 'file_event'. The product is correctly specified as 'windows', but the event type (Sysmon named pipe... | semantic_alignment[WARN]: The rule targets PSEXESVC.exe creation but does not explicitly detect the named pipe created by PsExec. The detection logic should focus on the specific default pipe name used b...",pipe_created_sysinternals_psexec_default_pipe_susp_location.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt3.yml,pipe_created_sysinternals_psexec_default_pipe_susp_location_prompt3.parecer.txt
+29 file_event_win_susp_startup_folder_persistence,prompt1,REPROVADO,4,93.63,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning an alias
+  in ""<unicode string>"", line 11, column 23:
+            process_name: *info_stealer.exe
+                          ^
+expected alphabetic or numeric character, but found '.'
+  in ""<unicode string>"", line 11, column 36:
+            process_name: *info_stealer.exe
+                                       ^)",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,WARN,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning an alias
+  in ""<unicode string>"", line 11, column 23:
+            process_name: *info_stealer.exe
+                          ^
+expected alphabetic or numeric character, but found '.'
+  in ""<unicode string>"", line 11, column 36:
+            process_name: *info_stealer.exe
+                                       ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The logsource category 'file_event' is not commonly used in Sigma rules for process detection. It should be more specific, such as using 'process_creation'. The product and serv... | structure[WARN]: The rule lacks some optional but recommended fields such as 'tags', 'level', and 'falsepositives'. Additionally, the ID format does not follow typical Sigma convention (should b...",file_event_win_susp_startup_folder_persistence.yml,file_event_win_susp_startup_folder_persistence_prompt1.yml,file_event_win_susp_startup_folder_persistence_prompt1.parecer.txt
+29 file_event_win_susp_startup_folder_persistence,prompt2,APROVADO,2,73.9,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,file_event_win_susp_startup_folder_persistence.yml,file_event_win_susp_startup_folder_persistence_prompt2.yml,file_event_win_susp_startup_folder_persistence_prompt2.parecer.txt
+29 file_event_win_susp_startup_folder_persistence,prompt3,REPROVADO,4,85.09,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,FAIL,WARN,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |endswith used for Image but not for TargetFilename extensions as per the spec. Should use |contains or |endswith for all relevant parts of the path and extension. | structure[WARN]: Missing 'modified' field, which should be present for updates. Also, level field is not standard in SIGMA rules but can be considered an extension. | semantic_alignment[FAIL]: The detection logic focuses on PowerShell and .lnk files only, missing other script/executable types like VBScript, JavaScript, batch, HTA, DLL, JAR as per the threat description. | invented_filters[WARN]: The rule specifies Image|endswith for PowerShell executables but does not cover a comprehensive list of potentially malicious extensions and file types mentioned in the threat d...",file_event_win_susp_startup_folder_persistence.yml,file_event_win_susp_startup_folder_persistence_prompt3.yml,file_event_win_susp_startup_folder_persistence_prompt3.parecer.txt
+30 proc_creation_macos_remote_access_tools_meshagent_arguments,prompt1,APROVADO,1,74.68,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,FAIL,,proc_creation_macos_remote_access_tools_meshagent_arguments.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt1.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt1.parecer.txt
+30 proc_creation_macos_remote_access_tools_meshagent_arguments,prompt2,APROVADO,2,68.04,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,proc_creation_macos_remote_access_tools_meshagent_arguments.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt2.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt2.parecer.txt
+30 proc_creation_macos_remote_access_tools_meshagent_arguments,prompt3,REPROVADO,4,89.25,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning an alias
+  in ""<unicode string>"", line 5, column 12:
+      product: *
+               ^
+expected alphabetic or numeric character, but found '\n'
+  in ""<unicode string>"", line 5, column 13:
+      product: *
+                ^)",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,PASS,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning an alias
+  in ""<unicode string>"", line 5, column 12:
+      product: *
+               ^
+expected alphabetic or numeric character, but found '\n'
+  in ""<unicode string>"", line 5, column 13:
+      product: *
+                ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The product field is set to '*', which may be too broad. It should ideally specify 'macos'.",proc_creation_macos_remote_access_tools_meshagent_arguments.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt3.yml,proc_creation_macos_remote_access_tools_meshagent_arguments_prompt3.parecer.txt

@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://research.splunk.com/endpoint/linux_doas_conf_file_creation/
+- https://www.makeuseof.com/how-to-install-and-use-doas/

@@ -1,0 +1,15 @@
+Generate a SIGMA rule to detect USB device plug/unplug events on a Windows
+host — may indicate physical access attacks, data exfiltration via removable
+media, or unauthorized peripheral introduction.
+
+Target product: windows; log source service: driver-framework. Requires the
+Microsoft-Windows-DriverFrameworks-UserMode/Operational event log enabled —
+document this.
+
+Detection matches EventIDs related to driver loading and Plug-and-Play /
+power management events triggered when USB devices are connected or
+disconnected.
+
+References to include:
+- https://df-stream.com/2014/01/the-windows-7-event-log-and-usb-device/
+- https://www.techrepublic.com/article/how-to-track-down-usb-flash-drive-usage-in-windows-10s-event-viewer/

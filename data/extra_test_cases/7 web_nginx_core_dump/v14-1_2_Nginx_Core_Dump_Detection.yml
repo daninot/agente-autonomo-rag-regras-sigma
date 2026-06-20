@@ -1,0 +1,19 @@
+title: Nginx Core Dump Detection
+id: 444c1a96-9ab1-49f9-9324-a032f5b2760f
+status: test
+description: Detects potential core dump in Nginx worker process
+references:
+  - https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+  - https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+logsource:
+  category: process_access
+  product: nginx
+detection:
+  selection:
+    EventID: 'core dump'
+    Provider_Name: 'Nginx'
+    Data|contains: 'core dump'
+  condition: selection
+falsepositives:
+  - Legitimate core dump during debugging or testing
+level: high

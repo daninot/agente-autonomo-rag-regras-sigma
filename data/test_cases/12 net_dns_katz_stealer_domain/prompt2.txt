@@ -1,0 +1,20 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+DNS queries to domains associated with Katz Stealer — an information-stealing
+malware used to exfiltrate credentials, browser data, and crypto wallets.
+Any DNS lookup to known Katz Stealer C2 or panel domains in an enterprise
+environment strongly indicates compromise or active C2 communication.
+
+# Target environment
+- Log source category: dns
+- Detection matches queried domain names using |contains to also catch
+  subdomains of the same base domains.
+- The reference is internal threat research — use 'Internal research' as the
+  reference value (no URL).
+- Tag the rule with the MITRE ATT&CK technique for DNS-based C2 and include
+  a tag indicating this is an emerging threat detection.
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

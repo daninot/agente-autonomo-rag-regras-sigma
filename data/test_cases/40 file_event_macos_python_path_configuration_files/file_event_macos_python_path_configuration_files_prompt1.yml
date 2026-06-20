@@ -1,0 +1,26 @@
+<thinking>...</thinking>
+
+LOGSOURCE: network_connection fits best because the indicator would appear in the firewall logs.
+FIELDS: The log fields that contain the indicator of the threat are destination_service and source_service.
+MODIFIERS: For each field, |contains is the correct choice because we're looking for path fragments that may appear anywhere.
+ATT&CK: The technique that best describes this threat is t1210 (Exploit Public-Facing Service).
+
+```yml
+title: GlobalProtect RCE Vulnerability (CVE-2024-3400)
+id: 3de2a4392b8715bad070b2ae12243f166ead37830f7c6d24e778985927f9caac
+description: Remote Code Execution vulnerability in GlobalProtect feature of Palo Alto Networks PAN-OS software for specific PAN-OS versions and distinct feature configurations.
+logsource:
+    category: network_connection
+    product: palo alto networks
+    service: globalprotect
+detection:
+    selection:
+        destination_service: |contains "GlobalProtect"
+        source_service: |contains "GlobalProtect"
+    condition: selection
+references:
+    - https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/
+    - https://www.virustotal.com/gui/file/3de2a4392b8715bad070b2ae12243f166ead37830f7c6d24e778985927f9caac
+    - https://docs.python.org/3/library/site.html
+    - https://www.mitre.org/attack-and-protection-techniques/t1210/
+```

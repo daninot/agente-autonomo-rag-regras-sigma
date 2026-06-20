@@ -1,0 +1,29 @@
+LOGSOURCE: The category that fits best is "process_creation" because the indicator of the threat ("Access to this page requires authorization") would appear in the logs when an application attempts to access a page.
+
+FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to authentication or authorization, such as "AuthenticationResult" or "AuthorizationStatus".
+
+MODIFIERS: Since the indicator is a string that may appear anywhere in the log entry, |contains would be the correct choice for each field.
+
+ATT&CK: The technique that best describes this threat is t1566 (Phishing) because it involves an attacker attempting to trick users into providing unauthorized access to sensitive data by presenting a legitimate-looking login prompt or directory change request.
+
+
+title: Phishing Attempt via Application Authentication Flow
+id: 6c4ef451-50c6-4ad5-9638-0dee4a935ada
+status: test
+description: Detects phishing attempts via application authentication flow in Microsoft Entra security operations logs
+references:
+  - https://learn.microsoft.com/en-us/entra/architecture/security-operations-applications#application-authentication-flows
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.t1566
+logsource:
+  product: Microsoft Entra
+  service: security_operations_logs
+detection:
+  selection:
+    AuthenticationResult: '*Access to this page requires authorization*'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

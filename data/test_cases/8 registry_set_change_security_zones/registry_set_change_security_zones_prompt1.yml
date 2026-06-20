@@ -1,0 +1,26 @@
+title: Registry modification
+id: fc837cd4-0aae-4328-b2cd-6d1520b61882
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection_set_1:
+    TargetObject|endswith:
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideClock'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAHealth'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCANetwork'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAPower'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\HideSCAVolume'
+    Details|endswith: 'DWORD (0x00000001)'
+  selection_set_0:
+    TargetObject|endswith:
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowInfoTip'
+      - 'SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced\ShowCompColor'
+    Details|endswith: 'DWORD (0x00000000)'
+  condition: 1 of selection_set_*
+
+references:
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1112/T1112.md#atomic-test-4---add-domain-to-trusted-sites-zone
+  - https://learn.microsoft.com/en-us/troubleshoot/developer/browsers/security-privacy/ie-security-zones-registry-entries

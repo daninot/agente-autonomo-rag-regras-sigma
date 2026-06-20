@@ -1,0 +1,28 @@
+title: Windows Group Policy Modification via Registry Events
+
+id: 93917eb4-1477-4ea5-8851-540f11d8419d
+
+description: Detects group policy modifications via registry events.
+
+references:
+- https://raw.githubusercontent.com/redcanaryco/atomic-red-team/master/atomics/T1484.001/T1484.001.md
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection:
+    EventID: 5136
+    ObjectClass: 'groupPolicyContainer'
+    Description|contains:
+      - GPO
+      - SYSVOL
+      - <DOMAIN>
+      - Policies
+  condition: selection
+
+falsepositives:
+- Legitimate modifications to Group Policy Objects
+
+level: medium

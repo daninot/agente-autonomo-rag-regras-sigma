@@ -1,0 +1,14 @@
+title: Linux Doas Conf File Creation
+id: 85977177-ff03-4e34-8b40-c00a94a2527f
+
+logsource:
+    category: file_event
+    product: linux
+
+detection:
+    selection:
+        Image|endswith: '/doas.conf'
+    condition: selection
+
+references:
+    - https://www.makeuseof.com/how-to-install-and-use-doas/

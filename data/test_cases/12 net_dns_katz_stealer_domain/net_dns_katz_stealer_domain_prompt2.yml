@@ -1,0 +1,25 @@
+title: Katz Stealer DNS Query Detection
+id: ddaf8ac7-8134-4b1b-9cf9-f1f019ff296d
+status: test
+description: Detects DNS queries to known Katz Stealer domains
+references:
+    - Internal Research
+author: Swachchhanda Shrawan Poudel (Nextron Systems)
+date: 2025-05-22
+modified: 2025-06-12
+tags:
+    - attack.command-and-control
+    - detection.emerging-threats
+logsource:
+    category: dns
+detection:
+    selection:
+        queryName|contains:
+            - 'katz-panel.com'
+            - 'katz-stealer.com'
+            - 'katzstealer.com'
+            - 'twist2katz.com'
+    condition: selection
+falsepositives:
+    - Unlikely
+level: high

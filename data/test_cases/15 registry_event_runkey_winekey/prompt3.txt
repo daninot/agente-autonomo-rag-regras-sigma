@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect potential registry modification by the WINEKEY
+or Team9 backdoor — malware associated with ransomware campaigns that achieves
+persistence by creating a specific Run key entry disguised as a legitimate
+backup manager application.
+
+Target product: windows; log source category: registry_event.
+
+Detection matches registry write events targeting a specific Run key path
+under the current user or local machine hive. Use |endswith to match the
+registry key path.
+
+References to include:
+- https://www.fireeye.com/blog/threat-research/2020/10/kegtap-and-singlemalt-with-a-ransomware-chaser.html

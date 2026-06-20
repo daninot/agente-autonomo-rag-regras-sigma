@@ -1,0 +1,33 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the Duo MFA logs, which suggests that the category "proxy" or "process_creation" might fit best. However, since we are dealing with authentication logs, I'll choose "proxy" as it's more specific to network-related events.
+
+FIELDS: The relevant log fields for this threat are likely to be related to the bypass code and the successful MFA authentication. Based on the provided documentation, the field "bypass_code" or "auth_result" might contain the indicator of the threat.
+
+MODIFIERS: Since we're looking for a specific string (the bypass code) within these fields, an exact match is likely the correct choice.
+
+ATT&CK: The technique that best describes this threat is t1098.004 - Account Manipulation > Bypass Multi-Factor Authentication.
+
+---
+
+title: Successful MFA Authentication Via Bypass Code
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects when a successful MFA authentication occurs due to the use of a bypass code.
+references:
+  - https://duo.com/docs/adminapi#logs
+  - https://help.duo.com/s/article/6327?language=en_US
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.t1098.004
+logsource:
+  product: duo
+  service: proxy
+detection:
+  selection:
+    auth_result|exact: "Successful MFA authentication via bypass code"
+  condition: selection
+falsepositives:
+  - Authorized use of bypass codes by administrators
+level: high

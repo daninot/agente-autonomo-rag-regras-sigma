@@ -1,0 +1,20 @@
+Generate a SIGMA rule to detect SQL injection attempts in web server access
+logs — GET requests whose URIs contain SQLi payloads including schema
+enumeration, UNION-based extraction, blind injection, and URL-encoded variants.
+
+Log source category: webserver.
+
+Detection combines: (a) HTTP method GET; (b) a comprehensive keyword list
+covering UNION SELECT, information_schema, version/database fingerprinting,
+and boolean payloads in both plain-text and URL-encoded form; (c) exclusion
+of 404 responses to suppress scanner noise. Use
+`selection and keywords and not 1 of filter_main_*`.
+
+References to include:
+- https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/
+- https://www.acunetix.com/blog/articles/using-logs-to-investigate-a-web-application-attack/
+- https://brightsec.com/blog/sql-injection-payloads/
+- https://github.com/payloadbox/sql-injection-payload-list
+- https://book.hacktricks.xyz/pentesting-web/sql-injection/mysql-injection
+
+

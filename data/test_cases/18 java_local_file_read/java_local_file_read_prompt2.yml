@@ -1,0 +1,23 @@
+title: Potential Local File Read Vulnerability In JVM Based Application
+id: 1d3c75f4-f493-412c-a640-8a42471839a9
+status: test
+description: Detects potential local file read vulnerability in JVM based apps.
+references:
+  - https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs
+author: Moti Harmats
+date: 2023-02-11
+tags:
+  - attack.initial-access
+  - attack.t1190
+logsource:
+  category: application
+  product: jvm
+definition: 'Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)'
+detection:
+  keywords:
+    - 'java.io.FileNotFoundException'
+    - 'java.lang.SecurityException'
+  condition: keywords
+falsepositives:
+  - Application bugs
+level: high

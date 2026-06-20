@@ -1,0 +1,25 @@
+title: DNS Query for Anonfiles.com Domain - DNS Client
+id: c3236e70-7e0e-4abb-96ec-ac1d932828c9
+related:
+  - id: 065cceea-77ec-4030-9052-fc0affea7110
+    type: similar
+status: test
+description: Detects DNS queries for anonfiles.com, which is an anonymous file upload platform often used for malicious purposes.
+references:
+  - https://www.trendmicro.com/vinfo/us/security/news/ransomware-spotlight/ransomware-spotlight-blackbyte
+author: Nasreddine Bencherchi (Nextron Systems)
+date: 2023-01-16
+tags:
+  - attack.exfiltration
+  - attack.t1567.002
+logsource:
+  product: windows
+  service: dns-client
+detection:
+  selection:
+    EventID: 3008
+    QueryName|contains: '.anonfiles.com'
+  condition: selection
+falsepositives:
+  - Rare legitimate access to anonfiles.com
+level: high

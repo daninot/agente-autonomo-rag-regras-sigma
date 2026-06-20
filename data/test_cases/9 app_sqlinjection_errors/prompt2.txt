@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+SQL error messages in application logs indicating probing for SQL injection —
+attackers commonly trigger database syntax errors while testing payloads against
+Oracle, MySQL, SQL Server, and SQLite backends.
+
+# Target environment
+- Product: sql; log source category: application
+- Requires application error logs at LOG_LEVEL ERROR or above — document this
+  in the rule.
+- Detection uses keyword matching against raw log content (one keyword per
+  database engine, covering the most characteristic injection-triggered error
+  message for each).
+
+# References
+- http://www.sqlinjection.net/errors
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

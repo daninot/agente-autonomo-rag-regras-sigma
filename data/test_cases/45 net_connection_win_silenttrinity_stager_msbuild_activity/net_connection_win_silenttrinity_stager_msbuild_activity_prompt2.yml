@@ -1,0 +1,43 @@
+<thinking>...</thinking>
+
+LOGSOURCE: network_connection
+The threat indicator would appear in the network connection logs.
+
+FIELDS: DestinationProcessName
+The field contains the process name of the destination process, which is where the MSBuild.exe utility execution would be logged.
+
+MODIFIERS: |endswith
+Since we're looking for the specific process name "MSBuild.exe", an exact match using |endswith is the correct choice.
+
+ATT&CK: t1127.001 (Software Deployment Tools)
+This technique best describes the threat, as attackers are abusing MSBuild.exe to execute malicious files or masquerade as legitimate utilities.
+
+```yml
+title: Outbound Network Connection Initiated By Microsoft Build
+
+id: 37e4024a-6c80-4d8f-b95d-2e7e94f3a8d1
+
+description: Detects outbound network connection initiated by MSBuild.exe
+
+author: [Your Name]
+
+references:
+  - https://www.blackhillsinfosec.com/my-first-joyride-with-silenttrinity/
+  - https://attack.mitre.org/techniques/T1127/
+
+logsource:
+  category: network_connection
+  product: windows
+
+detection:
+  selection:
+    DestinationProcessName | endswith: 'MSBuild.exe'
+    Initiated: true
+    Protocol: tcp
+    Direction: outbound
+
+falsepositives:
+  - Legitimate MSBuild.exe execution for project builds
+
+level: high
+```

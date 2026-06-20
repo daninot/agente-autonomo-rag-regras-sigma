@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://antgarsil.github.io/posts/velocity/
+- https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs

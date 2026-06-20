@@ -1,0 +1,26 @@
+<thinking>...</thinking>
+
+```yml
+title: CVE-2024-3400 PAN-OS Arbitrary File Creation Leads to OS Command Injection
+id: 3de2a4392b8715bad070b2ae12243f166ead37830f7c6d24e778985927f9caac
+status: experimental
+author: Volexity
+date: 2024/04/12
+logsource:
+    category: file_event
+    product: PAN-OS
+detection:
+    selection:
+        - 'GlobalProtect' in CommandLine
+        - '/bin/bash' in Image
+        - '/bin/sh' in Image
+    condition: 1 of them
+falsepositives:
+    - Legitimate crash diagnostic operations
+level: high
+references:
+    - https://www.volexity.com/blog/2024/04/12/zero-day-exploitation-of-unauthenticated-remote-code-execution-vulnerability-in-globalprotect-cve-2024-3400/
+    - https://docs.python.org/3/library/site.html
+    - https://github.com/ihebski/CVE-2024-3400
+    - https://www.cvedetails.com/cve/CVE-2024-3400/
+```

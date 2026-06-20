@@ -1,0 +1,88 @@
+<thinking>...</thinking>
+
+The log source that fits best is `registry_event` because the indicator of the threat (Group Policy modification) would appear in the registry.
+
+The fields that contain the indicator are `RegistryPath` and possibly others depending on how the Group Policy settings are stored.
+
+For each field, exact match is likely the correct choice since we're looking for specific values or paths.
+
+The ATT&CK technique that best describes this threat is T1484.001 - Group Policy Modification.
+
+```yml
+title: Tamper Windows Defender - ScriptBlockLogging
+
+description: Detects PowerShell scripts attempting to disable scheduled scanning and other parts of Windows Defender ATP or set default actions to allow.
+
+references:
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/40b77d63808dd4f4eafb83949805636735a1fd15/atomics/T1484.001/T1484.001.md
+
+logsource:
+  category: registry_event
+  product: windows
+
+selection_options_disabling_preference:
+  RegistryPath: Set-MpPreference
+
+selection_options_disabling_function:
+  RegistryPath:
+    - '-dbaf $true'
+    - '-dbaf 1'
+    - '-dbm $true'
+    - '-dbm 1'
+    - '-dips $true'
+    - '-dips 1'
+    - '-DisableArchiveScanning $true'
+    - '-DisableArchiveScanning 1'
+    - '-DisableBehaviorMonitoring $true'
+    - '-DisableBehaviorMonitoring 1'
+    - '-DisableBlockAtFirstSeen $true'
+    - '-DisableBlockAtFirstSeen 1'
+    - '-DisableCatchupFullScan $true'
+    - '-DisableCatchupFullScan 1'
+    - '-DisableCatchupQuickScan $true'
+    - '-DisableCatchupQuickScan 1'
+    - '-DisableIntrusionPreventionSystem $true'
+    - '-DisableIntrusionPreventionSystem 1'
+    - '-DisableIOAVProtection $true'
+    - '-DisableIOAVProtection 1'
+    - '-DisableRealtimeMonitoring $true'
+    - '-DisableRealtimeMonitoring 1'
+    - '-DisableRemovableDriveScanning $true'
+    - '-DisableRemovableDriveScanning 1'
+    - '-DisableScanningMappedNetworkDrivesForFullScan $true'
+    - '-DisableScanningMappedNetworkDrivesForFullScan 1'
+    - '-DisableScanningNetworkFiles $true'
+    - '-DisableScanningNetworkFiles 1'
+    - '-DisableScriptScanning $true'
+    - '-DisableScriptScanning 1'
+    - '-MAPSReporting $false'
+    - '-MAPSReporting 0'
+    - '-drdsc $true'
+    - '-drdsc 1'
+    - '-drtm $true'
+    - '-drtm 1'
+    - '-dscrptsc $true'
+    - '-dscrptsc 1'
+    - '-dsmndf $true'
+    - '-dsmndf 1'
+    - '-dsnf $true'
+    - '-dsnf 1'
+    - '-dss $true'
+    - '-dss 1'
+
+selection_other_default_actions_allow:
+  RegistryPath: Set-MpPreference
+
+selection_other_default_actions_func:
+  RegistryPath:
+    - 'HighThreatDefaultAction Allow'
+    - 'htdefac Allow'
+    - 'LowThreatDefaultAction Allow'
+    - 'ltdefac Allow'
+    - 'ModerateThreatDefaultAction Allow'
+    - 'mtdefac Allow'
+    - 'SevereThreatDefaultAction Allow'
+    - 'stdefac Allow'
+
+condition: all of selection_options_disabling_* or all of selection_other_default_actions_*
+```

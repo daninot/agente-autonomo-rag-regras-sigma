@@ -1,0 +1,17 @@
+Generate a SIGMA rule to detect DNS queries to domains associated with Katz
+Stealer — an information-stealing malware used to exfiltrate credentials,
+browser data, and crypto wallets. Any DNS lookup to known Katz Stealer C2
+or panel domains in an enterprise environment strongly indicates compromise
+or active C2 communication.
+
+Log source category: dns.
+
+Detection matches queried domain names using |contains (to also catch
+subdomains). The list of malicious domains should reflect publicly known
+Katz Stealer infrastructure as of mid-2025.
+
+The reference for this rule is internal threat research — use 'Internal
+research' as the reference value (no URL).
+
+Tag the rule with the MITRE ATT&CK technique for DNS-based C2 and include
+a tag indicating this is an emerging threat detection.

@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://research.splunk.com/cloud/e155876a-6048-11eb-ae93-0242ac130002/
+- https://o365blog.com/post/aadbackdoor/

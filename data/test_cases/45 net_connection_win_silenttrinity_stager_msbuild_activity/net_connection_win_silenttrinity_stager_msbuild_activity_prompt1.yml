@@ -1,0 +1,33 @@
+Based on the provided information, I will create a Sigma rule that detects the presence of the term "SILENTTRINITY (ST)" in web page content.
+
+**<thinking>...</thinking>**
+
+(a) LOGSOURCE: The indicator would appear in web server logs, so the best category is `webserver`.
+
+(b) FIELDS: The specific log field containing the indicator is likely to be `request_body` or `response_body`, as it contains the HTML content of the web page.
+
+(c) MODIFIERS: Since we are looking for a specific string within the request or response body, an exact match is the correct choice. We will use the `|contains` modifier to search for the string "SILENTTRINITY (ST)" in either field.
+
+(d) ATT&CK: The technique that best describes this threat is Penetration Testing (t1083), as it involves exploiting vulnerabilities and testing security measures.
+
+**Sigma Rule**
+```yaml
+title: SILENTTRINITY (ST) Detection
+
+logsource:
+  category: webserver
+  product: *
+  service: *
+
+selection:
+  request_body|contains: "SILENTTRINITY (ST)"
+  response_body|contains: "SILENTTRINITY (ST)"
+
+condition: selection
+
+falsepositives:
+  - Unknown
+
+level: high
+```
+Note that I've used the `*` wildcard for the product and service fields, as we don't know the specific web server software being used. If you have more information about the web server, please provide it so I can update the rule accordingly.

@@ -1,0 +1,13 @@
+title: PwnDrp Access
+id: 03560887-f852-413c-a8b8-86957ea3a92a
+status: test
+description: Detects downloads from PwnDrp web servers developed for red team testing and most likely also used for criminal activity
+references:
+ - https://breakdev.org/pwndrop/
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-uri|contains:
+      - pwndrop
+  condition: selection

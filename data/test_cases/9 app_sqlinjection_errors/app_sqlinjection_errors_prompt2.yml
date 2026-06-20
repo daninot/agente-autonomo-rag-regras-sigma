@@ -1,0 +1,39 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator of the threat would appear in application logs, so the best category is "process_creation" or "file_event", but since we are looking for suspicious SQL error messages, I will choose "file_event".
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to database queries and errors. Therefore, I will use the "CommandLine" field.
+
+(c) MODIFIERS: Since we are looking for suspicious SQL error messages, which may appear anywhere in the command line, I will use |contains.
+
+(d) ATT&CK: The technique that best describes this threat is t1005 (SQL Injection).
+
+<thinking>...</thinking>
+
+title: Suspicious SQL Error Messages
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects suspicious SQL error messages indicating probing for an injection attack.
+references:
+    - http://www.sqlinjection.net/errors
+author: [Your Name]
+date: 2023-02-20
+tags:
+    - attack.t1005
+logsource:
+    category: file_event
+detection:
+    selection_sql_error:
+        CommandLine|contains:
+            - 'SQL syntax near'
+            - 'near keyword'
+            - 'syntax error in identifier position'
+            - 'UNION ALL SELECT'
+            - 'LIKE '
+            - '-- '
+            - '# '
+            - 'information_schema'
+    condition: any of selection_sql_error
+falsepositives:
+    - Unknown
+level: medium

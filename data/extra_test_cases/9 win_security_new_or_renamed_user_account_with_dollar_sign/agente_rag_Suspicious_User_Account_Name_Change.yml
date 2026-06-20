@@ -1,0 +1,26 @@
+title: Suspicious User Account Name Change
+id: f07fdc7d-5c51-46dc-9250-58ccd391ad65
+status: test
+description: Detects the creation or renaming of user accounts that end with a dollar sign ($)
+references:
+    - https://medium.com/@mvelazco/hunting-for-samaccountname-spoofing-cve-2021-42287-and-domain-controller-impersonation-f704513c8a45
+author: Florian Roth (Nextron Systems)
+date: 2022-12-22
+modified: 2023-02-20
+tags:
+    - attack.privilege-escalation
+    - attack.persistence
+    - attack.t1036
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4720 # User account creation or modification
+        TargetUserName|endswith: '$' # Accounts ending with a dollar sign ($)
+    filter_main_machine_accounts:
+        SubjectUserName|endswith: '$' # Exclude machine accounts
+    condition: selection and not 1 of filter_main_*
+falsepositives:
+    - Unknown
+level: medium

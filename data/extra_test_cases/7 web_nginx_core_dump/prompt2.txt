@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Core dump of a crashing Nginx worker process — may indicate a serious
+configuration issue or active exploitation attempt (e.g., resolver memory
+corruption vulnerabilities).
+
+# Target environment
+- Log source service: nginx (no product specified)
+- Detection uses keyword matching against the characteristic Nginx error log
+  message emitted when a worker exits via signal 6 with a core dump.
+
+# References
+- https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+- https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+https://m365internals.com/2022/10/07/hunting-in-on-premises-exchange-server-logs/

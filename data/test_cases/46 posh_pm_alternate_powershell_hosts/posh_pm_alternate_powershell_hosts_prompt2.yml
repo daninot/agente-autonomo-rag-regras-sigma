@@ -1,0 +1,33 @@
+LOGSOURCE: The indicator would appear in process creation logs, so the category that fits best is "process_creation".
+
+FIELDS: The specific log fields that contain the indicator of the threat are "Image" and possibly "CommandLine", as they may hold information about the PowerShell engine being loaded.
+
+MODIFIERS: For the "Image" field, |contains would be the correct choice to match path fragments that may appear anywhere. However, if we're looking for a specific file extension or terminal token, |endswith might be more suitable.
+
+ATT&CK: The technique that best describes this threat is t1086 (PowerShell), as it involves using PowerShell commands and scripts for execution.
+
+YAML rule:
+
+title: Suspicious PowerShell Engine ImageLoad
+id: 781b4b5e-ca83-4613-8760-01188039c362
+status: test
+description: Detects suspicious PowerShell engine image load.
+references:
+  - https://threathunterplaybook.com/hunts/windows/190815-RemoteServiceInstallation/notebook.html
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.execution
+  - t1086.PowerShell
+logsource:
+  category: process_creation
+  product: Windows
+detection:
+  selection:
+    Image|contains:
+      - 'powershell.exe'
+      - 'pwsh.exe'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

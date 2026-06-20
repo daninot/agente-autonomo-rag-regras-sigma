@@ -1,0 +1,23 @@
+title: New Federated Domain Added - Office 365
+id: 1773d4e5-e106-48da-ba41-1e38556ce061
+status: test
+description: Detects the addition of a new federated domain in an Office 365 environment.
+references:
+  - https://research.splunk.com/cloud/e155876a-6048-11eb-ae93-0242ac130002/
+  - https://o365blog.com/post/aadbackdoor/
+author: Splunk Threat Research Team
+date: 2024-05-10
+tags:
+  - attack.persistence
+  - attack.t1136.003
+logsource:
+  product: m365
+  service: management_activity
+detection:
+  selection:
+    Workload|contains: Exchange
+    Operation|contains: Add-FederatedDomain
+  condition: all of selection_*
+falsepositives:
+  - The creation of a new Federated domain is not necessarily malicious, however these events need to be followed closely, as it may indicate federated credential abuse or backdoor via federated identities at a similar or different cloud provider.
+level: medium

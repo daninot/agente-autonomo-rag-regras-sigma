@@ -1,0 +1,23 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+SSH login attempt against an OpenCanary honeypot node. Since OpenCanary is a
+decoy, any authentication attempt against its SSH service is inherently
+suspicious — legitimate users have no reason to connect to it.
+
+# Target environment
+- Product: opencanary; log source category: application
+- Detection matches the specific OpenCanary numeric logtype emitted when an
+  SSH login attempt is recorded. Consult the logger source in the references
+  for the correct value.
+- Any SSH probe against a honeypot can span multiple MITRE ATT&CK tactics
+  (initial access, lateral movement, persistence, among others) — tag all
+  relevant ones.
+
+# References
+- https://opencanary.readthedocs.io/en/latest/starting/configuration.html#services-configuration
+- https://github.com/thinkst/opencanary/blob/a0896adfcaf0328cfd5829fe10d2878c7445138e/opencanary/logger.py#L52
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

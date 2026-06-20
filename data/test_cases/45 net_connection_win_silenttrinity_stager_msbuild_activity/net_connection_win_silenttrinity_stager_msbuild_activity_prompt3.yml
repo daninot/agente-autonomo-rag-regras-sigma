@@ -1,0 +1,35 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is `network_connection` because the indicator of the threat (MSBuild spawning network connections) would appear in the log source related to network activity.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are `Image` and `DestinationPort`.
+
+(c) MODIFIERS: For the field `Image`, the correct choice is `|endswith` because we're looking for MSBuild.exe, which has a fixed extension. For the field `DestinationPort`, the correct choice is an exact match (no modifier needed).
+
+(d) ATT&CK: The technique that best describes this threat is `T1127.001` (Software Component: Build Tools), which is related to using build tools for malicious purposes.
+
+Here's the YAML rule:
+
+```yml
+title: MSBuild Spawning Network Connections
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects a network connection initiated by MSBuild.exe, which is anomalous unless the build process explicitly includes package restoration.
+references:
+  - https://www.blackhillsinfosec.com/my-first-joyride-with-silenttrinity/
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    Image|endswith: '\msbuild.exe'
+    DestinationPort:
+      - 80
+      - 135
+      - 443
+      - 445
+condition: selection
+falsepositives:
+  - Unknown
+level: high
+```

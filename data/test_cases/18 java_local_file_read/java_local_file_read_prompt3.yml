@@ -1,0 +1,43 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in application error logs, so the category fits best is "application".
+
+FIELDS: The log fields that contain the indicator of the threat are likely to be related to exceptions or errors caused by user input, which may include path traversal payloads. Therefore, we can look for keywords such as "java.io.FileNotFoundException" or "org.apache.commons.ognl.OgnlException" in the log messages.
+
+MODIFIERS: Since we're looking for path fragments that may appear anywhere in the file paths, |contains is the correct choice for each field.
+
+ATT&CK: The technique that best describes this threat is t1190 (Exploit Public-Facing Application).
+
+```yml
+title: Potential Local File Read Vulnerability In JVM Based Application
+id: e032f5bc-4563-4096-ae3b-064bab588685
+status: test
+description: |-
+  Detects potential local file read vulnerability in JVM based apps.
+  If the exceptions are caused due to user input and contain path traversal payloads then it's a red flag.
+
+references:
+  - https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs
+
+tags:
+  - attack.initial-access
+  - attack.t1190
+
+logsource:
+  category: application
+  product: jvm
+  definition: 'Requirements: application error logs must be collected (with LOG_LEVEL=ERROR and above)'
+
+detection:
+  keywords:
+    - java.io.FileNotFoundException
+    - org.apache.commons.ognl.OgnlException
+    - ExpressionSyntaxException
+
+condition: keywords
+
+falsepositives:
+  - Application bugs
+
+level: high
+```

@@ -1,0 +1,13 @@
+Generate a SIGMA rule to detect SQL error messages in application logs that
+indicate probing for SQL injection attacks. Attackers commonly trigger these
+errors while testing payloads against different database engines (Oracle,
+MySQL, SQL Server, SQLite).
+
+Target product: sql; log source category: application. Requires application
+error logs at LOG_LEVEL ERROR or above — document this in the rule.
+
+Detection must use keyword matching against the raw log content, listing
+characteristic error strings emitted by multiple database engines.
+
+References to include:
+- http://www.sqlinjection.net/errors

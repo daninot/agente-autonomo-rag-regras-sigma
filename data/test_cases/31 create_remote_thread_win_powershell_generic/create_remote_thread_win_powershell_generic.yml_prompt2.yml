@@ -1,0 +1,33 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is process_creation, as the indicator of the threat would appear in the Windows Event Log when a new process is created.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are SourceImage and TargetImage, which represent the processes involved in the remote thread creation.
+
+(c) MODIFIERS: For each field, |endswith is the correct choice because we're looking for file extensions or terminal tokens. Specifically, we want to match PowerShell processes (SourceImage|endswith: '\powershell.exe' or '\pwsh.exe') and target processes (TargetImage|endswith: '\lsass.exe').
+
+(d) ATT&CK: The technique that best describes this threat is t1055 (Process Injection), as it involves injecting malicious code into a legitimate process using PowerShell.
+
+
+```yml
+title: Potential Credential Dumping Attempt Via PowerShell Remote Thread
+
+id: fb656378-f909-47c1-8747-278bf09f4f4f
+
+logsource:
+  category: process_creation
+  product: windows
+
+detection:
+  selection:
+    SourceImage|endswith: '\powershell.exe'
+    TargetImage|endswith: '\lsass.exe'
+
+references:
+  - https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse
+
+falsepositives:
+  - Unknown
+
+level: high
+```

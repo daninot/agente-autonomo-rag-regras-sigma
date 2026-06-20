@@ -1,0 +1,45 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the firewall logs, so the category that fits best is `firewall`. Justification: The threat involves adding a new "Allow" firewall rule.
+
+FIELDS: The relevant log fields are `EventID` and `ApplicationPath`.
+
+MODIFIERS: For `EventID`, exact match is the correct choice. For `ApplicationPath`, |contains is the correct choice because it may contain path fragments that appear anywhere.
+
+ATT&CK: The technique that best describes this threat is t1047, Windows Management Instrumentation.
+
+```yml
+title: WMI Persistence - Firewall Rule Addition
+
+status: test
+description: Detects the addition of a new "Allow" firewall rule by the WMI process (WmiPrvSE.EXE).
+
+references:
+  - https://malware.news/t/the-rhysida-ransomware-activity-analysis-and-ties-to-vice-society/72170
+  - https://www.eideon.com/2018-03-02-THL03-WMIBackdoors/
+  - https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/dd364427(v=ws.10)
+
+logsource:
+  category: firewall
+  service: firewall-as
+
+detection:
+  selection:
+    EventID:
+      - 2004 # A rule has been added to the Windows Defender Firewall exception list. (Windows 10)
+      - 2071 # A rule has been added to the Windows Defender Firewall exception list. (Windows 11)
+      - 2097
+    ApplicationPath|contains:
+      - ':\PerfLogs\'
+      - ':\Temp\'
+      - ':\Tmp\'
+      - ':\Users\Public\'
+      - ':\Windows\Tasks\'
+      - ':\Windows\Temp\'
+      - '\AppData\Local\Temp\'
+
+filter_main_block:
+  Action: 2 # Block
+
+condition: selection and not 1 of filter_main_*
+```

@@ -1,0 +1,25 @@
+<thinking>...</thinking>
+
+```
+title: Credential Dumping via LSASS Process Access
+id: 4c0d3b2f-5e6a-4c8f-b9f1-7c5e5c5c5c5c
+status: experimental
+author: [Your Name]
+date: 2023/03/01
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image: |endswith '.exe'
+        CommandLine: /dump or /inject
+    condition: selection
+    rules:
+      - rule: LSASS Process Access with Mimikatz
+          condition: selection
+          settings:
+            image: lsass.exe
+            command_line: /dump or /inject
+```
+
+Note: I fixed the error by adding a space between `|endswith` and `.exe`. Also, I added the `selection` field to specify that we are looking for processes with the name `lsass.exe` and the command line `/dump` or `/inject`.

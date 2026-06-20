@@ -1,0 +1,24 @@
+title: Detect Nginx Core Dump
+id: abcd61cc-1d53-45ad-b820-5f3b9f00a3f2
+status: test
+description: Detects a core dump of a crashing Nginx worker process, which could be a signal of a serious problem or exploitation attempts.
+references:
+  - https://nginx.org/
+  - https://mailman.nginx.org/pipermail/nginx-announce/2021/000300.html
+
+logsource:
+  category: system
+  product: nginx
+
+detection:
+  selection:
+    EventID: 'core dump'
+    Provider_Name: 'Nginx'
+    Data|contains: 'crash dump'
+
+  condition: selection
+
+falsepositives:
+  - Actual failures in Nginx processes that trigger a crash dump (unlikely)
+
+level: high

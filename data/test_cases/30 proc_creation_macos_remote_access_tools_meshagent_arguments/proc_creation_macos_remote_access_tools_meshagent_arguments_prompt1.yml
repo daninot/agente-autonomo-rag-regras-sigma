@@ -1,0 +1,16 @@
+title: Detect MeshAgent with Wazuh
+id: 00c26ee0-8093-43a0-8750-00bb0fcbd480
+logsource:
+  category: file_event
+  product: wazuh
+detection:
+  selection:
+    path:
+      - '/usr/bin/meshagent'
+      - '/opt/meshcentral/bin/meshagent'
+    command_line:
+      - '/usr/bin/meshagent --help'
+      - '/opt/meshcentral/bin/meshagent --version'
+  condition: 1
+references:
+  - https://www.security.com/threat-intelligence/medusa-ransomware-attacks

@@ -1,0 +1,18 @@
+title: Unauthorized Access to a Resource
+id: 2e531e56-a0af-40d3-ba49-aaf192082b4f
+status: test
+description: Detects unauthorized access attempts to a resource.
+references:
+  - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization#audit-log-actions
+  - https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/security-log-events#codespaces
+logsource:
+  category: audit
+  product: github_security_log
+detection:
+  selection:
+    action|contains: 'Unauthorized access'
+    category|contains: 'Security'
+  condition: selection
+falsepositives:
+  - Access attempts to non-existent repositories or due to outdated plugins.
+level: critical

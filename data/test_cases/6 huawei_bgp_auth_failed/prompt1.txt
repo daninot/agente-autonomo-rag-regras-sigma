@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+https://www.blackhat.com/presentations/bh-usa-03/bh-us-03-convery-franz-v3.pdf

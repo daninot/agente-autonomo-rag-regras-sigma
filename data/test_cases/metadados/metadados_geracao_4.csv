@@ -1,0 +1,177 @@
+cenario_id,prompt_usado,status,tentativas,tempo_total_s,usou_web_search,tipo_input,contexto_pobre,erro_validacao_final,veredito_juiz,juiz_logsource,juiz_modifiers,juiz_condition,juiz_structure,juiz_semantic_alignment,juiz_invented_filters,motivo_reprovacao,regra_referencia,arquivo_regra_gerada,arquivo_parecer
+31 create_remote_thread_win_powershell_generic,prompt1,APROVADO,3,87.65,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,create_remote_thread_win_powershell_generic.yml.yml,create_remote_thread_win_powershell_generic.yml_prompt1.yml,create_remote_thread_win_powershell_generic.yml_prompt1.parecer.txt
+31 create_remote_thread_win_powershell_generic,prompt2,REPROVADO,4,104.15,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,WARN,PASS,FAIL,WARN,FAIL,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The category should be 'create_remote_thread' as per the threat description, not 'process_creation'. However, it is valid for process creation events. | condition[FAIL]: The condition lacks the exclusion logic specified in the threat description (filter_main_*). | structure[WARN]: Missing 'falsepositives' justification, references are present but not comprehensive. Also missing 'level'. The level should be high as per the threat severity. | semantic_alignment[FAIL]: The detection logic does not align with the stated threat of remote thread creation from PowerShell to another process. It only checks for specific image endings without conside...",create_remote_thread_win_powershell_generic.yml.yml,create_remote_thread_win_powershell_generic.yml_prompt2.yml,create_remote_thread_win_powershell_generic.yml_prompt2.parecer.txt
+31 create_remote_thread_win_powershell_generic,prompt3,APROVADO,2,71.1,True,texto_livre,False,APROVADO,REJECTED,FAIL,PASS,FAIL,WARN,FAIL,PASS,,create_remote_thread_win_powershell_generic.yml.yml,create_remote_thread_win_powershell_generic.yml_prompt3.yml,create_remote_thread_win_powershell_generic.yml_prompt3.parecer.txt
+32 image_load_susp_clickonce_unsigned_module_loaded.yml,prompt1,APROVADO,1,69.32,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,image_load_susp_clickonce_unsigned_module_loaded.yml.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt1.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt1.parecer.txt
+32 image_load_susp_clickonce_unsigned_module_loaded.yml,prompt2,REPROVADO,4,97.32,True,texto_livre,False,Etapa 2 falhou - faltou campo obrigatório: 'title',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'title' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: '|contains' is used appropriately to catch path fragments, but '|endswith' should be used more specifically to target DLL files. The use of both modifiers may lead to false posi... | semantic_alignment[WARN]: The detection logic may not fully catch the stated threat, as it does not account for unsigned or expired signatures of loaded modules. The current condition only checks if the ...",image_load_susp_clickonce_unsigned_module_loaded.yml.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt2.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt2.parecer.txt
+32 image_load_susp_clickonce_unsigned_module_loaded.yml,prompt3,APROVADO,2,77.08,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,FAIL,PASS,WARN,FAIL,,image_load_susp_clickonce_unsigned_module_loaded.yml.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt3.yml,image_load_susp_clickonce_unsigned_module_loaded.yml_prompt3.parecer.txt
+33 web_sql_injection_in_access_logs,prompt1,APROVADO,1,70.54,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,FAIL,,web_sql_injection_in_access_logs.yml,web_sql_injection_in_access_logs_prompt1.yml,web_sql_injection_in_access_logs_prompt1.parecer.txt
+33 web_sql_injection_in_access_logs,prompt2,APROVADO,2,75.69,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,web_sql_injection_in_access_logs.yml,web_sql_injection_in_access_logs_prompt2.yml,web_sql_injection_in_access_logs_prompt2.parecer.txt
+33 web_sql_injection_in_access_logs,prompt3,REPROVADO,4,91.62,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1055: Injection (specifically, SQL i ... 
+                                         ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 7, column 62:
+     ... t describes this threat is t1055: Injection (specifically, SQL i ... 
+                                         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is generally appropriate, but the list of keywords could be more comprehensive to cover all potential SQLi payloads as per references provided. | semantic_alignment[WARN]: The rule aims to detect SQL injection but may miss some variants or encoded forms of payloads not explicitly listed in the keywords.",web_sql_injection_in_access_logs.yml,web_sql_injection_in_access_logs_prompt3.yml,web_sql_injection_in_access_logs_prompt3.parecer.txt
+34 proc_creation_lnx_mal_shai_hulud_indicator,prompt1,REPROVADO,4,92.69,True,texto_livre,True,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma tag must start with namespace separated with dot from remaining tag.",APPROVED_WITH_WARNINGS,WARN,PASS,WARN,PASS,WARN,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma tag must start with namespace separated with dot from remaining tag. || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The logsource should include 'service' in addition to 'category' and 'product'. The current rule only specifies 'process_creation', which is incomplete for a comprehensive detec... | condition[WARN]: The condition uses '1 of them' which is not a standard Sigma syntax. It should be replaced with proper boolean logic like 'selection: (A or B or C)'. This could lead to misinter... | semantic_alignment[WARN]: The detection logic focuses on command-line activities but does not specifically target suspicious npm package versions or repository activity as mentioned in the threat descrip...",proc_creation_lnx_mal_shai_hulud_indicator.yml.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt1.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt1.parecer.txt
+34 proc_creation_lnx_mal_shai_hulud_indicator,prompt2,REPROVADO,4,88.5,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 9, column 5:
+      - |contains
+        ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 9, column 6:
+      - |contains
+         ^)",APPROVED_WITH_WARNINGS,WARN,PASS,WARN,PASS,WARN,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 9, column 5:
+      - |contains
+        ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 9, column 6:
+      - |contains
+         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The rule specifies 'process_creation' as the log source category, which is correct for detecting process command lines. However, it does not specify a product or service. | condition[WARN]: The condition logic is syntactically valid but semantically incomplete as it lacks specific detection criteria for Shai-Hulud identifiers. | semantic_alignment[WARN]: The detection logic does not specify characteristic Shai-Hulud identifier strings in the CommandLine field, which is essential for catching the stated threat.",proc_creation_lnx_mal_shai_hulud_indicator.yml.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt2.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt2.parecer.txt
+34 proc_creation_lnx_mal_shai_hulud_indicator,prompt3,REPROVADO,4,91.86,True,texto_livre,False,"Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.scanning. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais.",REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,"[no_5_validador] Etapa 2 falhou - as seguintes tags não existem na taxonomia MITRE ATT&CK: attack.scanning. Use APENAS tags no formato 'attack.tXXXX' (técnicas reais, ex: attack.t1190) ou 'attack.<tatica>' (ex: attack.initial-access, attack.execution, attack.persistence). Remova ou substitua as tags inválidas por equivalentes reais. || [no_6_juiz/REJECTED] logsource[FAIL]: The log source product is specified as 'windows' instead of 'linux'. The category 'process_creation' is correct but the product should be 'linux'. | modifiers[WARN]: The use of |endswith and |contains are somewhat appropriate, but the specific strings used ('node.exe', 'npm.cmd') may not align with Linux command lines. The modifier for 'Comm... | structure[WARN]: Missing tags such as 'emerging-threats'. The rule structure is otherwise correct but lacks some required fields like 'tags'. | semantic_alignment[FAIL]: The detection logic does not fully align with the threat description. It uses Windows-specific file names ('node.exe', 'npm.cmd') and may miss Linux variations of these commands...",proc_creation_lnx_mal_shai_hulud_indicator.yml.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt3.yml,proc_creation_lnx_mal_shai_hulud_indicator.yml_prompt3.parecer.txt
+35 zeek_http_executable_download_from_webdav,prompt1,REPROVADO,4,92.9,True,texto_livre,True,Etapa 2 falhou - faltou campo obrigatório: 'detection',APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,PASS,WARN,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'detection' || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: The use of *?/webdav/* does not explicitly specify |contains, which is recommended for path fragments. However, it's a valid approach to detect the pattern. | invented_filters[WARN]: The rule does not add any filters that have no basis in the threat description, but it could be more specific by using |contains to ensure accurate detection of path fragments.",zeek_http_executable_download_from_webdav.yml,zeek_http_executable_download_from_webdav_prompt1.yml,zeek_http_executable_download_from_webdav_prompt1.parecer.txt
+35 zeek_http_executable_download_from_webdav,prompt2,REPROVADO,4,88.87,True,texto_livre,False,Etapa 2 falhou - faltou campo obrigatório: 'detection',REJECTED,FAIL,WARN,FAIL,WARN,FAIL,FAIL,"[no_5_validador] Etapa 2 falhou - faltou campo obrigatório: 'detection' || [no_6_juiz/REJECTED] logsource[FAIL]: The log source should be 'webserver' with product 'zeek', not 'web_server_logs'. Additionally, the service is missing. | modifiers[WARN]: |contains and |endswith are used correctly but additional filters like size_is: greater than 10 and equals: PUT were added without basis in the threat description. | condition[FAIL]: The condition is not specified, and the rule does not combine two selections with AND logic as required. | structure[WARN]: Missing 'id' field which is a requirement for SIGMA rules. Additionally, 'selection' should be split into multiple selections if combining conditions logically. | semantic_alignment[FAIL]: The rule does not align with the threat description as it includes additional filters and lacks proper logical combination of conditions. | invented_filters[FAIL]: Filters like size_is: greater than 10 and equals: PUT have no basis in the provided threat description, which is a significant deviation from requirements.",zeek_http_executable_download_from_webdav.yml,zeek_http_executable_download_from_webdav_prompt2.yml,zeek_http_executable_download_from_webdav_prompt2.parecer.txt
+35 zeek_http_executable_download_from_webdav,prompt3,APROVADO,2,75.17,True,texto_livre,False,APROVADO,REJECTED,FAIL,WARN,FAIL,WARN,FAIL,PASS,,zeek_http_executable_download_from_webdav.yml,zeek_http_executable_download_from_webdav_prompt3.yml,zeek_http_executable_download_from_webdav_prompt3.parecer.txt
+36 file_event_win_malware_darkgate_autoit3_save_temp,prompt1,REPROVADO,4,88.68,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 1, column 22:
+    title: CVE-2024-21412: Internet Shortcut Files Securi ... 
+                         ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 1, column 22:
+    title: CVE-2024-21412: Internet Shortcut Files Securi ... 
+                         ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used but the specific path fragment to detect should be more precise, as 'Internet Shortcut Files Security Feature Bypass Vulnerability' might not be a valid or exa... | semantic_alignment[WARN]: The detection logic may not accurately catch the stated threat as the specific path fragment to detect is unclear and might not match actual exploit attempts.",file_event_win_malware_darkgate_autoit3_save_temp.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt1.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt1.parecer.txt
+36 file_event_win_malware_darkgate_autoit3_save_temp,prompt2,REPROVADO,4,90.07,True,cve,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",,,,,,,,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",file_event_win_malware_darkgate_autoit3_save_temp.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt2.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt2.parecer.txt
+36 file_event_win_malware_darkgate_autoit3_save_temp,prompt3,REPROVADO,4,104.94,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 24, column 7:
+        - |endswith: DarkGate.exe
+          ^
+expected chomping or indentation indicators, but found 'e'
+  in ""<unicode string>"", line 24, column 8:
+        - |endswith: DarkGate.exe
+           ^)",REJECTED,FAIL,WARN,PASS,WARN,FAIL,FAIL,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 24, column 7:
+        - |endswith: DarkGate.exe
+          ^
+expected chomping or indentation indicators, but found 'e'
+  in ""<unicode string>"", line 24, column 8:
+        - |endswith: DarkGate.exe
+           ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category should be 'file_event' as specified, but the current rule does not specify a valid product or service. Additionally, the description mentions Windows Eve... | modifiers[WARN]: |startswith is used for CurrentDirectory, but it should match 'C:\temp\', not 'C:\Users\'. |endswith is correctly applied to Image. However, the spec mentions AutoIt3-related fi... | structure[WARN]: Missing required fields such as 'tags', and the ID format seems inconsistent. The description lacks references to external sources. | semantic_alignment[FAIL]: The detection logic does not align with the threat description. It should detect DarkGate dropped via AutoIt3 scripts in C:\temp, but the rule focuses on 'C:\Users\' and misses ... | invented_filters[FAIL]: The rule includes filters for 'CurrentDirectory: |startswith: C:\Users\', which is not mentioned in the threat description. Additionally, it lacks checks for AutoIt3-related fil...",file_event_win_malware_darkgate_autoit3_save_temp.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt3.yml,file_event_win_malware_darkgate_autoit3_save_temp_prompt3.parecer.txt
+37 nodejs_rce_exploitation_attempt,prompt1,REPROVADO,4,103.54,True,texto_livre,True,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: The rule uses |contains for specific path fragments but does not use |endswith or |startswith modifiers, which are mentioned in the spec. However, this is appropriate given the ... | semantic_alignment[WARN]: The rule aims to detect specific patterns in error logs that could indicate vulnerabilities or malicious activity. However, it is narrowly focused on two specific scenarios whic...",nodejs_rce_exploitation_attempt.yml,nodejs_rce_exploitation_attempt_prompt1.yml,nodejs_rce_exploitation_attempt_prompt1.parecer.txt
+37 nodejs_rce_exploitation_attempt,prompt2,REPROVADO,4,90.05,True,texto_livre,False,"Falha ao separar documentos YAML múltiplos. Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 9, column 1:
+    <code>
+    ^
+could not find expected ':'
+  in ""<unicode string>"", line 10, column 1:
+    ---
+    ^",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,PASS,"[no_5_validador] Falha ao separar documentos YAML múltiplos. Detalhes: while scanning a simple key
+  in ""<unicode string>"", line 9, column 1:
+    <code>
+    ^
+could not find expected ':'
+  in ""<unicode string>"", line 10, column 1:
+    ---
+    ^ || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The category `process_creation` is not the best fit for application logs, it should be `application`. However, since the rule targets NodeJS errors related to process execution,... | semantic_alignment[WARN]: The rule targets specific keywords but may not fully capture all potential RCE exploitation attempts, as it relies on exact keyword matches which might miss variations or obfusc...",nodejs_rce_exploitation_attempt.yml,nodejs_rce_exploitation_attempt_prompt2.yml,nodejs_rce_exploitation_attempt_prompt2.parecer.txt
+37 nodejs_rce_exploitation_attempt,prompt3,APROVADO,4,90.55,True,texto_livre,False,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,WARN,PASS,PASS,,nodejs_rce_exploitation_attempt.yml,nodejs_rce_exploitation_attempt_prompt3.yml,nodejs_rce_exploitation_attempt_prompt3.parecer.txt
+38 proc_creation_win_reg_query_registry,prompt1,APROVADO,3,86.22,True,texto_livre,True,APROVADO,APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,,proc_creation_win_reg_query_registry.yml,proc_creation_win_reg_query_registry_prompt1.yml,proc_creation_win_reg_query_registry_prompt1.parecer.txt
+38 proc_creation_win_reg_query_registry,prompt2,APROVADO,1,67.33,True,texto_livre,False,APROVADO,REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,,proc_creation_win_reg_query_registry.yml,proc_creation_win_reg_query_registry_prompt2.yml,proc_creation_win_reg_query_registry_prompt2.parecer.txt
+38 proc_creation_win_reg_query_registry,prompt3,REPROVADO,4,85.96,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 18:
+        CommandLine: |contains reg, query, registry
+                     ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 19:
+        CommandLine: |contains reg, query, registry
+                      ^)",REJECTED,FAIL,WARN,FAIL,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 18:
+        CommandLine: |contains reg, query, registry
+                     ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 19:
+        CommandLine: |contains reg, query, registry
+                      ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source should be 'process_creation' for Windows event logs, not 'sysmon'. The rule incorrectly specifies the service as sysmon. | modifiers[WARN]: |contains is used correctly but it does not cover all required command line parameters and registry paths as specified in the threat description. It should be more specific. | condition[FAIL]: The condition only uses 'selection' which does not enforce the AND logic for multiple selections as required by the specification. | structure[WARN]: Missing fields such as 'falsepositives', 'level', and 'tags'. Additionally, the rule structure is incomplete and lacks proper detection logic. | semantic_alignment[FAIL]: The current detection logic does not align with the threat description. It only checks for a generic command line pattern without specifying the required subcommand or registry ...",proc_creation_win_reg_query_registry.yml,proc_creation_win_reg_query_registry_prompt3.yml,proc_creation_win_reg_query_registry_prompt3.parecer.txt
+39 app_python_sql_exceptions,prompt1,REPROVADO,4,92.34,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 9, column 31:
+    Here's the corrected YAML rule:
+                                  ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 9, column 31:
+    Here's the corrected YAML rule:
+                                  ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: '|contains' is used appropriately for detecting path fragments, but '|endswith' or '|startswith' could be more precise if specific terminal tokens were known. | semantic_alignment[WARN]: The detection logic targets specific Python commands but may not fully capture all variations of the threat (e.g., different import statements or connection methods).",app_python_sql_exceptions.yml,app_python_sql_exceptions_prompt1.yml,app_python_sql_exceptions_prompt1.parecer.txt
+39 app_python_sql_exceptions,prompt2,REPROVADO,4,90.93,True,texto_livre,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 9, column 31:
+    Here's the corrected YAML rule:
+                                  ^)",APPROVED_WITH_WARNINGS,WARN,PASS,PASS,PASS,WARN,FAIL,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: mapping values are not allowed here
+  in ""<unicode string>"", line 9, column 31:
+    Here's the corrected YAML rule:
+                                  ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] logsource[WARN]: The log source category 'process_creation' is not the best fit for application logs. It should be 'application'. The product 'windows' does not align with the target environment... | semantic_alignment[WARN]: The detection logic focuses on process creation logs rather than application logs, which may miss relevant exceptions. The ATT&CK technique 't1059.001' is not directly applicabl... | invented_filters[FAIL]: The rule includes filters for 'python.exe', which are not based on the threat description that targets application logs containing Python exceptions.",app_python_sql_exceptions.yml,app_python_sql_exceptions_prompt2.yml,app_python_sql_exceptions_prompt2.parecer.txt
+39 app_python_sql_exceptions,prompt3,REPROVADO,4,104.63,True,texto_livre,False,"Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",APPROVED,PASS,PASS,PASS,PASS,PASS,PASS,"[no_5_validador] Etapa 3 falhou - erro de semântica - 
+pySigma relata: Sigma rule must contain at least one condition",app_python_sql_exceptions.yml,app_python_sql_exceptions_prompt3.yml,app_python_sql_exceptions_prompt3.parecer.txt
+40 file_event_macos_python_path_configuration_files,prompt1,REPROVADO,4,99.17,True,texto_livre,True,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 30:
+            destination_service: |contains ""GlobalProtect""
+                                 ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 31:
+            destination_service: |contains ""GlobalProtect""
+                                  ^)",APPROVED_WITH_WARNINGS,PASS,WARN,PASS,PASS,WARN,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning a block scalar
+  in ""<unicode string>"", line 10, column 30:
+            destination_service: |contains ""GlobalProtect""
+                                 ^
+expected chomping or indentation indicators, but found 'c'
+  in ""<unicode string>"", line 10, column 31:
+            destination_service: |contains ""GlobalProtect""
+                                  ^) || [no_6_juiz/APPROVED_WITH_WARNINGS] modifiers[WARN]: |contains is used correctly for detecting path fragments related to GlobalProtect. However, it may be too broad if other services also contain 'GlobalProtect'. | semantic_alignment[WARN]: The detection logic may not catch all instances of the stated threat if other services also contain 'GlobalProtect'.",file_event_macos_python_path_configuration_files.yml,file_event_macos_python_path_configuration_files_prompt1.yml,file_event_macos_python_path_configuration_files_prompt1.parecer.txt
+40 file_event_macos_python_path_configuration_files,prompt2,REPROVADO,4,92.4,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block collection
+  in ""<unicode string>"", line 11, column 9:
+            - 'GlobalProtect' in CommandLine
+            ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 11, column 27:
+            - 'GlobalProtect' in CommandLine
+                              ^)",REJECTED,FAIL,FAIL,WARN,PASS,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while parsing a block collection
+  in ""<unicode string>"", line 11, column 9:
+            - 'GlobalProtect' in CommandLine
+            ^
+expected <block end>, but found '<scalar>'
+  in ""<unicode string>"", line 11, column 27:
+            - 'GlobalProtect' in CommandLine
+                              ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source is specified for PAN-OS, but the threat targets macOS. | modifiers[FAIL]: No modifiers like |contains, |endswith are used in the rule. | condition[WARN]: The condition logic does not align with the detection requirements specified for the threat. | semantic_alignment[FAIL]: The rule does not detect the creation of .pth files in Python library directories as specified.",file_event_macos_python_path_configuration_files.yml,file_event_macos_python_path_configuration_files_prompt2.yml,file_event_macos_python_path_configuration_files_prompt2.parecer.txt
+40 file_event_macos_python_path_configuration_files,prompt3,REPROVADO,4,104.44,True,cve,False,"[1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 5, column 9:
+    author: @your-author-handle
+            ^)",REJECTED,FAIL,WARN,PASS,WARN,FAIL,PASS,"[no_5_validador] [1/3] falhou (erro de sintaxe YAML. 
+Detalhes: while scanning for the next token
+found character '@' that cannot start any token
+  in ""<unicode string>"", line 5, column 9:
+    author: @your-author-handle
+            ^) || [no_6_juiz/REJECTED] logsource[FAIL]: The log source category should be 'file_event' for file creation events, not 'process_creation'. The product is also incorrectly specified as 'GlobalProtect', which does not mat... | modifiers[WARN]: |endswith and |contains are used but they do not align with the detection criteria described in the threat description. The rule should use regex for filename matching and endsw... | structure[WARN]: Missing fields such as 'tags' and incorrect log source category. The rule structure needs to align with the target product and event type. | semantic_alignment[FAIL]: The detection logic does not match the threat description at all. It is looking for bash commands modifying kernel parameters, whereas the threat involves Python path configurat...",file_event_macos_python_path_configuration_files.yml,file_event_macos_python_path_configuration_files_prompt3.yml,file_event_macos_python_path_configuration_files_prompt3.parecer.txt

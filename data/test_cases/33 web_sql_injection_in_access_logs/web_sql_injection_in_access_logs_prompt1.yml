@@ -1,0 +1,22 @@
+title: SQL Injection vulnerability in web applications
+id: ffdecd0a-a3c5-4267-97f5-fb457870638f
+description: Detects SQL Injection attacks in web server logs
+references:
+  - https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/
+  - https://www.acunetix.com/blog/articles/using-logs-to-investigate-a-web-application-attack/
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-query|contains:
+      - 'SQL Injection'
+      - 'SQL error'
+      - 'invalid SQL syntax'
+      - 'unauthorized database access'
+    cs-uri-path|contains:
+      - '/sql/'
+      - '/database/'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

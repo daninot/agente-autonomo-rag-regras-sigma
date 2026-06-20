@@ -1,0 +1,20 @@
+title: Hunting in Exchange Server Logs
+id: 13331564-93e8-4522-80aa-70d597a42d30
+
+status: test
+description: Detects the presence of the word "hunting" within filenames or paths in exchange server logs.
+
+references:
+  - https://example.com/hunting-in-exchange-server-logs
+
+logsource:
+  category: file_event
+  product: exchange_server
+
+detection:
+  selection:
+    TargetFilename|contains: hunting
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium

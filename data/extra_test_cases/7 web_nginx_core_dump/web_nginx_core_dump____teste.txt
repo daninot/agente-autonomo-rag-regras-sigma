@@ -1,0 +1,96 @@
+REGRA ORIGINAL:
+
+title: Nginx Core Dump
+id: 59ec40bb-322e-40ab-808d-84fa690d7e56
+status: test
+description: Detects a core dump of a crashing Nginx worker process, which could be a signal of a serious problem or exploitation attempts.
+references:
+    - https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+    - https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+author: Florian Roth (Nextron Systems)
+date: 2021-05-31
+modified: 2023-05-08
+tags:
+    - attack.impact
+    - attack.t1499.004
+logsource:
+    service: nginx
+detection:
+    keywords:
+        - 'exited on signal 6 (core dumped)'
+    condition: keywords
+falsepositives:
+    - Serious issues with a configuration or plugin
+level: high
+---
+PROMPT2:
+
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Core dump of a crashing Nginx worker process — may indicate a serious
+configuration issue or active exploitation attempt (e.g., resolver memory
+corruption vulnerabilities).
+
+# Target environment
+- Log source service: nginx (no product specified)
+- Detection uses keyword matching against the characteristic Nginx error log
+  message emitted when a worker exits via signal 6 with a core dump.
+
+# References
+- https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+- https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.
+---
+  -> [DUMP TOP-1] primeiros 400 chars do exemplo #1:
+------------------------------------------------------------
+title: Nginx Core Dump
+id: 59ec40bb-322e-40ab-808d-84fa690d7e56
+status: test
+description: Detects a core dump of a crashing Nginx worker process, which could be a signal of a serious problem or exploitation attempts.
+references:
+    - https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+    - https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+aut
+------------------------------------------------------------
+ -> origem (metadata): {'source': '/home/daniela/Documents/TCC/tcc_sigma_agent/src/../data/rag_knowledge/rules_web_product_nginx_web_nginx_core_dump.yml'}
+
+ -> [DIAGNÓSTICO RAG] coerência de logsource dos top-5 exemplos:
+    EX 1 (score 4.030): Nginx Core Dump
+           logsource: category=— | product=— | service=nginx
+    EX 2 (score 1.785): Potential Exploitation of CVE-2025-5054 or CVE-2025-459
+           logsource: category=process_creation | product=linux | service=—
+    EX 3 (score 0.832): Credential Dumping Attempt Via WerFault
+           logsource: category=process_access | product=windows | service=—
+    EX 4 (score 0.806): LPE InstallerFileTakeOver PoC CVE-2021-41379
+           logsource: category=— | product=windows | service=application
+    EX 5 (score 0.759): Dump Ntds.dit To Suspicious Location
+           logsource: category=— | product=windows | service=application
+ -> Categorias distintas nos top-5: 2 (process_access, process_creation)
+ -> Produtos distintos nos top-5:   2 (linux, windows)
+
+ ---
+ RESULTADO:
+ 
+title: Nginx Core Dump Detection
+id: 444c1a96-9ab1-49f9-9324-a032f5b2760f
+status: test
+description: Detects potential core dump in Nginx worker process
+references:
+  - https://docs.nginx.com/nginx/admin-guide/monitoring/debugging/#enabling-core-dumps
+  - https://www.x41-dsec.de/lab/advisories/x41-2021-002-nginx-resolver-copy/
+logsource:
+  category: process_access
+  product: nginx
+detection:
+  selection:
+    EventID: 'core dump'
+    Provider_Name: 'Nginx'
+    Data|contains: 'core dump'
+  condition: selection
+falsepositives:
+  - Legitimate core dump during debugging or testing
+level: high

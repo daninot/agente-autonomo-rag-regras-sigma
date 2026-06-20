@@ -1,0 +1,13 @@
+title: Malicious PDF File Download
+id: 1988f27b-400c-4859-ba77-17e474687923
+logsource:
+  category: webserver
+  product: apache or nginx
+detection:
+  selection:
+    request_url|contains: "blackhat.com"
+    referrer|endswith: ".pdf"
+  condition: selection
+falsepositives:
+  - Unknown
+level: medium

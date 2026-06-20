@@ -1,0 +1,15 @@
+title: Server-Side Template Injection (SSTI) vulnerability in Velocity templating engine
+id: 60f66fe8-6d82-4a42-9155-5f3f9f171c52
+
+logsource:
+  category: webserver
+  product: Apache Tomcat, Java application logs
+
+detection:
+  selection:
+    - log.level == "ERROR"
+    - keyword: "Velocity"
+    - keyword: "Template Injection"
+    - exception.name: "org.apache.velocity.exception.MethodInvocationException"
+
+  condition: all of the above

@@ -1,0 +1,35 @@
+title: Windows Scheduled Task with Suspicious Name
+id: 26ac385a-6083-468b-8ffb-1ae3b575738b
+status: test
+description: Detects the creation, modification, or enabling of scheduled tasks with known suspicious or malicious task names.
+references:
+  - https://www.threatexchange.org/threat-profile/apt29/
+  - https://www.fireeye.com/blog/threat-research/2020/12/apt29-iron-hemlock-noblebaron-dark-halo-noberium.html
+author: Your Name
+date: 2023-02-20
+tags:
+  - attack.execution
+  - attack.privilege-escalation
+  - attack.persistence
+logsource:
+  product: windows
+  service: security
+  definition: 'The Advanced Audit Policy setting Object Access > Audit Other Object Access Events has to be configured to allow this detection.'
+detection:
+  selection:
+    EventID:
+      - 4698 # Task Created Event
+      - 4700 # Task Modified Event
+      - 4702 # Task Enabled Event
+    TaskName|contains:
+      - '\Windows\SystemRestore\SR'
+      - '\Windows\Windows Defender\'
+      - '\Windows\BitLocker'
+      - '\Windows\WindowsBackup\'
+      - '\Windows\WindowsUpdate\'
+      - '\Windows\UpdateOrchestrator\Schedule'
+      - '\Windows\ExploitGuard'
+  condition: selection
+falsepositives:
+  - Unknown
+level: high

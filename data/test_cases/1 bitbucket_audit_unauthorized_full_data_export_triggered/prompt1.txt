@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- https://confluence.atlassian.com/bitbucketserver/audit-log-events-776640423.html
+- https://confluence.atlassian.com/bitbucketserver/secret-scanning-1157471613.html

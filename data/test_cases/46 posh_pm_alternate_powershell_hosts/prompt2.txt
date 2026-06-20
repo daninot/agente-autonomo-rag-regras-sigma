@@ -1,0 +1,26 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+PowerShell execution from alternate (non-default) hosts — attackers embed the
+PowerShell runtime inside custom executables to bypass detections focused on
+powershell.exe. Logged via the HostApplication field in PowerShell classic
+event logging.
+
+# Target environment
+- Product: windows; log source category: ps_classic_start
+- Detection: match the HostApplication marker in the Data field, then EXCLUDE
+  known legitimate hosts in two filter groups:
+  (a) main filters: all standard PowerShell binary paths (System32 and
+      SysWOW64, with both forward- and back-slash variants), the diagnostic
+      host sdiagnhost.exe, and bare "powershell" string;
+  (b) optional filters: third-party legitimate hosts known to embed
+      PowerShell — Citrix ConfigSync and Hexnode Agent.
+- Use condition:
+  `selection and not 1 of filter_main_* and not 1 of filter_optional_*`.
+
+# References
+- https://threathunterplaybook.com/hunts/windows/190815-RemoteServiceInstallation/notebook.html
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

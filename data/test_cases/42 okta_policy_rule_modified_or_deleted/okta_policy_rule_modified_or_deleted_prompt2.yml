@@ -1,0 +1,35 @@
+title: Detects attempts to delete a rule within an Okta policy
+
+id: 2a9e2f94-3b7c-4dc6-ae6e-bd5ea5969168
+
+status: test
+
+description: Detects conditional access policy changes, exclusion of accounts from MFA enforcement, or registration of new MFA factors by non-admin or anomalous users.
+
+references:
+    - https://developer.okta.com/docs/reference/api/system-log/
+    - https://developer.okta.com/docs/reference/api/event-types/
+
+author: Austin Songer
+
+date: 2021-09-12
+
+modified: 2026-04-27
+
+tags:
+    - attack.defense-evasion
+    - t1092.004
+
+logsource:
+    product: okta
+    service: system_log
+
+detection:
+    selection:
+        eventType:
+            - application.policy.sign_on.update
+            - application.policy.sign_on.rule.delete
+    condition: selection
+falsepositives:
+    - Unknown
+level: medium

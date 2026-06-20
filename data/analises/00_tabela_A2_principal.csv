@@ -1,0 +1,17 @@
+Dimensão,Categoria,Quantidade,Percentual
+Família de fonte de log,Endpoint Windows,17,34.0%
+Família de fonte de log,Aplicação,13,26.0%
+Família de fonte de log,Rede e proxy,9,18.0%
+Família de fonte de log,Cloud / SaaS,7,14.0%
+Família de fonte de log,Endpoint Linux/macOS,4,8.0%
+Tática MITRE ATT&CK (normalizada),initial-access,15,30.0%
+Tática MITRE ATT&CK (normalizada),defense-evasion,14,28.0%
+Tática MITRE ATT&CK (normalizada),privilege-escalation,12,24.0%
+Tática MITRE ATT&CK (normalizada),execution,11,22.0%
+Tática MITRE ATT&CK (normalizada),persistence,9,18.0%
+Tática MITRE ATT&CK (normalizada),command-and-control,5,10.0%
+Tática MITRE ATT&CK (normalizada),outras (7 categorias),15,30.0%
+Severidade (level),medium,30,60.0%
+Severidade (level),high,16,32.0%
+Severidade (level),critical,2,4.0%
+Severidade (level),low,2,4.0%

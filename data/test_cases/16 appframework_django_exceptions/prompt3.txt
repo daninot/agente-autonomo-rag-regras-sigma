@@ -1,0 +1,14 @@
+Generate a SIGMA rule to detect suspicious Django web framework security
+exceptions in application logs — indicators of exploitation attempts such as
+path traversal, session tampering, redirect abuse, oversized payloads, or
+unauthorized access.
+
+Target product: django; log source category: application.
+
+Detection uses keyword matching against Django security exception class names
+— include the parent class, its security-relevant subclasses, and the
+PermissionDenied exception.
+
+References to include:
+- https://docs.djangoproject.com/en/1.11/ref/exceptions/
+- https://docs.djangoproject.com/en/1.11/topics/logging/#django-security

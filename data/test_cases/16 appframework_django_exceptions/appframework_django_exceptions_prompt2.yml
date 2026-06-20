@@ -1,0 +1,29 @@
+title: Django Path Traversal/LFI Detection
+
+id: 75f0d4b8-0ae3-4b9d-a66e-2b82f2608c07
+
+status: test
+
+description: Detects path traversal/LFI primitives in Django web server logs.
+
+references:
+  - https://docs.djangoproject.com/en/1.11/ref/exceptions/
+  - https://docs.djangoproject.com/en/1.11/topics/logging/#django-security
+
+logsource:
+  category: webserver
+  product: django
+
+detection:
+  selection:
+    exception|contains:
+      - AppRegistryNotReady
+      - ObjectDoesNotExist
+      - EmptyResultSet
+      - FieldDoesNotExist
+  condition: any of selection
+
+falsepositives:
+  - Unknown
+
+level: high

@@ -1,0 +1,18 @@
+<thinking>...</thinking>
+
+The threat is SQL Injection, which appears in database errors. The relevant log source would be process_creation, as the indicator of the threat (database error messages) would appear in the system logs when an application or service creates a new process.
+
+The specific log fields that contain the indicator of the threat are likely to be related to error messages, such as event_id, message, or description. The correct choice for each field is |contains, as database error messages may contain path fragments that appear anywhere in the message.
+
+The ATT&CK technique that best describes this threat is t1059.001 (Command and Control - Server Software), but since SQL Injection is a specific type of attack, it's more accurate to use t1068 (Exploit Public-Facing Application) or t1190 (Exfiltration Over Command and Standard Interface).
+
+Here is the YAML rule:
+
+process_creation:
+  when:
+    event_id: '500' # assuming this is the ID for database error messages
+    message: |contains "SQL Injection"
+  condition: and
+
+references:
+  - http://www.sqlinjection.net/errors

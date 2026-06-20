@@ -1,0 +1,19 @@
+Generate a SIGMA rule to detect creation, update, or deletion of scheduled
+tasks with names observed in SVR (Cozy Bear / APT29) operations using the
+GraphicalProton backdoor. The tasks masquerade as Microsoft Defender, Windows
+Update, and other legitimate system components.
+
+Target product: windows; log source service: taskscheduler. Requires
+"Microsoft-Windows-TaskScheduler/Operational" log enabled — document this.
+
+Detection matches Task Scheduler EventIDs for task creation/update/deletion
+combined with a comprehensive list of known SVR task names from CISA advisory
+AA23-347A — these impersonate Defender services, Windows Update components,
+Application Experience tasks, and Error Reporting.
+
+References to include:
+- https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a
+
+
+20 nomes de tasks específicos, todos publicados nominalmente na advisory AA23-347A da CISA (que está nas referências). Não entreguei nenhum dos nomes — descrevi semanticamente as categorias (Defender, Windows Update, Application Experience, Error Reporting). Quem realmente lê o advisory da CISA recupera os 20 nomes; quem chuta vai listar uns 5 ou 6 nomes genéricos plausíveis e errar a maioria.
+Esse é exatamente o tipo de regra onde o Estágio 4 com web search deve dominar sobre os Estágios 2 e 3 — o agente consegue buscar o advisory, ler a lista, recuperar os nomes exatos. Vale destacar na análise.

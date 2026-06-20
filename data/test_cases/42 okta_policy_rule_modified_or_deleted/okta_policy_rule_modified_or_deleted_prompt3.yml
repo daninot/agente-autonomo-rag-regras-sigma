@@ -1,0 +1,42 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is "registry_event" because the indicator of the threat (modification or removal of an Okta policy rule) would appear in the registry.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to the Okta policy rules, such as "TargetObject" or "Details".
+
+(c) MODIFIERS: For each field, |contains is likely the correct choice because it allows for path fragments that may appear anywhere.
+
+(d) ATT&CK: The technique that best describes this threat is t1092.001 (Web Shell).
+
+```yml
+title: Modification or Removal of an Okta Policy Rule
+
+id: 5f9d4b6c-1a3e-4c8c-b7ca-f0c5d2e5c8e5
+
+status: experimental
+
+description: Detects attempts to modify or remove an Okta policy rule.
+
+references:
+- https://developer.okta.com/docs/reference/api/system-log/
+- https://developer.okta.com/docs/reference/api/event-types/
+
+author: Your Name
+
+logsource:
+  category: registry_event
+  product: okta
+
+detection:
+  selection_1:
+    TargetObject|contains: '\Okta\PolicyRules'
+  selection_2:
+    Details|contains: 'Modification' or 'Removal'
+
+condition: 1 of selection_*
+
+falsepositives:
+- Unknown
+
+level: high
+```

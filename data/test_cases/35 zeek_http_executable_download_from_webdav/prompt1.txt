@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event: 
+- http://carnal0wnage.attackresearch.com/2012/06/webdav-server-to-download-custom.html
+- https://github.com/OTRF/detection-hackathon-apt29

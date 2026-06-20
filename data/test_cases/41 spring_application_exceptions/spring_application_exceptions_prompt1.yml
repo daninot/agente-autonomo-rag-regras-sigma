@@ -1,0 +1,16 @@
+title: Spring Security Threat Detection
+id: 7660751c-43e2-4434-bbb2-ec1d4fe002b2
+status: test
+description: Detects suspicious activity related to Spring Security
+references:
+  - https://docs.spring.io/spring-security/site/docs/current/api/overview-tree.html
+logsource:
+  category: process_creation
+detection:
+  selection:
+    Image|contains: 'java'
+    CommandLine|contains: 'spring-security'
+  condition: 1 of selection*
+falsepositives:
+  - Legitimate administration activities
+level: medium

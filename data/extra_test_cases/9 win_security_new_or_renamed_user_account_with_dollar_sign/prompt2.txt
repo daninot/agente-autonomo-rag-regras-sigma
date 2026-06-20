@@ -1,0 +1,23 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Creation or renaming of a Windows user account whose name contains the '$'
+character — a stealth technique that mimics machine accounts (which normally
+end with '$') to hide the account from administrators or evade detections
+that don't properly parse the suffix.
+
+# Target environment
+- Product: windows; log source service: security
+- Detection combines TWO alternative selections (OR via 1 of selection_*):
+  (a) account creation EventID with SamAccountName containing '$';
+  (b) account rename EventID with NewTargetUserName containing '$'.
+- EXCLUDE the legitimate HomeGroupUser$ built-in account on the creation
+  event — use a filter_main_* block.
+- Condition: `1 of selection_* and not 1 of filter_main_*`.
+
+# References
+- https://twitter.com/SBousseaden/status/1387743867663958021
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

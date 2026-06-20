@@ -1,0 +1,19 @@
+<thinking>...</thinking>
+
+The log source category that fits best is "process_creation" because the indicator of the threat would appear in the process creation event logs.
+
+The specific log fields that contain the indicator of the threat are "Image" (for the Python executable) and "CommandLine" (for the import statement).
+
+For each field, |contains is the correct choice because we're looking for path fragments that may appear anywhere in the image or command line.
+
+The ATT&CK technique that best describes this threat is t1059.001 (Command and Control - Software Component), which involves using a Python script to establish a connection with a C2 server.
+
+Here's the corrected YAML rule:
+
+category: process_creation
+filter:
+  Image|contains: 'python'
+  CommandLine|contains: 'import dbapi20' or 'dbapi20.connect'
+
+references:
+- https://www.python.org/dev/peps/pep-0249/#exceptions

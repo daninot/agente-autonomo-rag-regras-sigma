@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Obfuscated PowerShell execution using the Invoke-Obfuscation STDIN+ launcher
+technique — cmd.exe is used to pipe input into PowerShell via stdin, evading
+script-based detections by avoiding direct PowerShell command arguments.
+
+# Target environment
+- Product: windows; log source category: ps_module
+- Detection uses a single regex pattern (|re modifier) on the payload field,
+  matching the characteristic combination of cmd.exe with /c or /r flags,
+  a PowerShell invocation, and stdin-related input variables or noexit flag.
+
+# References
+- https://github.com/SigmaHQ/sigma/issues/1009
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

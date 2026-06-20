@@ -1,0 +1,17 @@
+title: Masquerading via File Renaming and Execution from Non-System Directory
+id: aae6539f-89f5-4f35-8ec6-097478623128
+description: Detects masquerading via file renaming and execution from a non-system directory.
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_mobsync:
+    Image|endswith: '\mobsync.exe'
+  filter_created_file:
+    TargetFilename|endswith:
+      - '.dll'
+      - '.exe'
+  condition: selection_mobsync and filter_created_file
+references:
+  - https://attack.mitre.org/techniques/T1036/
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1036/T1036.md#atomic-test-1---system-file-copied-to-unusual-location

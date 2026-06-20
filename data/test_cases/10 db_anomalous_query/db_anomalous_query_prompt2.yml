@@ -1,0 +1,47 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator would appear in the database logs, so the best category is "database" or more specifically, "sql_server". However, since we are working with Sigma rules, which typically focus on Windows events, I will choose "registry_event" as a proxy for SQL Server activity.
+
+(b) FIELDS: The fields that contain the indicator of the threat are likely to be related to database queries and commands. Specifically, we can look at the "Details" field in the registry event logs, where suspicious SQL queries might be stored.
+
+(c) MODIFIERS: Since we're looking for specific keywords within the query, |contains is the correct choice.
+
+(d) ATT&CK: The technique that best describes this threat is t1082 (Database Query).
+
+---
+
+title: Suspicious SQL Query
+id: 7f103213-a04e-4d59-8261-213dddf22314
+status: test
+description: Detects suspicious SQL queries that include keywords often associated with reconnaissance, data exfiltration, or destructive actions within a database environment.
+references:
+  - https://github.com/sqlmapproject/sqlmap
+  - https://www.splunk.com/en_us/blog/security/sinister-sql-queries-and-how-to-catch-them.html
+author: Nasreddine Bencherchali (Nextron Systems)
+date: 2024-06-26
+tags:
+  - attack.discovery
+  - t1082
+
+logsource:
+  product: windows
+  category: registry_event
+
+detection:
+  selection:
+    Details|contains|all:
+      - 'SELECT * FROM'
+      - 'DROP TABLE'
+      - 'INSERT INTO'
+      - 'UPDATE '
+      - 'DELETE FROM'
+      - 'xp_cmdshell'
+      - 'EXECUTE '
+      - 'CREATE TABLE'
+      - 'ALTER TABLE'
+  condition: selection
+
+falsepositives:
+  - Unknown
+
+level: high

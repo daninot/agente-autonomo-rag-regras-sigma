@@ -1,0 +1,26 @@
+<thinking>...</thinking>
+
+The log source category that fits best for Huawei BGP Authentication Failures is network_connection, as the indicator would appear in the network traffic or session setup process.
+
+The specific log fields that contain the indicator of the threat are likely to be related to BGP protocol exchanges and authentication, such as BGP key or password. However, without more information about the specific logs being used, it's difficult to determine which exact fields will contain the indicator.
+
+For each field, |contains is likely the correct choice, as the indicators may appear anywhere in the log entry.
+
+The ATT&CK technique that best describes this threat is t1090: Remote Services, as BGP hijacking involves manipulating routing updates and injecting incorrect information into the network infrastructure.
+
+Here is the YAML rule:
+
+title: Huawei BGP Authentication Failures
+description: Detects BGP failures which may be indicative of brute force attacks to manipulate routing.
+logsource:
+  category: network_connection
+  product: huawei
+detection:
+  selection:
+    BGP_key | contains "Huawei" or "BGP"
+    password | contains "Huawei" or "BGP"
+  condition: 1 of them
+
+references:
+- https://www.blackhat.com/presentations/bh-usa-03/bh-us-03-convery-franz.pdf
+- https://support.huawei.com/enterprise/en/doc/DOC1000045557

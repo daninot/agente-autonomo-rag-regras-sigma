@@ -1,0 +1,12 @@
+Generate a SIGMA rule to detect obfuscated PowerShell execution using the
+Invoke-Obfuscation STDIN+ launcher — cmd.exe pipes input into PowerShell via
+stdin, evading script-based detections by avoiding direct command arguments.
+
+Target product: windows; log source category: ps_module.
+
+Detection uses a regex pattern (|re) on the payload field matching cmd.exe
+with /c or /r flags, a PowerShell invocation, and stdin input variables or
+noexit flag in combination.
+
+References to include:
+- https://github.com/SigmaHQ/sigma/issues/1009

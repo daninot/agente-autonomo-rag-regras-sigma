@@ -1,0 +1,26 @@
+title: PwnDrp Access
+id: 4f1c0a3d-9e5b-4e6f-b7c2-f8c4d1c5d6e7
+description: Detects downloads from PwnDrp web servers developed for red team testing and most likely also used for criminal activity
+author: [Your Name]
+date: 2023/03/16
+tags:
+    - attack.t1566
+    - attack.execution
+    - attack.t1204.002
+logsource:
+    category: proxy
+    product: web_server
+detection:
+    selection:
+        c-uri|endswith:
+            - '/pwndrop'
+        cs-host|endswith:
+            - '.cylab.ga'
+            - '.freenom.com'
+    condition: selection
+falsepositives:
+    - All kinds of software downloads
+level: high
+references:
+    - https://breakdev.org/pwndrop/
+    - https://github.com/kuba-gre/evilginx-pro

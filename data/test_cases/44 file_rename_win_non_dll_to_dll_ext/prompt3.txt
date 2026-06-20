@@ -1,0 +1,22 @@
+Generate a SIGMA rule to detect file rename operations where a non-DLL file
+is renamed to .dll — a masquerading technique used by malware to evade
+extension-based detections.
+
+Target product: windows; log source category: file_rename. Requires
+Microsoft-Windows-Kernel-File provider with KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH
+keyword — document this.
+
+Detection: target filename ends with .dll, but EXCLUDE legitimate patterns
+in grouped filters:
+- main filters: source already .dll, source .tmp (installers), empty/null
+  source, TiWorker.exe under WinSxS, Windows Update (wuauclt.exe OR
+  $WINDOWS.~BT\Sources\ path as alternatives), generic Program Files images;
+- optional filter: Squirrel auto-updater temp files.
+
+Use condition:
+`selection and not 1 of filter_main_* and not 1 of filter_optional_*`.
+
+References to include:
+- https://twitter.com/ffforward/status/1481672378639912960
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1036/T1036.md#atomic-test-1---system-file-copied-to-unusual-location
+

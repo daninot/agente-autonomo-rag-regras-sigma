@@ -1,0 +1,33 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+File rename operation where a non-DLL file is renamed to a .dll extension —
+a masquerading technique used by malware to evade extension-based detections
+after dropping a payload with an innocuous initial extension.
+
+# Target environment
+- Product: windows; log source category: file_rename
+- Requires Microsoft-Windows-Kernel-File provider with at least the
+  KERNEL_FILE_KEYWORD_RENAME_SETLINK_PATH keyword enabled — document this in
+  the rule.
+- Detection: target filename ends with .dll, but must EXCLUDE many legitimate
+  rename patterns:
+  (a) source already had .dll extension (legitimate DLL rename);
+  (b) source had .tmp extension (installer staging);
+  (c) source filename is empty or null;
+  (d) the operating process is TiWorker.exe under \Windows\WinSxS\
+      (Windows servicing);
+  (e) Windows Update activity — wuauclt.exe as image OR target path under
+      :\$WINDOWS.~BT\Sources\ (these alternatives form a single filter);
+  (f) generic Program Files installers;
+  (g) Squirrel auto-updater temporary files (optional filter).
+- Use grouped filters: condition must be
+  `selection and not 1 of filter_main_* and not 1 of filter_optional_*`.
+
+# References
+- https://twitter.com/ffforward/status/1481672378639912960
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1036/T1036.md#atomic-test-1---system-file-copied-to-unusual-location
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

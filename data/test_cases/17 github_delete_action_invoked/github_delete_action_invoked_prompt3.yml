@@ -1,0 +1,42 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is "audit" or "security_log", as the indicator would appear in GitHub's audit logs or security log events.
+
+(b) FIELDS: The fields that contain the indicator of the threat are likely to be related to user actions, such as "action", "actor", and "target".
+
+(c) MODIFIERS: For each field, |contains is a good choice for path fragments that may appear anywhere. However, we need to determine if the exact match or partial match is required.
+
+(d) ATT&CK: The technique that best describes this threat is attack.t1685 (Defense Evasion), as it involves removing sensitive data from GitHub.
+
+
+```yml
+title: GitHub Audit Log Rule Deleted
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects deletion of audit log rules in GitHub
+references:
+  - https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings/reviewing-the-audit-log
+  - https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/security-log-events#codespaces
+author: [Your Name]
+date: 2023-02-20
+modified: 2023-02-20
+tags:
+  - attack.t1685
+logsource:
+  category: audit
+  product: github
+detection:
+  selection:
+    action|contains:
+      - 'codespaces.create_an_org_secret'
+      - 'environment.create_actions_secret'
+      - 'org.create_actions_secret'
+      - 'repo.create_actions_secret'
+    actor|contains:
+      - 'deleted'
+      - 'removed'
+  condition: 1 of selection
+falsepositives:
+  - Legitimate user activity
+level: medium
+```

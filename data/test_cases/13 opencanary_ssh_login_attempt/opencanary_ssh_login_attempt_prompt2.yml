@@ -1,0 +1,33 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The category that fits best is "application" because the indicator of the threat (login attempts) would appear in the logs related to OpenCanary's services.
+
+(b) FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to login attempts, such as "logtype" or "event_type".
+
+(c) MODIFIERS: For each field, exact match is the correct choice because we're looking for a specific value (login attempt).
+
+(d) ATT&CK: The technique that best describes this threat is t1133 (External Keyboard), which involves an attacker using a keyboard to interact with a system.
+
+---
+
+title: OpenCanary SSH Login Attempt
+id: 1234567890abcdef
+status: test
+description: Detects login attempts on OpenCanary's SSH service
+references:
+- https://opencanary.readthedocs.io/en/latest/starting/configuration.html#services-configuration
+- https://github.com/thinkst/opencanary/blob/a0896adfcaf0328cfd5829fe10d2878c7445138e/opencanary/logger.py#L52
+author: [Your Name]
+date: 2023-02-20
+tags:
+- attack.t1133
+logsource:
+  category: application
+  product: opencanary
+detection:
+  selection:
+    logtype: SSH_LOGIN_ATTEMPT
+  condition: selection
+falsepositives:
+  - Unlikely
+level: high

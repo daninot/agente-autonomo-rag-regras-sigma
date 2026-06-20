@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Kerberos TGS requests issued using RC4 encryption — a classic indicator of
+Kerberoasting, in which an adversary requests service tickets to crack
+offline and recover service account credentials.
+
+# Target environment
+- Product: zeek; log source service: kerberos
+- Detection must filter OUT legitimate computer/machine account activity,
+  which routinely matches this pattern in normal enterprise networks. Use
+  exclusion logic in the condition (selection AND NOT exclusion).
+
+# References
+- https://adsecurity.org/?p=3458
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

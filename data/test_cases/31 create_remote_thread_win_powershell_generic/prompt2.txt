@@ -1,0 +1,22 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Remote thread creation from a PowerShell process into another process — a
+code injection technique used to execute shellcode or migrate into other
+processes while evading detection.
+
+# Target environment
+- Product: windows; log source category: create_remote_thread
+- Detection matches remote thread events where the source process is PowerShell
+  (both Windows PowerShell and PowerShell Core), using |endswith on the source
+  image field.
+- Exclude known legitimate noise: remote threads originating from PowerShell
+  when spawned by the Windows compatibility telemetry runner. Use
+  `selection and not 1 of filter_main_*` as the condition.
+
+# References
+- https://speakerdeck.com/heirhabarov/hunting-for-powershell-abuse
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

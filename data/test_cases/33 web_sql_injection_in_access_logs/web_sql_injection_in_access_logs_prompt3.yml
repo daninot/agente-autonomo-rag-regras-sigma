@@ -1,0 +1,40 @@
+<thinking>...</thinking>
+
+The LOGSOURCE category that fits best is "webserver" because the indicators of SQL injection attacks would appear in web server logs.
+
+The FIELDS that contain the indicator of the threat are likely to be "cs-uri-query", which contains the URL query string, and possibly "cs-uri-path" or "request-body" if the attack involves injecting malicious code into the request body.
+
+For each field, |contains is the correct choice because SQL injection attacks often involve injecting malicious code into the URL query string or request body, which may appear anywhere in these fields.
+
+The ATT&CK technique that best describes this threat is t1055: Injection (specifically, SQL injection).
+
+Here is the YAML rule:
+
+title: Detecting SQL Injection Attacks
+id: 12345678-1234-5678-9012-345678901234
+status: test
+description: Detects SQL injection attacks by monitoring web server logs for suspicious activity.
+references:
+  - https://www.acunetix.com/blog/articles/exploiting-sql-injection-example/
+  - https://www.acunetix.com/blog/articles/using-logs-to-investigate-a-web-application-attack/
+author: Your Name
+date: 2023-02-20
+
+logsource:
+  category: webserver
+
+detection:
+  selection:
+    cs-uri-query|contains:
+      - '+--'
+      - '+AS+'
+      - '+OR+'
+      - 'FROM'
+      - 'ORDER+BY'
+      - 'SELECT'
+      - 'sleep%28'
+      - 'substring%28'
+      - 'UNION'
+      - 'WHERE'
+
+  condition: all of selection_*

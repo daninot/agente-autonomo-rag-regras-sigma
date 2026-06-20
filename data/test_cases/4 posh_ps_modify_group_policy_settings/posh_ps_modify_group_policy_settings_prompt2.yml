@@ -1,0 +1,19 @@
+title: Group Policy Modification
+id: bc137398-d9aa-481e-b493-fa06026c14dd
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection_scriptblocktext:
+    ScriptBlockText|contains:
+      - '\\\\SYSVOL\\\\*\\\\Policies\\\\*'
+      - 'Set-GPRegistryValue'
+      - 'New-GPRegistryValue'
+
+  condition: selection_scriptblocktext
+
+falsepositives:
+
+level: medium

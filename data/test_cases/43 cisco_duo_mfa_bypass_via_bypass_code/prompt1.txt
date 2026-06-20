@@ -1,0 +1,3 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://duo.com/docs/adminapi#logs
+- https://help.duo.com/s/article/6327?language=en_US

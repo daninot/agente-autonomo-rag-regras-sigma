@@ -1,0 +1,34 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in application logs, so category "application" fits best.
+
+FIELDS: The specific log fields that contain the indicator of the threat are likely to be related to Spring Security exceptions, such as `org.springframework.security.access.AccessDeniedException` or `org.springframework.expression.ExpressionException`.
+
+MODIFIERS: For each field, exact match is the correct choice because we're looking for specific exception classes.
+
+ATT&CK: The technique that best describes this threat is t1190 (Exploit Public-Facing Application).
+
+```yml
+title: Potential SpEL Injection In Spring Framework
+id: e9edd087-89d8-48c9-b0b4-5b9bb10896b8
+status: test
+description: Detects potential SpEL Injection exploitation, which may lead to RCE.
+references:
+  - https://owasp.org/www-community/vulnerabilities/Expression_Language_Injection
+  - https://www.wix.engineering/post/threat-and-vulnerability-hunting-with-application-server-error-logs
+author: Moti Harmats
+date: 2023-02-11
+tags:
+  - attack.initial-access
+  - attack.t1190
+logsource:
+  category: application
+  product: spring
+detection:
+  keywords:
+    - 'org.springframework.expression.ExpressionException'
+condition: keywords
+falsepositives:
+  - Application bugs
+level: high
+```

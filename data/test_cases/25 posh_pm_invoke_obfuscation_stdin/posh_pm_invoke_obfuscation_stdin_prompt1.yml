@@ -1,0 +1,29 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: The indicator would appear in the registry_event category, as it involves modifications to the Windows Registry.
+
+(b) FIELDS: The fields that contain the indicator of the threat are TargetObject, which contains the path to the modified registry key.
+
+(c) MODIFIERS: For the TargetObject field, |contains is the correct choice, as the path fragments may appear anywhere in the registry key.
+
+(d) ATT&CK: The technique that best describes this threat is attack.persistence, as it involves modifying the Windows Registry to persist malware on a system.
+
+
+```yml
+title: Malicious Registry Modification
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection:
+    TargetObject|contains:
+      - '\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\'
+      - '\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\'
+
+falsepositives:
+  - Likely as this is a normal behaviour on Windows
+
+level: low
+```

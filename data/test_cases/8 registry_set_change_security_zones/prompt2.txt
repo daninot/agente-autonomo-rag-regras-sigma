@@ -1,0 +1,20 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+A registry modification adds a domain to the Internet Explorer ZoneMap trusted
+sites — lowering security controls for attacker-controlled domains and
+enabling defense evasion or persistence via browser trust abuse.
+
+# Target environment
+- Product: windows; log source category: registry_set
+- Detection must match registry write events targeting the IE ZoneMap Domains
+  path, but EXCLUDE legitimate zone assignments (My Computer, Local Intranet,
+  and empty values) — use exclusion logic in the condition.
+
+# References
+- https://github.com/redcanaryco/atomic-red-team/blob/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1112/T1112.md#atomic-test-4---add-domain-to-trusted-sites-zone
+- https://learn.microsoft.com/en-us/troubleshoot/developer/browsers/security-privacy/ie-security-zones-registry-entries
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

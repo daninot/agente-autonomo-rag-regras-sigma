@@ -1,0 +1,22 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Windows DCE-RPC calls indicating remote persistence techniques — adversaries
+invoke specific RPC endpoint/operation pairs to install print monitors, print
+processors, or create processes under another user's logon session on a
+remote host. Pattern catalog from MITRE BZAR project.
+
+# Target environment
+- Product: zeek; log source service: dce_rpc
+- Detection uses SIX parallel selections (op1..op6), each matching a specific
+  endpoint + operation pair, combined with OR (1 of op*):
+  - spoolss endpoint with RpcAddMonitor or RpcAddPrintProcessor;
+  - IRemoteWinspool endpoint with the async variants of both;
+  - ISecLogon endpoint with SeclCreateProcessWithLogonW and the Ex variant.
+
+# References
+- https://github.com/mitre-attack/bzar#indicators-for-attck-persistence
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

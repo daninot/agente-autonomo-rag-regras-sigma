@@ -1,0 +1,35 @@
+<thinking>...</thinking>
+
+(a) LOGSOURCE: registry_event fits best because the indicator of the threat (run keys modification) would appear in the Windows Registry Event logs.
+
+(b) FIELDS: The relevant log fields are TargetObject and Details.
+
+(c) MODIFIERS: For TargetObject, |endswith is correct because we're looking for run keys that end with a specific string. For Details, exact match is correct because we're looking for the presence of 'WINEKEY' or 'TEAM9'.
+
+(d) ATT&CK: The technique that best describes this threat is t1068 (System Information Discovery), as it involves gathering information about the system by modifying run keys.
+
+```yml
+title: WINEKEY Registry Modification - Detection
+
+id: 1c2f4b3d-5a6e-47df-b7ca-f9c0c9c9c9c9
+
+description: Detects potential malicious modification of run keys by winekey or team9 backdoor.
+
+author: Your Name
+
+references:
+  - https://www.fireeye.com/blog/threat-research/2020/10/kegtap-and-singlemalt-with-a-ransomware-chaser.html
+
+logsource:
+  category: registry_event
+  product: windows
+
+detection:
+  selection:
+    TargetObject|endswith: '\run'
+    Details: 'WINEKEY' or 'TEAM9'
+
+falsepositives:
+
+level: critical
+```

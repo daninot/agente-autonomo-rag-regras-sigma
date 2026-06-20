@@ -1,0 +1,2 @@
+Generate ONE SIGMA rule (https://sigmahq.io/docs/basics/rules.html) for this event:
+- https://www.cisa.gov/news-events/cybersecurity-advisories/aa23-347a

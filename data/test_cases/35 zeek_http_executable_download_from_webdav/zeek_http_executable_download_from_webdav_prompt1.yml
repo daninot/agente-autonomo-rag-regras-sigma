@@ -1,0 +1,35 @@
+<thinking>...</thinking>
+
+LOGSOURCE: webserver (the threat indicator would appear in the HTTP request or response)
+
+FIELDS: cs-uri-query (contains the indicator of the threat)
+
+MODIFIERS: |contains (correct choice for path fragments that may appear anywhere)
+
+ATT&CK: t1190 (exploitation of a web server)
+
+```yml
+title: WebDAV Server Vulnerability Detection
+
+status: test
+
+description: Detects exploitation attempts against WebDAV servers
+
+references:
+  - http://carnal0wnage.attackresearch.com/2012/06/webdav-server-to-download-custom.html
+  - https://github.com/OTRF/detection-hackathon-apt29
+
+logsource:
+  category: webserver
+  product: web_server
+
+selection:
+  cs-uri-query: '*?/webdav/*'
+
+condition: selection
+
+falsepositives:
+  - Unknown
+
+level: critical
+```

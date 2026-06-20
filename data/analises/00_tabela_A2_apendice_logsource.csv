@@ -1,0 +1,22 @@
+Dimensão,Categoria,Quantidade,Percentual
+Logsource (detalhado),application,11,22.0%
+Logsource (detalhado),file_event,4,8.0%
+Logsource (detalhado),windows (genérico),3,6.0%
+Logsource (detalhado),zeek (genérico),3,6.0%
+Logsource (detalhado),process_creation,3,6.0%
+Logsource (detalhado),dns,2,4.0%
+Logsource (detalhado),bitbucket (genérico),1,2.0%
+Logsource (detalhado),database,1,2.0%
+Logsource (detalhado),file_delete,1,2.0%
+Logsource (detalhado),proxy,1,2.0%
+Logsource (detalhado),registry_event,1,2.0%
+Logsource (detalhado),github (genérico),1,2.0%
+Logsource (detalhado),azure (genérico),1,2.0%
+Logsource (detalhado),kubernetes (genérico),1,2.0%
+Logsource (detalhado),antivirus,1,2.0%
+Logsource (detalhado),m365 (genérico),1,2.0%
+Logsource (detalhado),ps_module,1,2.0%
+Logsource (detalhado),pipe_created,1,2.0%
+Logsource (detalhado),create_remote_thread,1,2.0%
+Logsource (detalhado),image_load,1,2.0%
+Logsource (detalhado),outras (10 categorias),10,20.0%

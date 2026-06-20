@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Remote command execution inside a Kubernetes pod container via kubectl exec or
+equivalent — an attacker with API server access can spawn a shell inside a
+running container, bypassing traditional endpoint controls.
+
+# Target environment
+- Product: kubernetes; log source category: application; service: audit
+- Detection matches Kubernetes audit log events where an exec subresource is
+  invoked on a pod object — combining the API verb, resource type, and
+  subresource in a single selection.
+
+# References
+- https://microsoft.github.io/Threat-Matrix-for-Kubernetes/techniques/Exec%20into%20container/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

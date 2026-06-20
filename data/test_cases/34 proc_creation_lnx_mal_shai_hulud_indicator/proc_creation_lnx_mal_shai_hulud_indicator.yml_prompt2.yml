@@ -1,0 +1,18 @@
+<thinking>...</thinking>
+
+```yml
+title: Shai-Hulud Supply Chain Attack Detection
+description: Detects the Shai-Hulud supply chain attack by monitoring for suspicious npm package versions.
+category: process_creation
+fields:
+  - process_name
+  - process_path
+modifiers:
+  - |contains
+techniques:
+  - t1090
+references:
+  - https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack
+  - https://www.aikido.dev/blog/shai-hulud-strikes-again-hitting-zapier-ensdomains
+  - https://semgrep.dev/blog/2025/digging-for-secrets-sha1-hulud-the-second-coming-of-the-npm-worm/
+```

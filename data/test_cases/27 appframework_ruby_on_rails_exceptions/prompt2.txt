@@ -1,0 +1,21 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Suspicious Ruby on Rails exception classes in application logs — indicators of
+exploitation attempts such as CSRF token abuse, cross-origin request forgery,
+invalid HTTP methods, malformed requests, or missing required parameters.
+
+# Target environment
+- Product: ruby_on_rails; log source category: application
+- Detection uses keyword matching against logged exception class names from
+  the ActionController namespace.
+
+# References
+- http://edgeguides.rubyonrails.org/security.html
+- http://guides.rubyonrails.org/action_controller_overview.html
+- https://stackoverflow.com/questions/25892194/does-rails-come-with-a-not-authorized-exception
+- https://github.com/rails/rails/blob/cd08e6bcc4cd8948fe01e0be1ea0c7ca60373a25/actionpack/lib/action_dispatch/middleware/exception_wrapper.rb
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

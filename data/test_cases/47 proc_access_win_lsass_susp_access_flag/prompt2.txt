@@ -1,0 +1,41 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Process access requests to LSASS with GrantedAccess flags consistent with
+credential dumping (Mimikatz-class tools). LSASS holds authentication
+secrets; access masks like 0x1F0FFF / 0x1F1FFF / 0x1F2FFF / 0x1F3FFF and the
+0x1010 / 0x1410 / 0x1438 family indicate memory read or duplication intent.
+
+# Target environment
+- Product: windows; log source category: process_access
+- Detection requires TWO selections combined with AND (all of selection_*):
+  (a) the target process is lsass.exe (|endswith);
+  (b) the GrantedAccess value matches the suspicious mask catalog — provide
+      a broad list using both |endswith (for low-byte hex pairs like '30',
+      '50', '70', '90', 'B0', 'D0', 'F0', and their '8'/'A' variants) AND
+      |startswith (for high masks like 0x100000, 0x1f0fff family, 0x1418,
+      0x1438, 0x143a, 0x40).
+- Then EXCLUDE legitimate AV/EDR/system noise in TWO filter groups:
+  - filter_main_*: generic system/Program Files source paths, Windows
+    Defender variants (MsMpEng.exe path, mpengine.dll call trace with
+    GrantedAccess 0x1418, MpClient/mprtp call trace), explorer.exe with
+    GrantedAccess 0x401;
+  - filter_optional_*: Malwarebytes (mbupdatr.exe, MBAMInstallerService.exe
+    with 0x40), VS Code, VMware Tools (vmtoolsd.exe), Sysinternals Process
+    Explorer (PROCEXP64.EXE/PROCEXP.EXE with 0x40) and handle.exe/handle64.exe
+    with 0x40, Nextron Aurora/Thor agents with 0x40, WebexHost.exe with 0x401,
+    Steam apps path.
+- Condition:
+  `all of selection_* and not 1 of filter_main_* and not 1 of filter_optional_*`.
+- Note: Windows Defender filter 2 uses |contains|all to require BOTH the
+  Definition Updates path AND the mpengine.dll suffix in the same CallTrace.
+
+# References
+- https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
+- https://web.archive.org/web/20230208123920/https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html
+- https://www.slideshare.net/heirhabarov/hunting-for-credentials-dumping-in-windows-environment
+- https://web.archive.org/web/20230420013146/http://security-research.dyndns.org/pub/slides/FIRST2017/FIRST-2017_Tom-Ueltschi_Sysmon_FINAL_notes.pdf
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

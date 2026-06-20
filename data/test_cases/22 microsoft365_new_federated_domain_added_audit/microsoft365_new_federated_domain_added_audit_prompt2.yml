@@ -1,0 +1,33 @@
+LOGSOURCE: The indicator would appear in Office 365 management activity logs, specifically filtering for Workload=Exchange and Operation="Add-FederatedDomain". This suggests that the category fits best as "proxy" or more specifically, "o365".
+
+FIELDS: The specific log fields contain the indicator of the threat are "Workload" and "Operation", which indicate the addition of a new federated domain.
+
+MODIFIERS: For each field, |contains is not necessary since we're looking for exact matches. Therefore, exact match is the correct choice.
+
+ATT&CK: The technique that best describes this threat is t1136.003 (Cloud Account Management) as it involves the creation or modification of cloud accounts to facilitate unauthorized access or data exfiltration.
+
+
+title: O365 New Federated Domain Added
+id: abc7f467-83b5-451b-b331-2de30794b059
+status: stable
+description: Addition of domains is seldom and should be verified for legitimacy.
+references:
+    - https://research.splunk.com/cloud/e155876a-6048-11eb-ae93-024ac130002/
+    - https://o365blog.com/post/aadbackdoor/
+author: Splunk Threat Research Team
+date: 2024-05-10
+modified: 2024-05-10
+tags:
+    - attack.persistence
+    - attack.t1136.003
+logsource:
+    service: o365
+    product: exchange
+detection:
+    selection:
+        Workload: Exchange
+        Operation: Add-FederatedDomain
+    condition: all of selection
+falsepositives:
+    - Legitimate extension of domain structure
+level: medium

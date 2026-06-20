@@ -1,0 +1,19 @@
+You are a Senior Threat Detection Engineer. Produce ONE valid SIGMA rule in YAML,
+following https://sigmahq.io/docs/basics/rules.html.
+
+# Threat to detect
+Modification or deletion of an Okta policy rule — attackers with admin access
+may weaken or remove security policies (MFA enforcement, sign-on rules, access
+controls) to facilitate persistent access or privilege escalation.
+
+# Target environment
+- Product: okta; log source service: okta
+- Detection matches Okta system log eventType values for policy rule update
+  and delete operations.
+
+# References
+- https://developer.okta.com/docs/reference/api/system-log/
+- https://developer.okta.com/docs/reference/api/event-types/
+
+# Output
+Return ONLY the YAML. No markdown fences, no explanations, no extra text.

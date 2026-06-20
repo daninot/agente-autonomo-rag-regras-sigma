@@ -1,0 +1,8 @@
+Generate a SIGMA rule to detect the deletion of Exchange PowerShell cmdlet history log files on a Windows host — a defense evasion technique used to destroy forensic evidence of administrative or malicious cmdlet execution on an Exchange Server.
+
+Target product: windows; log source category: file_delete.
+
+Detection should match file-deletion events targeting the Exchange cmdlet logging directory structure, using path-based string matching (startswith for the directory path, contains for a filename pattern).
+
+References to include:
+- https://m365internals.com/2022/10/07/hunting-in-on-premises-exchange-server-logs/

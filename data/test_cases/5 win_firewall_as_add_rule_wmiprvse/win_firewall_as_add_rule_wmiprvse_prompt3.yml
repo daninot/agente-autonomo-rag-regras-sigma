@@ -1,0 +1,45 @@
+<thinking>...</thinking>
+
+LOGSOURCE: The indicator would appear in the Windows Event Log Security category.
+
+FIELDS: The relevant log fields are `EventID`, `ApplicationPath`, and `ModifyingApplication`.
+
+MODIFIERS: For `ApplicationPath` and `ModifyingApplication`, we should use exact match (`=`) since we're looking for a specific process name. For `EventID`, we can use an exact match as well.
+
+ATT&CK: The technique that best describes this threat is t1210 (Exploit Public-Facing Application).
+
+```yml
+title: New Firewall Rule Added In Windows Firewall Exception List Via WMI Process
+
+description: Detects the addition of a new "Allow" firewall rule by the WMI process (WmiPrvSE.EXE)
+
+references:
+  - https://malware.news/t/the-rhysida-ransomware-activity-analysis-and-ties-to-vice-society/72170
+  - https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-firewall/windows-firewall-with-advanced-security
+
+logsource:
+  category: windows_event_log_security
+  product: windows
+
+filter:
+  EventID: 4624
+  ApplicationPath = 'WmiPrvSE.exe'
+  ModifyingApplication = 'WmiPrvSE.exe'
+
+condition: true
+
+detection:
+  selection:
+    EventID = 4625
+    ApplicationPath = 'WmiPrvSE.exe'
+    ModifyingApplication = 'WmiPrvSE.exe'
+    Action = 'Allow'
+
+filter_optional_wmi_process:
+  ApplicationPath = 'System'
+  ModifyingApplication = 'C:\Windows\System32\dllhost.exe'
+
+condition: selection and not 1 of filter_optional_wmi_process
+
+level: medium
+```

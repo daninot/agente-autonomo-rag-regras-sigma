@@ -1,0 +1,22 @@
+title: Registry Tampering by Potentially Suspicious Processes
+id: e0e0a1ab-181f-4e66-a5d6-962220b6fdd8
+status: test
+description: |
+    Detects suspicious registry modifications made by suspicious processes such as script engine processes.
+references:
+  - https://raw.githubusercontent.com/redcanaryco/atomic-red-team/f339e7da7d05f6057fdfcdd3742bfcf365fee2a9/atomics/T1012/T1012.md
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection:
+    TargetObject|contains|all:
+      - 'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Notifications\Data\'
+      - '\Services\bam\State\UserSettings\S-1-'
+      - 'Software\Microsoft\Windows Script\Settings\Telemetry\wscript.exe\'
+      - 'Software\Microsoft\Windows\CurrentVersion\Internet Settings\'
+    Details: 'Binary Data'
+  condition: selection
+falsepositives:
+  - Some legitimate admin or install scripts may use these processes for registry modifications.
+level: medium
